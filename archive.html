@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive | UnicornXMedia</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦄</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            900: '#0B1120',
+                            800: '#111827',
+                            100: '#F3F4F6'
+                        },
+                        accent: '#2563EB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .archive-img {
+            transition: transform 0.5s ease;
+        }
+        .archive-item:hover .archive-img {
+            transform: scale(1.1);
+        }
+        .year-filter {
+            transition: all 0.3s ease;
+        }
+        .year-filter.active {
+            background: #2563EB;
+            color: white;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-corporate-100 text-corporate-900 antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <span class="text-3xl">🦄</span>
+                    <span class="font-bold text-xl tracking-tight">UnicornXMedia</span>
+                </a>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html#services" class="text-gray-600 hover:text-accent font-semibold transition">Services</a>
+                    <a href="index.html#live-event" class="text-gray-600 hover:text-accent font-semibold transition">Live Events</a>
+                    <a href="podcasts.html" class="text-gray-600 hover:text-accent font-semibold transition">Podcasts</a>
+                    <a href="archive.html" class="text-accent font-semibold">Event Archive</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-accent font-semibold transition">Contact</a>
+                    <a href="index.html#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg">Apply Now</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-accent">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-gray-200 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#services" class="text-gray-600 hover:text-accent font-semibold transition px-4">Services</a>
+                    <a href="index.html#live-event" class="text-gray-600 hover:text-accent font-semibold transition px-4">Live Events</a>
+                    <a href="podcasts.html" class="text-gray-600 hover:text-accent font-semibold transition px-4">Podcasts</a>
+                    <a href="archive.html" class="text-accent font-semibold px-4">Event Archive</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-accent font-semibold transition px-4">Contact</a>
+                    <a href="index.html#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg mx-4 text-center">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Event & Campaign Archive</h1>
+            <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+                A curated history of our past PR campaigns, stage moments, and media breakthroughs.
+            </p>
+        </div>
+
+        <!-- Year Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <button class="year-filter active px-6 py-2 rounded-full font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white transition" data-year="all">
+                All Years
+            </button>
+            <button class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition" data-year="2026">
+                2026
+            </button>
+            <button class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition" data-year="2025">
+                2025
+            </button>
+            <button class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition" data-year="2024">
+                2024
+            </button>
+        </div>
+    </section>
+
+    <!-- Archive Grid -->
+    <section class="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div id="archiveGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- 2026 Events -->
+            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-year="2026">
+                <div class="h-64 relative overflow-hidden">
+                    <img src="Photos/Events-1.jpg" alt="Pinkvilla Screen & Style Icons 2026" class="archive-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-accent/10 text-accent text-xs font-bold px-3 py-1 rounded-full">2026</span>
+                        <span class="text-gray-400 text-xs">March 25</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Pinkvilla Screen & Style Icons</h3>
+                    <p class="text-gray-500 text-sm mb-4">JW Marriott, Mumbai • 14 Celebrity Guests</p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fa-solid fa-users"></i>
+                        <span>500+ Attendees</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2025 Events -->
+            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-year="2025">
+                <div class="h-64 relative overflow-hidden">
+                    <img src="Photos/Events-2.jpg" alt="Celebrity Networking Summit 2025" class="archive-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">2025</span>
+                        <span class="text-gray-400 text-xs">November 15</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Celebrity Networking Summit</h3>
+                    <p class="text-gray-500 text-sm mb-4">Taj Palace, Mumbai • Industry Leaders</p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Premium Event</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-year="2025">
+                <div class="h-64 relative overflow-hidden">
+                    <img src="Photos/Events-3.jpg" alt="Red Carpet Premiere 2025" class="archive-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">2025</span>
+                        <span class="text-gray-400 text-xs">September 8</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Red Carpet Premiere</h3>
+                    <p class="text-gray-500 text-sm mb-4">PVR Icon, Mumbai • Film Launch</p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Media Coverage</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-year="2025">
+                <div class="h-64 relative overflow-hidden">
+                    <img src="Photos/IMG_5250.jpg" alt="Founder Visibility Summit 2025" class="archive-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">2025</span>
+                        <span class="text-gray-400 text-xs">July 20</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Founder Visibility Summit</h3>
+                    <p class="text-gray-500 text-sm mb-4">Pan India • Multi-City Tour</p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>5B+ Reach</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2024 Events -->
+            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-year="2024">
+                <div class="h-64 relative overflow-hidden">
+                    <img src="Photos/Events-4.jpg" alt="Awards Ceremony 2024" class="archive-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 rounded-full">2024</span>
+                        <span class="text-gray-400 text-xs">December 10</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Annual Awards Ceremony</h3>
+                    <p class="text-gray-500 text-sm mb-4">ITC Grand, Bangalore • Excellence Awards</p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fa-solid fa-trophy"></i>
+                        <span>50+ Awards</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group" data-year="2024">
+                <div class="h-64 relative overflow-hidden">
+                    <img src="Photos/Events-5.jpg" alt="VIP Networking 2024" class="archive-img w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 rounded-full">2024</span>
+                        <span class="text-gray-400 text-xs">August 5</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">VIP Networking Gala</h3>
+                    <p class="text-gray-500 text-sm mb-4">Oberoi, Mumbai • Exclusive Event</p>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fa-solid fa-handshake"></i>
+                        <span>Elite Circle</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+            <button class="border-2 border-corporate-900 text-corporate-900 px-8 py-3 rounded-full font-bold hover:bg-corporate-900 hover:text-white transition">
+                Load More Archives
+            </button>
+        </div>
+
+    <!-- Live Event Popup -->
+    <div id="liveEventPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" style="display: none;">
+        <div class="bg-gradient-to-br from-corporate-900 to-gray-900 text-white rounded-3xl max-w-4xl w-full shadow-2xl transform transition-all animate-fade-in relative overflow-hidden">
+            <!-- Close Button -->
+            <button id="closePopup" class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-10">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-10">
+                <i class="fa-solid fa-star text-[300px]"></i>
+            </div>
+            
+            <div class="p-8 lg:p-12 relative z-10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Live Now</span>
+                    <span class="text-gray-400 font-semibold tracking-wide">Edition 5</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                    Pinkvilla Screen & Style Icons 2026
+                </h2>
+                
+                <div class="flex flex-wrap gap-4 mb-6 text-sm">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-calendar text-accent"></i>
+                        <span>March 25, 2026</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-accent"></i>
+                        <span>JW Marriott, Mumbai</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-users text-accent"></i>
+                        <span>500+ Attendees</span>
+                    </div>
+                </div>
+                
+                <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                    Join India's most prestigious celebration of style, entertainment, and influence. Network with 14 celebrity guests, top founders, and industry leaders in an exclusive evening of recognition and opportunity.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="index.html#live-event" class="bg-accent hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold transition shadow-lg text-center">
+                        <i class="fa-solid fa-ticket mr-2"></i>View Full Details
+                    </a>
+                    <a href="#event-apply" id="applyFromPopup" class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold transition border border-white/20 text-center">
+                        <i class="fa-solid fa-paper-plane mr-2"></i>Apply to Attend
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Form Section -->
+    <section id="event-apply" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Apply for Event Access</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg">Get exclusive access to our curated events and networking opportunities</p>
+            </div>
+            
+            <form id="eventApplicationForm" class="bg-white rounded-2xl p-8 lg:p-12 shadow-xl border border-gray-100">
+                <input type="hidden" name="applicationType" value="event">
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Full Name *</label>
+                        <input type="text" name="fullName" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Email Address *</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Company / Brand *</label>
+                        <input type="text" name="company" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
+                        <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Your Role/Title *</label>
+                    <input type="text" name="role" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white" placeholder="e.g., CEO, Founder, Director">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Why do you want to attend? *</label>
+                    <textarea name="reason" rows="4" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white resize-none" placeholder="Tell us about your goals and what you hope to achieve"></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-start gap-2 text-sm text-gray-600">
+                        <input type="checkbox" name="terms" required class="mt-1 w-4 h-4 text-accent rounded">
+                        <span>I agree to the <a href="terms.html" class="text-accent hover:underline font-semibold">Terms & Conditions</a> and <a href="terms.html#privacy" class="text-accent hover:underline font-semibold">Privacy Policy</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-corporate-900 to-accent text-white py-4 rounded-lg font-bold hover:shadow-2xl transition-all transform hover:scale-[1.02]">
+                    <i class="fa-solid fa-paper-plane mr-2"></i>Submit Application
+                </button>
+                <p id="eventFormMessage" class="mt-4 text-center text-sm font-semibold"></p>
+            </form>
+        </div>
+    </section>
+
+    </section>
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="mb-6">
+                <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
+                    🎉 Event Updates
+                </span>
+            </div>
+            <h3 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                Never Miss an <span class="text-yellow-300">Epic Event</span>
+            </h3>
+            <p class="text-white/90 mb-10 text-lg md:text-xl max-w-2xl mx-auto">
+                Get exclusive event invitations, behind-the-scenes access, and early-bird tickets delivered to your inbox.
+            </p>
+            
+            <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                <div class="flex-1 relative">
+                    <i class="fa-solid fa-envelope absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="email" name="newsletter_email" required placeholder="Enter your email address" class="w-full pl-14 pr-6 py-5 rounded-full focus:ring-4 focus:ring-white/50 focus:outline-none text-gray-800 font-medium shadow-xl">
+                </div>
+                <button type="submit" class="bg-white text-purple-600 px-10 py-5 rounded-full font-bold hover:bg-yellow-300 hover:text-purple-700 transition-all shadow-xl transform hover:scale-105 hover:shadow-2xl">
+                    <i class="fa-solid fa-rocket mr-2"></i>Subscribe Now
+                </button>
+            </form>
+            
+            <p class="text-white/80 text-sm mt-6">
+                <i class="fa-solid fa-shield-halved mr-1"></i>
+                We respect your privacy. Unsubscribe anytime.
+            </p>
+        </div>
+    </section>
+
+
+    <footer class="bg-corporate-100 border-t border-gray-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🦄</span>
+                        <span class="font-bold text-xl tracking-tight text-corporate-900">UnicornXMedia</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">
+                        Amplifying founder stories through strategic PR, events, and media partnerships.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-corporate-900 mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">Services</a></li>
+                        <li><a href="index.html#live-event" class="text-gray-500 hover:text-accent transition">Live Events</a></li>
+                        <li><a href="podcasts.html" class="text-gray-500 hover:text-accent transition">Podcasts</a></li>
+                        <li><a href="archive.html" class="text-gray-500 hover:text-accent transition">Event Archive</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h4 class="font-bold text-corporate-900 mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">PR Campaigns</a></li>
+                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">Event Management</a></li>
+                        <li><a href="podcasts.html" class="text-gray-500 hover:text-accent transition">Podcast Features</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-corporate-900 mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-500 text-sm">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-accent"></i>
+                            <span>+91 9625363995</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-accent"></i>
+                            <span>contact@unicornxmedia.com</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-accent"></i>
+                            <span>Delhi, India</span>
+                        </li>
+                    </ul>
+                    <div class="flex space-x-3 mt-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-gray-500 text-sm">
+                    © 2026 UnicornXMedia. All rights reserved.
+                </div>
+                <div class="flex gap-6 text-sm">
+                    <a href="terms.html" class="text-gray-500 hover:text-accent transition">Terms & Conditions</a>
+                    <a href="terms.html#privacy" class="text-gray-500 hover:text-accent transition">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+
+        // Newsletter Form Submission
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(newsletterForm);
+                const data = {
+                    email: formData.get('newsletter_email'),
+                    type: 'newsletter'
+                };
+
+                try {
+                    const button = newsletterForm.querySelector('button[type="submit"]');
+                    const originalText = button.textContent;
+                    button.textContent = 'Subscribing...';
+                    button.disabled = true;
+
+                    const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    button.textContent = '✓ Subscribed!';
+                    button.className = button.className.replace('bg-white text-accent', 'bg-green-500 text-white');
+                    newsletterForm.reset();
+
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.className = button.className.replace('bg-green-500 text-white', 'bg-white text-accent');
+                        button.disabled = false;
+                    }, 3000);
+                } catch (error) {
+                    const button = newsletterForm.querySelector('button[type="submit"]');
+                    button.textContent = 'Error - Try Again';
+                    button.disabled = false;
+                    setTimeout(() => {
+                        button.textContent = 'Subscribe';
+                    }, 3000);
+                }
+            });
+        }
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
+
+        // Year Filter Functionality
+        const yearFilters = document.querySelectorAll('.year-filter');
+        const archiveItems = document.querySelectorAll('.archive-item');
+
+        yearFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                const selectedYear = filter.getAttribute('data-year');
+                
+                // Update active state
+                yearFilters.forEach(f => f.classList.remove('active'));
+                filter.classList.add('active');
+
+                // Filter items
+                archiveItems.forEach(item => {
+                    const itemYear = item.getAttribute('data-year');
+                    if (selectedYear === 'all' || itemYear === selectedYear) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Live Event Popup Functionality
+        const liveEventPopup = document.getElementById('liveEventPopup');
+        const closePopupBtn = document.getElementById('closePopup');
+        const applyFromPopupBtn = document.getElementById('applyFromPopup');
+        
+        // Show popup on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (liveEventPopup) {
+                    liveEventPopup.style.display = 'flex';
+                    liveEventPopup.style.animation = 'fadeIn 0.3s ease-in';
+                }
+            }, 500);
+            
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                if (liveEventPopup && liveEventPopup.style.display === 'flex') {
+                    liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
+                    setTimeout(() => {
+                        liveEventPopup.style.display = 'none';
+                    }, 300);
+                }
+            }, 5500);
+        });
+        
+        // Close popup on button click
+        if (closePopupBtn && liveEventPopup) {
+            closePopupBtn.addEventListener('click', () => {
+                liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    liveEventPopup.style.display = 'none';
+                }, 300);
+            });
+        }
+        
+        // Close popup when clicking outside
+        if (liveEventPopup) {
+            liveEventPopup.addEventListener('click', (e) => {
+                if (e.target === liveEventPopup) {
+                    liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
+                    setTimeout(() => {
+                        liveEventPopup.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+        
+        // Handle apply from popup button
+        if (applyFromPopupBtn) {
+            applyFromPopupBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                liveEventPopup.style.display = 'none';
+                document.getElementById('event-apply').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+        
+        // Event Application Form Submission
+        const eventApplicationForm = document.getElementById('eventApplicationForm');
+        const eventFormMessage = document.getElementById('eventFormMessage');
+        
+        if (eventApplicationForm) {
+            eventApplicationForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(eventApplicationForm);
+                const data = {};
+                formData.forEach((value, key) => data[key] = value);
+                data.type = 'event';
+
+                try {
+                    eventFormMessage.textContent = 'Submitting application...';
+                    eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-gray-600';
+
+                    const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    eventFormMessage.textContent = 'Application submitted successfully! We\'ll review and contact you within 48 hours.';
+                    eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-green-600';
+                    eventApplicationForm.reset();
+
+                    setTimeout(() => {
+                        eventFormMessage.textContent = '';
+                    }, 5000);
+                } catch (error) {
+                    eventFormMessage.textContent = 'Error submitting application. Please try again or email us directly.';
+                    eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
+                }
+            });
+        }
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: scale(0.95); }
+                to { opacity: 1; transform: scale(1); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(0.95); }
+            }
+        `;
+        document.head.appendChild(style);
+
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

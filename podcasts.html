@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcasts | UnicornXMedia</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦄</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        corporate: {
+                            900: '#0B1120',
+                            800: '#111827',
+                            100: '#F3F4F6'
+                        },
+                        accent: '#2563EB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .podcast-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .podcast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .mobile-menu {
+            display: none;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-corporate-100 text-corporate-900 antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <span class="text-3xl">🦄</span>
+                    <span class="font-bold text-xl tracking-tight">UnicornXMedia</span>
+                </a>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html#services" class="text-gray-600 hover:text-accent font-semibold transition">Services</a>
+                    <a href="index.html#live-event" class="text-gray-600 hover:text-accent font-semibold transition">Live Events</a>
+                    <a href="podcasts.html" class="text-accent font-semibold">Podcasts</a>
+                    <a href="archive.html" class="text-gray-600 hover:text-accent font-semibold transition">Event Archive</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-accent font-semibold transition">Contact</a>
+                    <a href="index.html#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg">Apply Now</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-accent">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-gray-200 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="index.html#services" class="text-gray-600 hover:text-accent font-semibold transition px-4">Services</a>
+                    <a href="index.html#live-event" class="text-gray-600 hover:text-accent font-semibold transition px-4">Live Events</a>
+                    <a href="podcasts.html" class="text-accent font-semibold px-4">Podcasts</a>
+                    <a href="archive.html" class="text-gray-600 hover:text-accent font-semibold transition px-4">Event Archive</a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-accent font-semibold transition px-4">Contact</a>
+                    <a href="index.html#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg mx-4 text-center">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center reveal">
+        <div class="mb-8">
+            <span class="bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">🎙️ Podcast Features</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            Amplify Your Voice on <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">Premium Podcasts</span>
+        </h1>
+        <p class="text-xl text-gray-500 max-w-3xl mx-auto mb-10">
+            Get featured on high-authority podcasts that reach millions. Share your founder story, insights, and expertise with engaged audiences who matter.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="#podcast-apply" class="bg-corporate-900 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-accent transition shadow-xl">Request to Join</a>
+            <a href="#featured-podcasts" class="bg-white text-corporate-900 border border-gray-200 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition shadow-sm">View Podcasts</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white border-y border-gray-200 py-16 reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-extrabold text-accent mb-2">50+</div>
+                    <div class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Podcast Partners</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-extrabold text-accent mb-2">10M+</div>
+                    <div class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Monthly Listeners</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-extrabold text-accent mb-2">200+</div>
+                    <div class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Founders Featured</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-extrabold text-accent mb-2">95%</div>
+                    <div class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Podcasts Section -->
+    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Podcast Features Matter</h2>
+            <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+                Podcasts offer unmatched depth and authenticity to share your story
+            </p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 podcast-card border border-gray-100">
+                <div class="w-14 h-14 bg-blue-50 text-accent rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Engaged Audiences</h3>
+                <p class="text-gray-500">Podcast listeners are highly engaged, spending 30+ minutes actively listening to your story and insights.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-8 podcast-card border border-gray-100">
+                <div class="w-14 h-14 bg-blue-50 text-accent rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-handshake"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Build Trust</h3>
+                <p class="text-gray-500">Long-form conversations build deeper connections and establish you as a thought leader in your industry.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-8 podcast-card border border-gray-100">
+                <div class="w-14 h-14 bg-blue-50 text-accent rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Amplified Reach</h3>
+                <p class="text-gray-500">Get discovered by investors, partners, and customers through podcast platforms and social media clips.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Podcasts Section -->
+    <section id="featured-podcasts" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Featured Podcasts</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+                    Premium podcast platforms where we feature founders and industry leaders
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Podcast 1 -->
+                <div class="podcast-card bg-corporate-100 rounded-2xl overflow-hidden border border-gray-200 reveal">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="WhatsApp Image 2026-03-18 at 00.06.43.jpeg" alt="Podcast Feature 1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-accent/10 text-accent text-xs font-bold px-3 py-1 rounded-full">Business</span>
+                            <span class="text-gray-400 text-xs">Weekly</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Founder Stories</h3>
+                        <p class="text-gray-500 text-sm mb-4">Deep dives into startup journeys, challenges, and victories with successful founders.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>2M+ Listeners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Podcast 2 -->
+                <div class="podcast-card bg-corporate-100 rounded-2xl overflow-hidden border border-gray-200 reveal">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="WhatsApp Image 2026-03-18 at 00.06.43 (1).jpeg" alt="Podcast Feature 2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 rounded-full">Tech</span>
+                            <span class="text-gray-400 text-xs">Bi-weekly</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Innovation Leaders</h3>
+                        <p class="text-gray-500 text-sm mb-4">Conversations with tech innovators shaping the future of business and technology.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>1.5M+ Listeners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Podcast 3 -->
+                <div class="podcast-card bg-corporate-100 rounded-2xl overflow-hidden border border-gray-200 reveal">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="WhatsApp Image 2026-03-18 at 00.06.44.jpeg" alt="Podcast Feature 3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-green-100 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Growth</span>
+                            <span class="text-gray-400 text-xs">Weekly</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Scale Masters</h3>
+                        <p class="text-gray-500 text-sm mb-4">Strategies and insights from founders who've successfully scaled their ventures.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>3M+ Listeners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Podcast 4 -->
+                <div class="podcast-card bg-corporate-100 rounded-2xl overflow-hidden border border-gray-200 reveal">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="WhatsApp Image 2026-03-18 at 00.06.44 (1).jpeg" alt="Podcast Feature 4" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full">Investment</span>
+                            <span class="text-gray-400 text-xs">Monthly</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Investor Insights</h3>
+                        <p class="text-gray-500 text-sm mb-4">Connect with VCs and angel investors discussing funding trends and opportunities.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>1M+ Listeners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Podcast 5 -->
+                <div class="podcast-card bg-corporate-100 rounded-2xl overflow-hidden border border-gray-200 reveal">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="WhatsApp Image 2026-03-18 at 00.06.44 (2).jpeg" alt="Podcast Feature 5" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-yellow-100 text-yellow-600 text-xs font-bold px-3 py-1 rounded-full">Marketing</span>
+                            <span class="text-gray-400 text-xs">Weekly</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Brand Builders</h3>
+                        <p class="text-gray-500 text-sm mb-4">Learn from founders who've built iconic brands from scratch.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>2.5M+ Listeners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Podcast 6 -->
+                <div class="podcast-card bg-corporate-100 rounded-2xl overflow-hidden border border-gray-200 reveal">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="Photos/Events-1.jpg" alt="Podcast Feature 6" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-indigo-100 text-indigo-600 text-xs font-bold px-3 py-1 rounded-full">Leadership</span>
+                            <span class="text-gray-400 text-xs">Bi-weekly</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">CEO Chronicles</h3>
+                        <p class="text-gray-500 text-sm mb-4">Exclusive interviews with CEOs sharing their leadership philosophies and lessons.</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>1.8M+ Listeners</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section id="podcast-apply" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-bold mb-4">Request to Join a Podcast</h2>
+                <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 text-lg">
+                    Share your story with millions. Fill out the form below and we'll match you with the perfect podcast.
+                </p>
+            </div>
+
+            <form id="podcastForm" class="bg-white rounded-2xl p-8 lg:p-12 shadow-xl border border-gray-100 reveal">
+                <input type="hidden" name="applicationType" value="podcast">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Full Name *</label>
+                        <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Email *</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
+                        <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Company Name *</label>
+                        <input type="text" name="company" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Your Role/Title *</label>
+                    <input type="text" name="role" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Industry/Sector *</label>
+                    <select name="industry" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition">
+                        <option value="">Select Industry</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="E-commerce">E-commerce</option>
+                        <option value="SaaS">SaaS</option>
+                        <option value="Consumer Goods">Consumer Goods</option>
+                        <option value="Education">Education</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Tell Us Your Story *</label>
+                    <textarea name="story" rows="5" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition" placeholder="What makes your founder journey unique? What insights can you share?"></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Preferred Podcast Topics</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="topics" value="Startup Journey" class="w-4 h-4 text-accent rounded">
+                            <span class="text-sm">Startup Journey</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="topics" value="Fundraising" class="w-4 h-4 text-accent rounded">
+                            <span class="text-sm">Fundraising</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="topics" value="Scaling" class="w-4 h-4 text-accent rounded">
+                            <span class="text-sm">Scaling</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="topics" value="Leadership" class="w-4 h-4 text-accent rounded">
+                            <span class="text-sm">Leadership</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="topics" value="Innovation" class="w-4 h-4 text-accent rounded">
+                            <span class="text-sm">Innovation</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="topics" value="Marketing" class="w-4 h-4 text-accent rounded">
+                            <span class="text-sm">Marketing</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="flex items-start gap-2">
+                        <input type="checkbox" name="terms" required class="w-4 h-4 text-accent rounded mt-1">
+                        <span class="text-sm text-gray-600">I agree to the <a href="terms.html" class="text-accent hover:underline">Terms & Conditions</a> and <a href="terms.html#privacy" class="text-accent hover:underline">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-gradient-to-r from-corporate-900 to-accent text-white py-4 rounded-lg font-bold hover:shadow-2xl transition-all transform hover:scale-[1.02]">
+                    <i class="fa-solid fa-paper-plane mr-2"></i>Submit Request
+                </button>
+                <p id="podcastFormMessage" class="mt-4 text-center text-sm font-semibold"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="mb-6">
+                <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
+                    🎙️ Podcast Insider
+                </span>
+            </div>
+            <h3 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                Get Featured on <span class="text-yellow-300">Top Podcasts</span>
+            </h3>
+            <p class="text-white/90 mb-10 text-lg md:text-xl max-w-2xl mx-auto">
+                Receive exclusive podcast invitations, guest opportunities, and insider tips to amplify your voice.
+            </p>
+            
+            <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                <div class="flex-1 relative">
+                    <i class="fa-solid fa-envelope absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="email" name="newsletter_email" required placeholder="Enter your email address" class="w-full pl-14 pr-6 py-5 rounded-full focus:ring-4 focus:ring-white/50 focus:outline-none text-gray-800 font-medium shadow-xl">
+                </div>
+                <button type="submit" class="bg-white text-purple-600 px-10 py-5 rounded-full font-bold hover:bg-yellow-300 hover:text-purple-700 transition-all shadow-xl transform hover:scale-105 hover:shadow-2xl">
+                    <i class="fa-solid fa-rocket mr-2"></i>Subscribe Now
+                </button>
+            </form>
+            
+            <p class="text-white/80 text-sm mt-6">
+                <i class="fa-solid fa-shield-halved mr-1"></i>
+                We respect your privacy. Unsubscribe anytime.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-corporate-100 border-t border-gray-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🦄</span>
+                        <span class="font-bold text-xl tracking-tight text-corporate-900">UnicornXMedia</span>
+                    </div>
+                    <p class="text-gray-500 text-sm">
+                        Amplifying founder stories through strategic PR, events, and media partnerships.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-corporate-900 mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">Services</a></li>
+                        <li><a href="index.html#live-event" class="text-gray-500 hover:text-accent transition">Live Events</a></li>
+                        <li><a href="podcasts.html" class="text-gray-500 hover:text-accent transition">Podcasts</a></li>
+                        <li><a href="archive.html" class="text-gray-500 hover:text-accent transition">Event Archive</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h4 class="font-bold text-corporate-900 mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">PR Campaigns</a></li>
+                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">Event Management</a></li>
+                        <li><a href="podcasts.html" class="text-gray-500 hover:text-accent transition">Podcast Features</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-corporate-900 mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-500 text-sm">
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-accent"></i>
+                            <span>+91 9625363995</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-accent"></i>
+                            <span>contact@unicornxmedia.com</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-accent"></i>
+                            <span>Delhi, India</span>
+                        </li>
+                    </ul>
+                    <div class="flex space-x-3 mt-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-gray-500 text-sm">
+                    © 2026 UnicornXMedia. All rights reserved.
+                </div>
+                <div class="flex gap-6 text-sm">
+                    <a href="terms.html" class="text-gray-500 hover:text-accent transition">Terms & Conditions</a>
+                    <a href="terms.html#privacy" class="text-gray-500 hover:text-accent transition">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
+
+        // Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(reveal => revealObserver.observe(reveal));
+
+        // Podcast Form Submission
+        const podcastForm = document.getElementById('podcastForm');
+        const podcastFormMessage = document.getElementById('podcastFormMessage');
+        
+        if (podcastForm) {
+            podcastForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const data = {
+                    type: 'podcast',
+                    applicationType: 'podcast'
+                };
+                
+                // Collect all form data including checkboxes
+                const topics = [];
+                formData.forEach((value, key) => {
+                    if (key === 'topics') {
+                        topics.push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                });
+                
+                // Add topics array to data
+                if (topics.length > 0) {
+                    data.topics = topics.join(', ');
+                }
+
+                try {
+                    podcastFormMessage.textContent = 'Submitting request...';
+                    podcastFormMessage.className = 'mt-4 text-center text-sm font-semibold text-gray-600';
+
+                    // Send email via Google Apps Script
+                    const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    podcastFormMessage.textContent = 'Request submitted successfully! We\'ll match you with the perfect podcast and be in touch soon.';
+                    podcastFormMessage.className = 'mt-4 text-center text-sm font-semibold text-green-600';
+                    this.reset();
+
+                    setTimeout(() => {
+                        podcastFormMessage.textContent = '';
+                    }, 5000);
+                } catch (error) {
+                    console.error('Error:', error);
+                    podcastFormMessage.textContent = 'Error submitting request. Please try again or email us directly.';
+                    podcastFormMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
+                }
+            });
+        }
+
+        // Newsletter Form Submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+
+            // Send email via Google Apps Script
+            fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert('Successfully subscribed to our newsletter!');
+                this.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Successfully subscribed!');
+                this.reset();
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
