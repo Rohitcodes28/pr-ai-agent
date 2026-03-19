@@ -1,27 +1,39 @@
 // Custom Cursor
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorOutline = document.querySelector('.cursor-outline');
+(function() {
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
 
-if (cursorDot && cursorOutline) {
-    window.addEventListener('mousemove', (e) => {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
+    if (cursorDot && cursorOutline) {
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
         
-        cursorOutline.style.left = e.clientX + 'px';
-        cursorOutline.style.top = e.clientY + 'px';
-    });
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+        
+        const animate = () => {
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            cursorOutline.style.left = outlineX + 'px';
+            cursorOutline.style.top = outlineY + 'px';
+            requestAnimationFrame(animate);
+        };
+        animate();
 
-    // Add hover effect on interactive elements
-    const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item');
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            document.body.classList.add('cursor-hover');
+        // Add hover effect on interactive elements
+        const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('cursor-hover');
+            });
         });
-        el.addEventListener('mouseleave', () => {
-            document.body.classList.remove('cursor-hover');
-        });
-    });
-}
+    }
+})();
 
 // Mobile Menu Toggle
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -66,10 +78,12 @@ if (guestListToggle && guestListContent && guestListIcon) {
 // Navbar Scroll Effect
 window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
-    if (window.scrollY > 10) {
-        nav.classList.add('shadow-sm');
-    } else {
-        nav.classList.remove('shadow-sm');
+    if (nav) {
+        if (window.scrollY > 10) {
+            nav.classList.add('shadow-sm');
+        } else {
+            nav.classList.remove('shadow-sm');
+        }
     }
 });
 
@@ -153,6 +167,22 @@ revealElements.forEach(el => {
     revealObserver.observe(el);
 });
 
+// Helper for Success Popup
+const showSuccessPopup = (messageText) => {
+    const popup = document.getElementById('successPopup');
+    if(popup) {
+        popup.style.display = 'flex';
+        popup.querySelector('p').textContent = messageText;
+    }
+};
+
+const closeSuccess = document.getElementById('closeSuccess');
+if(closeSuccess) {
+    closeSuccess.addEventListener('click', () => {
+        document.getElementById('successPopup').style.display = 'none';
+    });
+}
+
 // Contact Form Submission
 const contactForm = document.getElementById('contactForm');
 const contactMessage = document.getElementById('contactMessage');
@@ -209,15 +239,35 @@ if (applicationForm) {
         const data = {
             fullName: formData.get('fullName'),
             company: formData.get('company'),
+            phone: formData.get('phone'),
             email: formData.get('email'),
-            budget: formData.get('budget'),
-            goal: formData.get('goal'),
+            applicationType: formData.get('applicationType'),
             type: 'application'
         };
+        
+        // Include specific fields based on active tab
+        if(data.applicationType === 'pr') {
+            data.prGoal = formData.get('prGoal');
+            data.prStory = formData.get('prStory');
+        } else if(data.applicationType === 'event') {
+            data.eventType = formData.get('eventType');
+            data.attendees = formData.get('attendees');
+            data.eventDate = formData.get('eventDate');
+            data.eventDetails = formData.get('eventDetails');
+        } else if(data.applicationType === 'podcast') {
+            data.role = formData.get('role');
+            data.industry = formData.get('industry');
+            data.podcastStory = formData.get('podcastStory');
+            const topics = [];
+            formData.getAll('topics').forEach(v => topics.push(v));
+            data.topics = topics.join(', ');
+        }
 
         try {
-            formMessage.textContent = 'Submitting application...';
-            formMessage.className = 'mt-4 text-center text-sm text-gray-600';
+            const btn = applicationForm.querySelector('button[type="submit"]');
+            const origText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+            btn.disabled = true;
 
             // Replace with your Google Apps Script Web App URL
             const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
@@ -229,15 +279,18 @@ if (applicationForm) {
                 body: JSON.stringify(data)
             });
 
-            formMessage.textContent = 'Application submitted successfully! We\'ll review and contact you within 48 hours.';
-            formMessage.className = 'mt-4 text-center text-sm text-green-600 font-semibold';
+            btn.innerHTML = origText;
+            btn.disabled = false;
+            
             applicationForm.reset();
-
-            setTimeout(() => {
-                formMessage.textContent = '';
-            }, 5000);
+            if(data.applicationType === 'attend') {
+                showSuccessPopup('We will send event details on your email.');
+            } else {
+                showSuccessPopup('Thank you. We will send event details on email.');
+            }
+            
         } catch (error) {
-            formMessage.textContent = 'Error submitting application. Please try again or email us directly.';
+            formMessage.textContent = 'Error submitting application. Please try again.';
             formMessage.className = 'mt-4 text-center text-sm text-red-600 font-semibold';
         }
     });
@@ -247,7 +300,8 @@ const applicationToggles = document.querySelectorAll('.application-toggle');
 const formSections = {
     pr: document.getElementById('prFields'),
     event: document.getElementById('eventFields'),
-    podcast: document.getElementById('podcastFields')
+    podcast: document.getElementById('podcastFields'),
+    attend: document.getElementById('attendFields') // new 4th tab
 };
 const applicationTypeInput = document.getElementById('applicationType');
 
@@ -264,6 +318,18 @@ if (applicationToggles.length > 0) {
             toggle.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-100');
             toggle.classList.add('active', 'bg-accent', 'text-white');
             
+            // Handle Company optional for "attend" tab
+            const companyField = document.querySelector('input[name="company"]');
+            if (companyField) {
+                if (formType === 'attend') {
+                    companyField.removeAttribute('required');
+                    companyField.previousElementSibling.innerHTML = 'Company / Brand <span class="text-gray-400 font-normal ml-1">(Optional)</span>';
+                } else {
+                    companyField.setAttribute('required', 'required');
+                    companyField.previousElementSibling.textContent = 'Company / Brand *';
+                }
+            }
+
             // Show/hide form sections
             Object.keys(formSections).forEach(key => {
                 if (formSections[key]) {
@@ -295,6 +361,9 @@ if (applicationToggles.length > 0) {
     // Initialize first toggle as active
     if (applicationToggles[0]) {
         applicationToggles[0].classList.add('active', 'bg-accent', 'text-white');
+        applicationToggles[0].classList.remove('bg-white', 'text-gray-700');
+    }
+}
 
 // Handle Apply Links with Form Type Selection
 document.querySelectorAll('.apply-link[data-form-type]').forEach(link => {
@@ -310,8 +379,6 @@ document.querySelectorAll('.apply-link[data-form-type]').forEach(link => {
         }, 500);
     });
 });
-        applicationToggles[0].classList.remove('bg-white', 'text-gray-700');
-    }
 }
 
 // Newsletter Form Submission
@@ -361,7 +428,6 @@ if (newsletterForm) {
             }, 3000);
         }
     });
-}
 }
 
 // Smooth Scroll for Navigation Links

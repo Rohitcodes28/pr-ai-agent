@@ -632,8 +632,10 @@
                 }
 
                 try {
-                    podcastFormMessage.textContent = 'Submitting request...';
-                    podcastFormMessage.className = 'mt-4 text-center text-sm font-semibold text-gray-600';
+                    const btn = podcastForm.querySelector('button[type="submit"]');
+                    const origText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+                    btn.disabled = true;
 
                     // Send email via Google Apps Script
                     const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
@@ -645,13 +647,15 @@
                         body: JSON.stringify(data)
                     });
 
-                    podcastFormMessage.textContent = 'Request submitted successfully! We\'ll match you with the perfect podcast and be in touch soon.';
-                    podcastFormMessage.className = 'mt-4 text-center text-sm font-semibold text-green-600';
+                    btn.innerHTML = origText;
+                    btn.disabled = false;
                     this.reset();
-
-                    setTimeout(() => {
-                        podcastFormMessage.textContent = '';
-                    }, 5000);
+                    
+                    const popup = document.getElementById('successPopup');
+                    if (popup) {
+                        popup.style.display = 'flex';
+                        popup.querySelector('p').textContent = 'Request submitted successfully! We\'ll match you with the perfect podcast and be in touch soon.';
+                    }
                 } catch (error) {
                     console.error('Error:', error);
                     podcastFormMessage.textContent = 'Error submitting request. Please try again or email us directly.';
@@ -706,13 +710,23 @@
             const cursorOutline = document.querySelector('.cursor-outline');
 
             if (cursorDot && cursorOutline) {
+                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+                
                 window.addEventListener('mousemove', (e) => {
-                    cursorDot.style.left = e.clientX + 'px';
-                    cursorDot.style.top = e.clientY + 'px';
-                    
-                    cursorOutline.style.left = e.clientX + 'px';
-                    cursorOutline.style.top = e.clientY + 'px';
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursorDot.style.left = mouseX + 'px';
+                    cursorDot.style.top = mouseY + 'px';
                 });
+                
+                const animate = () => {
+                    outlineX += (mouseX - outlineX) * 0.15;
+                    outlineY += (mouseY - outlineY) * 0.15;
+                    cursorOutline.style.left = outlineX + 'px';
+                    cursorOutline.style.top = outlineY + 'px';
+                    requestAnimationFrame(animate);
+                };
+                animate();
 
                 const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item, .podcast-card');
                 hoverElements.forEach(el => {
@@ -726,5 +740,19 @@
             }
         })();
     </script>
+    
+    <!-- Submission Success Popup -->
+    <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all relative">
+            <button onclick="document.getElementById('successPopup').style.display = 'none'" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-times text-gray-600"></i>
+            </button>
+            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+            <p class="text-gray-600">We will send event details on your email.</p>
+        </div>
+    </div>
 </body>
 </html>

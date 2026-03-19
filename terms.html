@@ -290,13 +290,23 @@
             const cursorOutline = document.querySelector('.cursor-outline');
 
             if (cursorDot && cursorOutline) {
+                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+                
                 window.addEventListener('mousemove', (e) => {
-                    cursorDot.style.left = e.clientX + 'px';
-                    cursorDot.style.top = e.clientY + 'px';
-                    
-                    cursorOutline.style.left = e.clientX + 'px';
-                    cursorOutline.style.top = e.clientY + 'px';
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursorDot.style.left = mouseX + 'px';
+                    cursorDot.style.top = mouseY + 'px';
                 });
+                
+                const animate = () => {
+                    outlineX += (mouseX - outlineX) * 0.15;
+                    outlineY += (mouseY - outlineY) * 0.15;
+                    cursorOutline.style.left = outlineX + 'px';
+                    cursorOutline.style.top = outlineY + 'px';
+                    requestAnimationFrame(animate);
+                };
+                animate();
 
                 const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item, .podcast-card');
                 hoverElements.forEach(el => {

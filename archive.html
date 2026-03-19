@@ -337,8 +337,8 @@
         </div>
 
         <!-- Load More Button -->
-        <div class="text-center mt-12">
-            <button
+        <div id="loadMoreContainer" class="text-center mt-12">
+            <button id="loadMoreBtn"
                 class="border-2 border-corporate-900 text-corporate-900 px-8 py-3 rounded-full font-bold hover:bg-corporate-900 hover:text-white transition">
                 Load More Archives
             </button>
@@ -349,7 +349,7 @@
             class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             style="display: none;">
             <div
-                class="bg-gradient-to-br from-corporate-900 to-gray-900 text-white rounded-3xl max-w-4xl w-full shadow-2xl transform transition-all animate-fade-in relative overflow-hidden">
+                class="bg-gradient-to-br from-corporate-900 to-gray-900 text-white rounded-3xl max-w-2xl w-full mx-4 shadow-2xl transform transition-all animate-fade-in relative overflow-hidden">
                 <!-- Close Button -->
                 <button id="closePopup"
                     class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-10">
@@ -361,7 +361,7 @@
                     <i class="fa-solid fa-star text-[300px]"></i>
                 </div>
 
-                <div class="p-8 lg:p-12 relative z-10">
+                <div class="p-6 md:p-8 relative z-10">
                     <div class="flex items-center gap-3 mb-4">
                         <span
                             class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Live
@@ -399,9 +399,9 @@
                             class="bg-accent hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold transition shadow-lg text-center">
                             <i class="fa-solid fa-ticket mr-2"></i>View Full Details
                         </a>
-                        <a href="#event-apply" id="applyFromPopup"
-                            class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold transition border border-white/20 text-center">
-                            <i class="fa-solid fa-paper-plane mr-2"></i>Apply to Attend
+                        <a href="#event-apply" id="applyFromPopup" data-form-type="attend"
+                            class="apply-link bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold transition border border-white/20 text-center">
+                            <i class="fa-solid fa-paper-plane mr-2"></i>Attend
                         </a>
                     </div>
                 </div>
@@ -693,35 +693,80 @@
             });
         }
 
-        // Year Filter Functionality
+        // Year Filter & Load More Functionality
         const yearFilters = document.querySelectorAll('.year-filter');
-        const archiveItems = document.querySelectorAll('.archive-item');
+        const archiveItems = Array.from(document.querySelectorAll('.archive-item'));
+        const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        
+        let currentItems = 3;
+        let currentFilter = 'all';
+
+        function updateGrid() {
+            // Filter
+            const filteredItems = archiveItems.filter(item => 
+                currentFilter === 'all' || item.getAttribute('data-year') === currentFilter
+            );
+
+            // Hide non-matching instantly
+            archiveItems.forEach(item => {
+                if (!filteredItems.includes(item)) {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.9)';
+                    setTimeout(() => { item.style.display = 'none'; }, 300);
+                }
+            });
+
+            // Show matching up to currentItems limit
+            filteredItems.forEach((item, index) => {
+                if (index < currentItems) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.9)';
+                    setTimeout(() => { item.style.display = 'none'; }, 300);
+                }
+            });
+
+            // Toggle Load More Button
+            if (loadMoreBtnContainer) {
+                if (filteredItems.length > currentItems) {
+                    loadMoreBtnContainer.style.display = 'block';
+                } else {
+                    loadMoreBtnContainer.style.display = 'none';
+                }
+            }
+        }
+
+        // Initial setup
+        updateGrid();
+
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+                currentItems += 3;
+                updateGrid();
+            });
+        }
 
         yearFilters.forEach(filter => {
             filter.addEventListener('click', () => {
-                const selectedYear = filter.getAttribute('data-year');
+                currentFilter = filter.getAttribute('data-year');
 
-                // Update active state
-                yearFilters.forEach(f => f.classList.remove('active'));
-                filter.classList.add('active');
-
-                // Filter items
-                archiveItems.forEach(item => {
-                    const itemYear = item.getAttribute('data-year');
-                    if (selectedYear === 'all' || itemYear === selectedYear) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 10);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.9)';
-                        setTimeout(() => {
-                            item.style.display = 'none';
-                        }, 300);
-                    }
+                // Update active button styles
+                yearFilters.forEach(f => {
+                    f.classList.remove('active', 'border-accent', 'text-accent');
+                    f.classList.add('border-gray-300', 'text-gray-600');
                 });
+                filter.classList.add('active', 'border-accent', 'text-accent');
+                filter.classList.remove('border-gray-300', 'text-gray-600');
+
+                // Reset items to show
+                currentItems = 3;
+                updateGrid();
             });
         });
 
@@ -747,7 +792,7 @@
                         liveEventPopup.style.display = 'none';
                     }, 300);
                 }
-            }, 5500);
+            }, 3000);
         });
 
         // Close popup on button click
@@ -795,8 +840,10 @@
                 data.type = 'event';
 
                 try {
-                    eventFormMessage.textContent = 'Submitting application...';
-                    eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-gray-600';
+                    const btn = eventApplicationForm.querySelector('button[type="submit"]');
+                    const origText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
+                    btn.disabled = true;
 
                     const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
                         method: 'POST',
@@ -807,13 +854,15 @@
                         body: JSON.stringify(data)
                     });
 
-                    eventFormMessage.textContent = 'Application submitted successfully! We\'ll review and contact you within 48 hours.';
-                    eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-green-600';
+                    btn.innerHTML = origText;
+                    btn.disabled = false;
                     eventApplicationForm.reset();
 
-                    setTimeout(() => {
-                        eventFormMessage.textContent = '';
-                    }, 5000);
+                    const popup = document.getElementById('successPopup');
+                    if (popup) {
+                        popup.style.display = 'flex';
+                        popup.querySelector('p').textContent = 'We will send event details on your email.';
+                    }
                 } catch (error) {
                     eventFormMessage.textContent = 'Error submitting application. Please try again or email us directly.';
                     eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
@@ -857,13 +906,23 @@
             const cursorOutline = document.querySelector('.cursor-outline');
 
             if (cursorDot && cursorOutline) {
+                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+                
                 window.addEventListener('mousemove', (e) => {
-                    cursorDot.style.left = e.clientX + 'px';
-                    cursorDot.style.top = e.clientY + 'px';
-                    
-                    cursorOutline.style.left = e.clientX + 'px';
-                    cursorOutline.style.top = e.clientY + 'px';
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursorDot.style.left = mouseX + 'px';
+                    cursorDot.style.top = mouseY + 'px';
                 });
+                
+                const animate = () => {
+                    outlineX += (mouseX - outlineX) * 0.15;
+                    outlineY += (mouseY - outlineY) * 0.15;
+                    cursorOutline.style.left = outlineX + 'px';
+                    cursorOutline.style.top = outlineY + 'px';
+                    requestAnimationFrame(animate);
+                };
+                animate();
 
                 const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item, .podcast-card');
                 hoverElements.forEach(el => {
@@ -877,6 +936,20 @@
             }
         })();
     </script>
+    
+    <!-- Submission Success Popup -->
+    <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all animate-fade-in relative">
+            <button onclick="document.getElementById('successPopup').style.display = 'none'" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-times text-gray-600"></i>
+            </button>
+            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+            <p class="text-gray-600">We will send event details on your email.</p>
+        </div>
+    </div>
 </body>
 
 </html>
