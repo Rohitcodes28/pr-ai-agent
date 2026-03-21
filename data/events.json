@@ -1,0 +1,92 @@
+[
+    {
+        "id": "event-2026-1",
+        "year": "2026",
+        "date": "March 25",
+        "title": "Pinkvilla Screen & Style Icons",
+        "location": "JW Marriott, Mumbai",
+        "highlight": "14 Celebrity Guests",
+        "icon": "fa-users",
+        "stat": "500+ Attendees",
+        "images": [
+            "Photos/Events-1.jpg",
+            "Photos/Events-2.jpg",
+            "Photos/Events-3.jpg"
+        ]
+    },
+    {
+        "id": "event-2025-1",
+        "year": "2025",
+        "date": "November 15",
+        "title": "Celebrity Networking Summit",
+        "location": "Taj Palace, Mumbai",
+        "highlight": "Industry Leaders",
+        "icon": "fa-star",
+        "stat": "Premium Event",
+        "images": [
+            "Photos/Events-2.jpg",
+            "Photos/Events-1.jpg",
+            "Photos/IMG_5250.jpg"
+        ]
+    },
+    {
+        "id": "event-2025-2",
+        "year": "2025",
+        "date": "September 8",
+        "title": "Red Carpet Premiere",
+        "location": "PVR Icon, Mumbai",
+        "highlight": "Film Launch",
+        "icon": "fa-camera",
+        "stat": "Media Coverage",
+        "images": [
+            "Photos/Events-3.jpg",
+            "Photos/Events-4.jpg",
+            "Photos/Events-5.jpg"
+        ]
+    },
+    {
+        "id": "event-2025-3",
+        "year": "2025",
+        "date": "July 20",
+        "title": "Founder Visibility Summit",
+        "location": "Pan India",
+        "highlight": "Multi-City Tour",
+        "icon": "fa-bullhorn",
+        "stat": "5B+ Reach",
+        "images": [
+            "Photos/IMG_5250.jpg",
+            "Photos/Events-2.jpg",
+            "Photos/Events-1.jpg"
+        ]
+    },
+    {
+        "id": "event-2024-1",
+        "year": "2024",
+        "date": "December 10",
+        "title": "Annual Awards Ceremony",
+        "location": "ITC Grand, Bangalore",
+        "highlight": "Excellence Awards",
+        "icon": "fa-trophy",
+        "stat": "50+ Awards",
+        "images": [
+            "Photos/Events-4.jpg",
+            "Photos/Events-3.jpg",
+            "Photos/Events-5.jpg"
+        ]
+    },
+    {
+        "id": "event-2024-2",
+        "year": "2024",
+        "date": "August 5",
+        "title": "VIP Networking Gala",
+        "location": "Oberoi, Mumbai",
+        "highlight": "Exclusive Event",
+        "icon": "fa-handshake",
+        "stat": "Elite Circle",
+        "images": [
+            "Photos/Events-5.jpg",
+            "Photos/Events-1.jpg",
+            "Photos/Events-4.jpg"
+        ]
+    }
+]

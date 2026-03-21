@@ -100,6 +100,15 @@
         .mobile-menu.active {
             display: block;
         }
+
+        /* Performance Optimizations */
+        .archive-item, .cursor-dot, .cursor-outline {
+            will-change: transform, opacity;
+        }
+        .archive-item {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
     </style>
 </head>
 
@@ -157,34 +166,39 @@
 
     <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Events & Campaigns</h1>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Events</h1>
             <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
             <p class="text-xl text-gray-500 max-w-2xl mx-auto">
                 A curated history of our past PR campaigns, stage moments, and media breakthroughs.
             </p>
         </div>
 
-        <!-- Year Filter -->
+        <!-- Category Filter -->
         <div class="flex flex-wrap justify-center gap-3 mb-12">
             <button
                 class="year-filter active px-6 py-2 rounded-full font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white transition"
                 data-year="all">
-                All Years
+                All
             </button>
             <button
                 class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="2026">
-                2026
+                data-year="Sponsor Experience">
+                Sponsor Experience
             </button>
             <button
                 class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="2025">
-                2025
+                data-year="Public Campaigns">
+                Public Campaigns
             </button>
             <button
                 class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="2024">
-                2024
+                data-year="Events Covered">
+                Events Covered
+            </button>
+            <button
+                class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
+                data-year="Events Organized">
+                Events Organized
             </button>
         </div>
     </section>
@@ -192,148 +206,6 @@
     <!-- Archive Grid -->
     <section class="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div id="archiveGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- 2026 Events -->
-            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group"
-                data-year="2026">
-                <div class="h-64 relative overflow-hidden">
-                    <img src="Photos/Events-1.jpg" alt="Pinkvilla Screen & Style Icons 2026"
-                        class="archive-img w-full h-full object-cover">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="bg-accent/10 text-accent text-xs font-bold px-3 py-1 rounded-full">2026</span>
-                        <span class="text-gray-400 text-xs">March 25</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Pinkvilla Screen & Style Icons</h3>
-                    <p class="text-gray-500 text-sm mb-4">JW Marriott, Mumbai • 14 Celebrity Guests</p>
-                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                        <i class="fa-solid fa-users"></i>
-                        <span>500+ Attendees</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2025 Events -->
-            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group"
-                data-year="2025">
-                <div class="h-64 relative overflow-hidden">
-                    <img src="Photos/Events-2.jpg" alt="Celebrity Networking Summit 2025"
-                        class="archive-img w-full h-full object-cover">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">2025</span>
-                        <span class="text-gray-400 text-xs">November 15</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Celebrity Networking Summit</h3>
-                    <p class="text-gray-500 text-sm mb-4">Taj Palace, Mumbai • Industry Leaders</p>
-                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                        <i class="fa-solid fa-star"></i>
-                        <span>Premium Event</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group"
-                data-year="2025">
-                <div class="h-64 relative overflow-hidden">
-                    <img src="Photos/Events-3.jpg" alt="Red Carpet Premiere 2025"
-                        class="archive-img w-full h-full object-cover">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">2025</span>
-                        <span class="text-gray-400 text-xs">September 8</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Red Carpet Premiere</h3>
-                    <p class="text-gray-500 text-sm mb-4">PVR Icon, Mumbai • Film Launch</p>
-                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                        <i class="fa-solid fa-camera"></i>
-                        <span>Media Coverage</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group"
-                data-year="2025">
-                <div class="h-64 relative overflow-hidden">
-                    <img src="Photos/IMG_5250.jpg" alt="Founder Visibility Summit 2025"
-                        class="archive-img w-full h-full object-cover">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full">2025</span>
-                        <span class="text-gray-400 text-xs">July 20</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Founder Visibility Summit</h3>
-                    <p class="text-gray-500 text-sm mb-4">Pan India • Multi-City Tour</p>
-                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                        <i class="fa-solid fa-bullhorn"></i>
-                        <span>5B+ Reach</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2024 Events -->
-            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group"
-                data-year="2024">
-                <div class="h-64 relative overflow-hidden">
-                    <img src="Photos/Events-4.jpg" alt="Awards Ceremony 2024"
-                        class="archive-img w-full h-full object-cover">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 rounded-full">2024</span>
-                        <span class="text-gray-400 text-xs">December 10</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Annual Awards Ceremony</h3>
-                    <p class="text-gray-500 text-sm mb-4">ITC Grand, Bangalore • Excellence Awards</p>
-                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                        <i class="fa-solid fa-trophy"></i>
-                        <span>50+ Awards</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group"
-                data-year="2024">
-                <div class="h-64 relative overflow-hidden">
-                    <img src="Photos/Events-5.jpg" alt="VIP Networking 2024"
-                        class="archive-img w-full h-full object-cover">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 rounded-full">2024</span>
-                        <span class="text-gray-400 text-xs">August 5</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">VIP Networking Gala</h3>
-                    <p class="text-gray-500 text-sm mb-4">Oberoi, Mumbai • Exclusive Event</p>
-                    <div class="flex items-center gap-2 text-sm text-gray-400">
-                        <i class="fa-solid fa-handshake"></i>
-                        <span>Elite Circle</span>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <!-- Load More Button -->
@@ -693,57 +565,235 @@
             });
         }
 
-        // Year Filter & Load More Functionality
+        // Render Events Grid & Load More Functionality
+        const archiveGrid = document.getElementById('archiveGrid');
         const yearFilters = document.querySelectorAll('.year-filter');
-        const archiveItems = Array.from(document.querySelectorAll('.archive-item'));
         const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
         const loadMoreBtn = document.getElementById('loadMoreBtn');
-        
+        const autoSlideIntervalsMap = new Map();
         let currentItems = 3;
         let currentFilter = 'all';
 
+        function initArchives() {
+            updateGrid();
+        }
+
+        const ARCHIVE_EVENTS = [
+            {
+                id: 'sponsor-1',
+                year: 'Sponsor Experience',
+                date: 'Visibility Focus',
+                title: 'High-Energy Brand Exposure',
+                location: 'Overall Event Energy',
+                highlight: 'Maximize brand visibility and audience engagement',
+                icon: 'fa-bolt',
+                stat: 'Continuous Exposure',
+                images: ['photos/Brand Partnerships & Visibility/Sponsors Sample_1.mp4'],
+                type: 'video'
+            },
+            {
+                id: 'sponsor-2',
+                year: 'Sponsor Experience',
+                date: 'Strategic Integration',
+                title: 'Strategic Sponsor Placements',
+                location: 'Sponsor Visibility Focus',
+                highlight: 'Integrated logos and branding across crowd zones',
+                icon: 'fa-bullseye',
+                stat: 'Premium Recall',
+                images: ['photos/Brand Partnerships & Visibility/Sponsors Sample_2.mp4'],
+                type: 'video'
+            },
+            {
+                id: 'gis-2025',
+                year: 'Events Covered',
+                date: 'Feb 24-25, 2025',
+                title: 'Global Investors Summit (GIS 2025)',
+                location: 'Bhopal, MP',
+                highlight: 'Observed crowd engagement and displays',
+                icon: 'fa-eye',
+                stat: '25,000+ Attendees',
+                images: [
+                    'photos/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/1.jpg',
+                    'photos/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/2.jpg',
+                    'photos/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/3.jpg',
+                    'photos/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/4.jpg',
+                    'photos/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/5.jpg'
+                ]
+            },
+            {
+                id: 'ceo-summit',
+                year: 'Events Organized',
+                date: '2024',
+                title: 'CEO Summit 2024',
+                location: 'Mumbai',
+                highlight: 'Networking and Founder Alignment',
+                icon: 'fa-users',
+                stat: 'C-Level Networking',
+                images: [
+                    'photos/Events I Organized/CEO Summit 2024/Audience Engagement.JPG',
+                    'photos/Events I Organized/CEO Summit 2024/Photoshoot.png',
+                    'photos/Events I Organized/CEO Summit 2024/Team Engagement.jpg'
+                ]
+            },
+            {
+                id: 'viksit-bharat',
+                year: 'Events Covered',
+                date: '2025',
+                title: 'India Mission to Viksit Bharat',
+                location: 'Delhi',
+                highlight: 'Social Cause Initiative • Covered',
+                icon: 'fa-eye',
+                stat: 'National Mission',
+                images: [
+                    'photos/Events I Covered/India Mission to Viksit Bharat 2025/01.jpg',
+                    'photos/Events I Covered/India Mission to Viksit Bharat 2025/02.jpg',
+                    'photos/Events I Covered/India Mission to Viksit Bharat 2025/03.jpg'
+                ]
+            },
+            {
+                id: 'volunteer-2025',
+                year: 'Public Campaigns',
+                date: '2025',
+                title: 'Political Campaign Mobilization',
+                location: 'Various',
+                highlight: 'Organising Volunteer Gatherings',
+                icon: 'fa-bullhorn',
+                stat: 'Direct Engagement',
+                images: [
+                    'photos/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-1.jpg',
+                    'photos/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-2.jpg',
+                    'photos/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Social Cause.png'
+                ]
+            },
+            {
+                id: 'volunteer-2019',
+                year: 'Public Campaigns',
+                date: '2019',
+                title: 'Social Cause Gatherings',
+                location: 'Regional',
+                highlight: 'Volunteer Coordination for Social Impact',
+                icon: 'fa-heart',
+                stat: 'Community Driven',
+                images: [
+                    'photos/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-1.JPG',
+                    'photos/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-2.JPG',
+                    'photos/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-3.JPG'
+                ]
+            }
+        ];
+
+        // Smart Media Observer for Videos
+        const mediaObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target;
+                if (entry.isIntersecting) video.play().catch(() => {});
+                else video.pause();
+            });
+        }, { threshold: 0.1 });
+
+        // Slideshow Observer (Only run visible cards)
+        const slideshowObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const card = entry.target;
+                const eventId = card.getAttribute('data-id');
+                const event = ARCHIVE_EVENTS.find(e => e.id === eventId);
+                
+                if (entry.isIntersecting) {
+                    if (!event || event.type === 'video' || event.images.length <= 1) return;
+                    if (autoSlideIntervalsMap.has(eventId)) return;
+
+                    let currentImgIndex = 0;
+                    const interval = setInterval(() => {
+                        const images = card.querySelectorAll(`.card-img-${eventId}`);
+                        if (!images.length) return;
+                        images[currentImgIndex].classList.remove('opacity-100');
+                        images[currentImgIndex].classList.add('opacity-0');
+                        currentImgIndex = (currentImgIndex + 1) % images.length;
+                        images[currentImgIndex].classList.remove('opacity-0');
+                        images[currentImgIndex].classList.add('opacity-100');
+                    }, 2500); 
+                    autoSlideIntervalsMap.set(eventId, interval);
+                } else {
+                    if (autoSlideIntervalsMap.has(eventId)) {
+                        clearInterval(autoSlideIntervalsMap.get(eventId));
+                        autoSlideIntervalsMap.delete(eventId);
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
         function updateGrid() {
-            // Filter
-            const filteredItems = archiveItems.filter(item => 
-                currentFilter === 'all' || item.getAttribute('data-year') === currentFilter
+            const filteredEvents = ARCHIVE_EVENTS.filter(event => 
+                currentFilter === 'all' || event.year === currentFilter
             );
 
-            // Hide non-matching instantly
-            archiveItems.forEach(item => {
-                if (!filteredItems.includes(item)) {
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.9)';
-                    setTimeout(() => { item.style.display = 'none'; }, 300);
+            archiveGrid.innerHTML = '';
+            autoSlideIntervalsMap.forEach(clearInterval);
+            autoSlideIntervalsMap.clear();
+
+            filteredEvents.slice(0, currentItems).forEach((event, index) => {
+                let badgeBg = 'bg-accent/10'; let badgeText = 'text-accent';
+                if (event.year === 'Sponsor Experience') { badgeBg = 'bg-blue-100'; badgeText = 'text-blue-600'; }
+                if (event.year === 'Public Campaigns') { badgeBg = 'bg-purple-100'; badgeText = 'text-purple-600'; }
+                if (event.year === 'Events Covered') { badgeBg = 'bg-green-100'; badgeText = 'text-green-600'; }
+                
+                let mediaHTML = '';
+                if (event.type === 'video') {
+                    mediaHTML = `<video class="card-img-${event.id} absolute inset-0 w-full h-full object-cover" muted loop playsinline><source src="${event.images[0]}" type="video/mp4"></video>`;
+                } else if (event.images && event.images.length > 0) {
+                    mediaHTML = event.images.map((img, i) => `
+                        <img src="${img}" alt="${event.title}" class="card-img-${event.id} absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'} pointer-events-none">
+                    `).join('');
                 }
+
+                const card = document.createElement('div');
+                card.className = 'archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group cursor-pointer relative z-20';
+                card.setAttribute('data-id', event.id);
+                card.innerHTML = `
+                    <div class="h-64 relative overflow-hidden pointer-events-none">
+                        ${mediaHTML}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10"></div>
+                    </div>
+                    <div class="p-6 relative z-20 bg-white pointer-events-none">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="${badgeBg} ${badgeText} text-xs font-bold px-3 py-1 rounded-full">${event.year}</span>
+                            <span class="text-gray-400 text-xs">${event.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">${event.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4">${event.location} • ${event.highlight}</p>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fa-solid ${event.icon}"></i>
+                            <span>${event.stat}</span>
+                        </div>
+                    </div>
+                `;
+                archiveGrid.appendChild(card);
+                
+                if (event.type === 'video') {
+                    const video = card.querySelector('video');
+                    mediaObserver.observe(video);
+                    card.addEventListener('mouseenter', () => video.play());
+                } else if (event.images && event.images.length > 1) {
+                    slideshowObserver.observe(card);
+                }
+
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                }, 10 * index);
+
+                card.addEventListener('click', (e) => {
+                    e.preventDefault(); e.stopPropagation();
+                    openSlideshow(event.id);
+                });
             });
 
-            // Show matching up to currentItems limit
-            filteredItems.forEach((item, index) => {
-                if (index < currentItems) {
-                    item.style.display = 'block';
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'scale(1)';
-                    }, 10);
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'scale(0.9)';
-                    setTimeout(() => { item.style.display = 'none'; }, 300);
-                }
-            });
-
-            // Toggle Load More Button
             if (loadMoreBtnContainer) {
-                if (filteredItems.length > currentItems) {
-                    loadMoreBtnContainer.style.display = 'block';
-                } else {
-                    loadMoreBtnContainer.style.display = 'none';
-                }
+                loadMoreBtnContainer.style.display = filteredEvents.length > currentItems ? 'block' : 'none';
             }
         }
 
-        // Initial setup
-        updateGrid();
+        initArchives();
 
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', () => {
@@ -769,6 +819,72 @@
                 updateGrid();
             });
         });
+
+        // Slideshow Popup Logic
+        const slideshowPopup = document.getElementById('slideshowPopup');
+        const slideshowTrack = document.getElementById('slideshowTrack');
+        const closeSlideshowBtn = document.getElementById('closeSlideshowBtn');
+        let popupSlideInterval;
+        let popupAutoCloseTimeout;
+
+        function openSlideshow(eventId) {
+            if(!slideshowPopup) return;
+            const eventData = ARCHIVE_EVENTS.find(e => e.id === eventId);
+            if (!eventData || !eventData.images.length) return;
+
+            // Build Track
+            slideshowTrack.innerHTML = eventData.images.map(img => `
+                <div class="w-full h-full flex-shrink-0 relative">
+                    <img src="${img}" class="w-full h-full object-cover rounded-xl border-4 border-white/10 shadow-lg">
+                    <div class="absolute bottom-6 left-6 bg-black/60 text-white px-4 py-2 rounded-lg backdrop-blur-sm z-50">
+                        <h4 class="font-bold text-lg">${eventData.title}</h4>
+                        <p class="text-xs text-gray-300">${eventData.location}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            slideshowPopup.style.display = 'flex';
+            setTimeout(() => { slideshowPopup.style.opacity = '1'; }, 10);
+            
+            let currentPopupSlide = 0;
+            const slideCount = eventData.images.length;
+            slideshowTrack.style.transform = `translateX(0%)`;
+
+            // Start 1-second right-to-left
+            if (slideCount > 1) {
+                popupSlideInterval = setInterval(() => {
+                    currentPopupSlide = (currentPopupSlide + 1) % slideCount;
+                    slideshowTrack.style.transform = `translateX(-${currentPopupSlide * 100}%)`;
+                }, 1000);
+            }
+
+            popupAutoCloseTimeout = setTimeout(() => {
+                closeSlideshow();
+            }, 10000);
+        }
+
+        function closeSlideshow() {
+            if(!slideshowPopup) return;
+            clearInterval(popupSlideInterval);
+            clearTimeout(popupAutoCloseTimeout);
+            slideshowPopup.style.opacity = '0';
+            setTimeout(() => {
+                slideshowPopup.style.display = 'none';
+                slideshowTrack.innerHTML = '';
+            }, 300);
+        }
+
+        if(closeSlideshowBtn) {
+            closeSlideshowBtn.addEventListener('click', closeSlideshow);
+        }
+        
+        if(slideshowPopup) {
+            slideshowPopup.addEventListener('click', (e) => {
+                if (e.target === slideshowPopup) {
+                    closeSlideshow();
+                }
+            });
+        }
 
         // Live Event Popup Functionality
         const liveEventPopup = document.getElementById('liveEventPopup');
@@ -948,6 +1064,17 @@
             </div>
             <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
             <p class="text-gray-600">We will send event details on your email.</p>
+        </div>
+    </div>
+    
+    <!-- Slideshow Popup -->
+    <div id="slideshowPopup" class="fixed inset-0 bg-black/95 z-[60] flex items-center justify-center p-4 transition-all duration-300" style="display: none; opacity: 0;">
+        <button id="closeSlideshowBtn" class="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-[70]">
+            <i class="fa-solid fa-times text-white text-2xl"></i>
+        </button>
+        <div class="relative w-full max-w-5xl aspect-video rounded-xl overflow-hidden border border-white/20 shadow-2xl">
+            <div id="slideshowTrack" class="flex h-full w-full transition-transform duration-500 ease-in-out">
+            </div>
         </div>
     </div>
 </body>

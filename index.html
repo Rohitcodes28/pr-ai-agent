@@ -97,15 +97,18 @@
         }
         
         @media (max-width: 768px) {
-            .hover-card:hover {
-                transform: translateY(-2px);
-            }
-            body {
-                cursor: auto;
-            }
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
+            .hover-card:hover { transform: translateY(-2px); }
+            body { cursor: auto; }
+            .cursor-dot, .cursor-outline { display: none; }
+        }
+
+        /* Performance Optimizations */
+        .archive-item, .cursor-dot, .cursor-outline {
+            will-change: transform, opacity;
+        }
+        .archive-item {
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
     </style>
 </head>
@@ -124,8 +127,8 @@
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#services" class="text-gray-600 hover:text-accent font-semibold transition">Services</a>
                     <a href="#live-event" class="text-gray-600 hover:text-accent font-semibold transition">Live Events</a>
+                    <a href="#archive" class="text-gray-600 hover:text-accent font-semibold transition">Events</a>
                     <a href="podcasts.html" class="text-gray-600 hover:text-accent font-semibold transition">Podcasts</a>
-                    <a href="archive.html" class="text-gray-600 hover:text-accent font-semibold transition">Events</a>
                     <a href="#contact" class="text-gray-600 hover:text-accent font-semibold transition">Contact</a>
                     <a href="#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg">Apply Now</a>
                 </div>
@@ -138,8 +141,8 @@
                 <div class="flex flex-col space-y-4">
                     <a href="#services" class="text-gray-600 hover:text-accent font-semibold transition px-4">Services</a>
                     <a href="#live-event" class="text-gray-600 hover:text-accent font-semibold transition px-4">Live Events</a>
+                    <a href="#archive" class="text-gray-600 hover:text-accent font-semibold transition px-4">Events</a>
                     <a href="podcasts.html" class="text-gray-600 hover:text-accent font-semibold transition px-4">Podcasts</a>
-                    <a href="archive.html" class="text-gray-600 hover:text-accent font-semibold transition px-4">Events</a>
                     <a href="#contact" class="text-gray-600 hover:text-accent font-semibold transition px-4">Contact</a>
                     <a href="#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg mx-4 text-center">Apply Now</a>
                 </div>
@@ -225,14 +228,14 @@
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex items-center gap-3 mb-4">
-                <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Live Now</span>
+                <span id="le-badge" class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Live Now</span>
                 <span class="text-gray-400 font-semibold tracking-wide">Edition 5</span>
             </div>
             <div class="grid lg:grid-cols-2 gap-8 items-start">
                 <!-- Left Column - Event Details -->
                 <div class="space-y-6">
-                    <h2 class="text-3xl md:text-4xl font-extrabold">Pinkvilla Screen & Style Icons 2026</h2>
-                    <p class="text-lg text-gray-300 leading-relaxed">
+                    <h2 id="le-title" class="text-3xl md:text-4xl font-extrabold">Pinkvilla Screen & Style Icons 2026</h2>
+                    <p id="le-desc" class="text-lg text-gray-300 leading-relaxed">
                         The flagship awards of the global lifestyle and entertainment media hub. Recognizing the crème de la crème of global superstars, business moguls, and fashion icons.
                     </p>
                     
@@ -312,74 +315,101 @@
             
             <!-- Centered Apply Button -->
             <div class="text-center mt-12">
-                <a href="#apply" data-form-type="attend" class="apply-link inline-block bg-accent text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-500 transition shadow-[0_0_20px_rgba(37,99,235,0.4)]">Attend</a>
+                <a href="#apply" id="le-btn" data-form-type="attend" class="apply-link inline-block bg-accent text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-500 transition shadow-[0_0_20px_rgba(37,99,235,0.4)]">Attend</a>
             </div>
         </div>
     </section>
 
-    <!-- Archive Section with Real Images -->
+    <!-- Archive Section with Sponsor Experience -->
     <section id="archive" class="py-24 bg-white reveal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-12">
                 <div>
-                    <h2 class="text-3xl font-bold mb-4">Event & Campaign Archive</h2>
-                    <div class="w-20 h-1 bg-accent"></div>
+                    <h2 class="text-4xl font-extrabold mb-4">Sponsor Experience</h2>
+                    <div class="w-20 h-1 bg-accent mb-6"></div>
+                    <p class="text-xl text-gray-600 font-semibold">“See how brands are positioned, experienced, and remembered at our events.”</p>
                 </div>
-                <p class="hidden md:block text-gray-500 max-w-md text-right">A curated history of our past PR campaigns, stage moments, and media breakthroughs.</p>
+            </div>
+
+            <!-- Sponsor Experience Videos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
+                <div class="space-y-4">
+                    <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
+                        <video id="sponsor-vid-1" class="w-full h-full object-cover sponsor-video" controls playsinline>
+                            <source src="photos/Brand Partnerships & Visibility/Sponsors Sample_1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="text-gray-500 font-medium italic text-center">High-energy event environment designed to maximize brand visibility and audience engagement</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
+                        <video id="sponsor-vid-2" class="w-full h-full object-cover sponsor-video" controls playsinline>
+                            <source src="photos/Brand Partnerships & Visibility/Sponsors Sample_2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="text-gray-500 font-medium italic text-center">Strategic sponsor integration across uring continuous brand exposure</p>
+                </div>
+            </div>
+
+            <!-- Context Text Block -->
+            <div class="max-w-3xl mx-auto bg-gray-50 rounded-3xl p-8 md:p-12 mb-16 border border-gray-100 shadow-sm">
+                <div class="grid md:grid-cols-1 gap-6 text-lg text-gray-700">
+                    <div class="flex items-start gap-4">
+                        <div class="w-2 h-2 bg-accent rounded-full mt-2.5 flex-shrink-0"></div>
+                        <p>Sponsor branding integrated across stage, audience zones, and media capture</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-2 h-2 bg-accent rounded-full mt-2.5 flex-shrink-0"></div>
+                        <p>Designed for both on-ground visibility and digital amplification</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-2 h-2 bg-accent rounded-full mt-2.5 flex-shrink-0"></div>
+                        <p>Focused on recall, not just placement</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h2 class="text-4xl font-extrabold mb-4">Events</h2>
+                <div class="w-20 h-1 bg-accent"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- GIS 2025 -->
                 <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition">
-                    <img src="Photos/Events-1.jpg" alt="Celebrity Networking" class="archive-img w-full h-full object-cover">
+                    <img src="photos/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/1.jpg" alt="GIS 2025" class="archive-img w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <h3 class="text-white font-bold text-xl mb-1">Celebrity Networking</h3>
-                        <p class="text-gray-300 text-sm">Mumbai • 2025</p>
+                        <h3 class="text-white font-bold text-xl mb-1">GIS 2025</h3>
+                        <p class="text-gray-300 text-sm">Bhopal • Feb 2025</p>
                     </div>
                 </div>
                 
+                <!-- CEO Summit -->
                 <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition">
-                    <img src="Photos/Events-2.jpg" alt="Stage Performance" class="archive-img w-full h-full object-cover">
+                    <img src="photos/Events I Organized/CEO Summit 2024/Audience Engagement.JPG" alt="CEO Summit 2024" class="archive-img w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <h3 class="text-white font-bold text-xl mb-1">Stage Performance</h3>
-                        <p class="text-gray-300 text-sm">Delhi • 2025</p>
-                    </div>
-                </div>
-                
-                <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition lg:col-span-1 md:col-span-2">
-                    <img src="Photos/Events-3.jpg" alt="Red Carpet" class="archive-img w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <h3 class="text-white font-bold text-xl mb-1">Red Carpet Premiere</h3>
-                        <p class="text-gray-300 text-sm">Mumbai • 2025</p>
-                    </div>
-                </div>
-                
-                <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition md:col-span-2">
-                    <img src="Photos/Events-4.jpg" alt="Award Ceremony" class="archive-img w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <h3 class="text-white font-bold text-xl mb-1">Awards Ceremony</h3>
-                        <p class="text-gray-300 text-sm">Bangalore • 2024</p>
-                    </div>
-                </div>
-                
-                <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition">
-                    <img src="Photos/Events-5.jpg" alt="VIP Lounge" class="archive-img w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <h3 class="text-white font-bold text-xl mb-1">VIP Networking</h3>
+                        <h3 class="text-white font-bold text-xl mb-1">CEO Summit 2024</h3>
                         <p class="text-gray-300 text-sm">Mumbai • 2024</p>
                     </div>
                 </div>
-
-                <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition md:col-span-2 lg:col-span-3">
-                    <img src="Photos/IMG_5250.jpg" alt="Media Coverage" class="archive-img w-full h-full object-cover">
+                
+                <!-- Viksit Bharat (Covered) -->
+                <div class="archive-item h-64 rounded-2xl group cursor-pointer relative overflow-hidden shadow-sm hover:shadow-xl transition lg:col-span-1 md:col-span-1">
+                    <img src="photos/Events I Covered/India Mission to Viksit Bharat 2025/01.jpg" alt="Viksit Bharat 2025" class="archive-img w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-                        <h3 class="text-white font-bold text-xl mb-1">Media Coverage Summit</h3>
-                        <p class="text-gray-300 text-sm">Pan India • 2024</p>
+                        <h3 class="text-white font-bold text-xl mb-1">Viksit Bharat 2025</h3>
+                        <p class="text-gray-300 text-sm">Delhi • 2025 • Covered</p>
                     </div>
                 </div>
             </div>
             
-            <div class="text-center mt-12">
-                <a href="archive.html" class="border-2 border-corporate-900 text-corporate-900 px-8 py-3 rounded-full font-bold hover:bg-corporate-900 hover:text-white transition">View All Archives</a>
+            <div class="text-center mt-16 space-y-8">
+                <p class="text-2xl font-bold text-corporate-900 max-w-3xl mx-auto leading-tight italic">
+                    “We don’t just host events—we create environments where brands are seen, experienced, and remembered.”
+                </p>
+                <div class="pt-4">
+                    <a href="archive.html" class="bg-corporate-900 text-white px-10 py-4 rounded-full font-bold hover:bg-accent transition shadow-xl">Explore Full Gallery</a>
+                </div>
             </div>
         </div>
     </section>
@@ -890,5 +920,10 @@
             <p class="text-gray-600">We will send event details on your email.</p>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Static content is already in place. Fetch calls removed.
+        });
+    </script>
 </body>
 </html>
