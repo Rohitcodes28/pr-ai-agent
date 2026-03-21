@@ -151,7 +151,7 @@
                                 </select>
                             </div>
                             <div class="col-span-2">
-                                <label class="block text-sm font-semibold text-gray-400 mb-1">Photo Files (Comma separated. Upload to Photos/ via cPanel first)</label>
+                                <label class="block text-sm font-semibold text-gray-400 mb-1">Photo Files (Comma separated. Upload to assets/images/events/ via cPanel first)</label>
                                 <textarea id="ev-images" rows="2" placeholder="Events-1.jpg, IMG_5250.jpg" class="w-full bg-gray-800 border bg-transparent border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:border-gray-500"></textarea>
                             </div>
                         </div>
@@ -316,7 +316,7 @@
             if(!title) { alert('Title required'); return; }
 
             const rawImages = document.getElementById('ev-images').value;
-            const images = rawImages.split(',').map(s=>s.trim()).filter(s=>s).map(img => `Photos/${img}`);
+            const images = rawImages.split(',').map(s=>s.trim()).filter(s=>s).map(img => `assets/images/events/${img}`);
 
             const newEvent = {
                 id: 'event-' + document.getElementById('ev-year').value + '-' + Date.now(),
