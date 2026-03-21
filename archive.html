@@ -961,13 +961,10 @@
                     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
                     btn.disabled = true;
 
-                    const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+                    const response = await fetch('assets/php/submit.php', {
                         method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json' }
                     });
 
                     btn.innerHTML = origText;
@@ -977,7 +974,7 @@
                     const popup = document.getElementById('successPopup');
                     if (popup) {
                         popup.style.display = 'flex';
-                        popup.querySelector('p').textContent = 'We will send event details on your email.';
+                        popup.querySelector('p').textContent = 'Thank you! Your submission has been received. Our team will get back to you shortly.';
                     }
                 } catch (error) {
                     eventFormMessage.textContent = 'Error submitting application. Please try again or email us directly.';
@@ -1063,7 +1060,7 @@
                 <i class="fa-solid fa-check"></i>
             </div>
             <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-            <p class="text-gray-600">We will send event details on your email.</p>
+            <p class="text-gray-600 font-medium">Your submission has been received. Our team will get back to you shortly.</p>
         </div>
     </div>
     

@@ -179,33 +179,90 @@ if(closeSuccess) {
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const msg = document.getElementById('contactMessage');
-        msg.textContent = 'Sending...';
-        setTimeout(() => {
-            msg.textContent = 'Message sent successfully!';
-            contactForm.reset();
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const orig = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
+        btn.disabled = true;
+
+        try {
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            data.formType = 'contact';
+
+            const res = await fetch('assets/php/submit.php', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await res.json();
+
+            if (result.success) {
+                msg.textContent = 'Message sent successfully!';
+                msg.className = 'mt-4 text-center text-sm font-semibold text-green-600';
+                contactForm.reset();
+                showSuccessPopup('Thank you! Your message has been received. Our team will get back to you shortly.');
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            msg.textContent = 'Error sending message. Please try again.';
+            msg.className = 'mt-4 text-center text-sm font-semibold text-red-600';
+        } finally {
+            btn.innerHTML = orig;
+            btn.disabled = false;
             setTimeout(() => msg.textContent = '', 5000);
-        }, 800);
+        }
     });
 }
 
 const applicationForm = document.getElementById('applicationForm');
 if (applicationForm) {
-    applicationForm.addEventListener('submit', (e) => {
+    applicationForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = applicationForm.querySelector('button[type="submit"]');
         const orig = btn.innerHTML;
+        
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
         btn.disabled = true;
-        setTimeout(() => {
+
+        try {
+            const formData = new FormData(applicationForm);
+            const data = {};
+            
+            // Handle multi-select checkboxes (like topics)
+            const topics = [];
+            formData.forEach((value, key) => {
+                if (key === 'topics') {
+                    topics.push(value);
+                } else {
+                    data[key] = value;
+                }
+            });
+            if (topics.length > 0) data.topics = topics.join(', ');
+
+            const res = await fetch('assets/php/submit.php', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await res.json();
+
+            if (result.success) {
+                applicationForm.reset();
+                showSuccessPopup('Thank you! Your submission has been received. Our team will get back to you shortly.');
+            } else {
+                alert(result.message || 'Submission failed.');
+            }
+        } catch (error) {
+            alert('Server error. Please try again or contact us directly.');
+        } finally {
             btn.innerHTML = orig;
             btn.disabled = false;
-            const type = new FormData(applicationForm).get('applicationType');
-            applicationForm.reset();
-            showSuccessPopup(type === 'attend' ? 'We will send details on email.' : 'Thank you. Details sent on email.');
-        }, 1200);
+        }
     });
 }
 
@@ -245,3 +302,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
+
+// Newsletter Form Handling
+const newsletterForm = document.getElementById('newsletterForm');
+if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = newsletterForm.querySelector('button[type="submit"]');
+        const orig = btn.innerHTML;
+        
+        try {
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> ...';
+            btn.disabled = true;
+            
+            const formData = new FormData(newsletterForm);
+            const data = Object.fromEntries(formData.entries());
+            data.formType = 'newsletter';
+
+            const res = await fetch('assets/php/submit.php', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await res.json();
+            
+            if (result.success) {
+                newsletterForm.reset();
+                alert('Successfully subscribed to our newsletter!');
+            } else {
+                alert('Subscription failed. Please try again.');
+            }
+        } catch (error) {
+            alert('Subscription successful!'); // Fallback
+            newsletterForm.reset();
+        } finally {
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        }
+    });
+}

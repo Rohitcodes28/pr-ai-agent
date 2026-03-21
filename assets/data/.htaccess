@@ -1,0 +1,8 @@
+# Protect sensitive data files
+<Files "*.json">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Prevent directory listing
+Options -Indexes

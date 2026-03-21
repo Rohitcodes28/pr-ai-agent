@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnicornXMedia Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .submission-card { transition: all 0.2s; }
+        .submission-card:hover { transform: translateX(4px); border-color: #2563EB; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-900">
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full border border-slate-100">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-3xl mx-auto mb-4">UX</div>
+                <h1 class="text-2xl font-black">Admin Portal</h1>
+                <p class="text-slate-500">Sign in to manage submissions</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Username</label>
+                    <input type="text" id="username" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Password</label>
+                    <input type="password" id="password" class="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                </div>
+                <p id="loginError" class="text-red-500 text-sm font-semibold hidden"></p>
+                <button onclick="login()" id="loginBtn" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200">
+                    Sign In <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="hidden flex flex-col min-h-screen">
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-20 items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold">UX</div>
+                        <span class="font-black text-xl tracking-tight">Leads Dashboard</span>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <button onclick="fetchSubmissions()" class="text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-rotate mr-2"></i> Refresh
+                        </button>
+                        <button onclick="logout()" class="text-red-500 hover:text-red-700 font-bold text-sm">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-3xl font-black">Recent Submissions</h2>
+                    <p class="text-slate-500">Manage your latest PR and Event leads</p>
+                </div>
+                <div id="statsCount" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-bold text-sm">
+                    0 Submissions
+                </div>
+            </div>
+
+            <div id="submissionsList" class="space-y-4">
+                <!-- Loader -->
+                <div id="loader" class="text-center py-20">
+                    <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-600"></i>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = 'assets/php/admin_api.php';
+
+        async function login() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+            const err = document.getElementById('loginError');
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Signing in...';
+            btn.disabled = true;
+            err.classList.add('hidden');
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'login', username: u, password: p })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showDashboard();
+                } else {
+                    err.textContent = data.message;
+                    err.classList.remove('hidden');
+                }
+            } catch (e) {
+                err.textContent = "Server error. Check PHP configuration.";
+                err.classList.remove('hidden');
+            }
+            btn.innerHTML = 'Sign In <i class="fa-solid fa-arrow-right ml-2"></i>';
+            btn.disabled = false;
+        }
+
+        async function logout() {
+            await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'logout' }) });
+            location.reload();
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.remove('hidden');
+            fetchSubmissions();
+        }
+
+        async function fetchSubmissions() {
+            const list = document.getElementById('submissionsList');
+            const count = document.getElementById('statsCount');
+            const loader = document.getElementById('loader');
+            
+            if(loader) loader.style.display = 'block';
+
+            try {
+                const res = await fetch(`${API_URL}?action=fetch_submissions`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    count.textContent = `${data.data.length} Submissions`;
+                    if (data.data.length === 0) {
+                        list.innerHTML = '<div class="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300 text-slate-400 font-bold">No submissions yet</div>';
+                        return;
+                    }
+                    
+                    list.innerHTML = data.data.map(sub => `
+                        <div class="submission-card bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center gap-6">
+                            <div class="flex-grow">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="bg-blue-600 text-white text-[10px] uppercase font-black px-3 py-1 rounded-full tracking-wider">${sub.type}</span>
+                                    <span class="text-slate-400 text-xs font-bold">${sub.timestamp}</span>
+                                </div>
+                                <h3 class="font-black text-xl">${sub.data.name || sub.data.full_name || 'Anonymous'}</h3>
+                                <p class="text-blue-600 font-bold text-sm mb-4">${sub.data.email}</p>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8 pt-4 border-t border-slate-100">
+                                    ${Object.entries(sub.data).filter(([k]) => !['applicationType', 'formType', 'name', 'full_name', 'email'].includes(k)).map(([key, val]) => `
+                                        <div>
+                                            <div class="text-[10px] text-slate-400 uppercase font-black mb-1">${key.replace(/_/g, ' ')}</div>
+                                            <div class="text-sm font-bold text-slate-700">${Array.isArray(val) ? val.join(', ') : val}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) {
+                list.innerHTML = `<div class="p-8 bg-red-50 text-red-600 rounded-2xl border border-red-100 font-bold">Failed to load data. Ensure assets/data/submissions.json is writable.</div>`;
+            }
+        }
+
+        // Initial Status Check
+        async function checkStatus() {
+            try {
+                const res = await fetch(`${API_URL}?action=check_status`);
+                const data = await res.json();
+                if (data.loggedIn) showDashboard();
+            } catch (e) {}
+        }
+        checkStatus();
+    </script>
+</body>
+</html>

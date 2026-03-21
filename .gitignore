@@ -1,0 +1,5 @@
+assets/php/config.php
+assets/data/*.json
+.DS_Store
+node_modules/
+.env
