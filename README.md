@@ -12,6 +12,7 @@ To stop manually adding/deleting files, follow these steps in your **cPanel**:
    - **Clone URL**: Paste your GitHub repository URL (use the SSH version: `git@github.com...`).
    - **File Path**: Set this to `public_html/repos/unicornx` (or similar).
 5. **Automatic Deployment**: 
+
    - I have included a `.cpanel.yml` file in your project. Each time you push to Git, cPanel will see it.
    - Go to the repo in cPanel and click **"Deploy"** to move the files to `public_html`.
    - *Note: Every push to Git will now be one click away from being live!*
