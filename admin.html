@@ -182,7 +182,7 @@
                 const data = await res.json();
                 
                 if (data.success) {
-                    allSubmissions = data.data;
+                    allSubmissions = data.submissions || [];
                     renderSubmissions();
                 } else {
                     throw new Error(data.message);
