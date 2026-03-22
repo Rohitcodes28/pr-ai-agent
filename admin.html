@@ -118,7 +118,7 @@
             err.classList.add('hidden');
 
             try {
-                const res = await fetch(API_URL, {
+                const res = await fetch(`${API_URL}?action=login`, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'login', username: u, password: p })
                 });

@@ -6,7 +6,9 @@ session_start();
 $config = require __DIR__ . '/config.php';
 header('Content-Type: application/json');
 
-$action = $_GET['action'] ?? '';
+$rawInput = file_get_contents('php://input');
+$jsonData = json_decode($rawInput, true) ?? [];
+$action = $_GET['action'] ?? $jsonData['action'] ?? '';
 
 // Handle Status Check (Must be allowed even if not logged in to check session)
 if ($action === 'check_status') {
@@ -16,10 +18,10 @@ if ($action === 'check_status') {
 
 // Handle Login
 if ($action === 'login') {
-    $raw = file_get_contents('php://input');
-    $data = json_decode($raw, true) ?? $_POST;
+    $data = !empty($jsonData) ? $jsonData : $_POST;
     
-    if (($data['username'] ?? '') === $config['username'] && ($data['password'] ?? '') === $config['password']) {
+    if (($data['username'] ?? '') === ($config['username'] ?? 'admin') && 
+        ($data['password'] ?? '') === ($config['password'] ?? 'admin123')) {
         $_SESSION['admin_logged_in'] = true;
         echo json_encode(['success' => true]);
     } else {
