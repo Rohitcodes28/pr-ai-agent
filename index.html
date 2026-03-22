@@ -778,7 +778,7 @@
             </button>
 
             <!-- Decorative Elements -->
-            <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-10">
+            <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-10 pointer-events-none">
                 <i class="fa-solid fa-star text-[300px]"></i>
             </div>
 
@@ -910,6 +910,7 @@
     <!-- Submission Success Popup -->
     <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all animate-fade-in relative">
+            <div id="countdownTimer" class="absolute top-4 left-4 w-8 h-8 bg-blue-100/50 text-blue-600 font-bold rounded-full flex items-center justify-center text-sm font-mono">4</div>
             <button id="closeSuccess" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
                 <i class="fa-solid fa-times text-gray-600"></i>
             </button>

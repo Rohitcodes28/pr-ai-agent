@@ -161,19 +161,56 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 revealElements.forEach(el => revealObserver.observe(el));
 
-// Form Handling (Local Success)
+let successTimeout;
+let countdownInterval;
+
 const showSuccessPopup = (messageText) => {
     const popup = document.getElementById('successPopup');
+    const timerEl = document.getElementById('countdownTimer');
+    
     if(popup) {
         popup.style.display = 'flex';
         popup.querySelector('p').textContent = messageText;
+        
+        let secondsLeft = 4;
+        if (timerEl) timerEl.textContent = secondsLeft;
+        
+        clearInterval(countdownInterval);
+        clearTimeout(successTimeout);
+        
+        countdownInterval = setInterval(() => {
+            secondsLeft--;
+            if (timerEl) timerEl.textContent = secondsLeft;
+            if (secondsLeft <= 0) {
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+        
+        successTimeout = setTimeout(() => {
+            popup.style.display = 'none';
+        }, 4000);
     }
 };
 
 const closeSuccess = document.getElementById('closeSuccess');
+const successPopup = document.getElementById('successPopup');
+
 if(closeSuccess) {
     closeSuccess.addEventListener('click', () => {
-        document.getElementById('successPopup').style.display = 'none';
+        successPopup.style.display = 'none';
+        clearInterval(countdownInterval);
+        clearTimeout(successTimeout);
+    });
+}
+
+// Close popup when clicking outside
+if (successPopup) {
+    successPopup.addEventListener('click', (e) => {
+        if (e.target === successPopup) {
+            successPopup.style.display = 'none';
+            clearInterval(countdownInterval);
+            clearTimeout(successTimeout);
+        }
     });
 }
 
