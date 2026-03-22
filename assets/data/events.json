@@ -9,6 +9,7 @@
         "media_path": "assets/videos/vid1.mp4",
         "media_type": "video",
         "is_live": true,
+        "category": "Events Organized",
         "edition": "Edition 5",
         "features": [
             "2 Award presentations on stage", 
@@ -29,10 +30,18 @@
         "date": "2025-02-01",
         "display_date": "Bhopal • Feb 2025",
         "location": "Bhopal",
+        "category": "Events Covered",
         "media_path": "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/1.jpg",
         "media_type": "image",
         "is_live": false,
-        "edition": ""
+        "edition": "",
+        "images": [
+            "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/1.jpg",
+            "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/2.jpg",
+            "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/3.jpg",
+            "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/4.jpg",
+            "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/5.jpg"
+        ]
     },
     {
         "id": "event_3",
@@ -41,10 +50,17 @@
         "date": "2024-06-01",
         "display_date": "Mumbai • 2024",
         "location": "Mumbai",
+        "category": "Events Organized",
         "media_path": "assets/images/events/Events I Organized/CEO Summit 2024/Audience Engagement.JPG",
         "media_type": "image",
         "is_live": false,
-        "edition": ""
+        "edition": "",
+        "images": [
+            "assets/images/events/Events I Organized/CEO Summit 2024/Audience Engagement.JPG",
+            "assets/images/events/Events I Organized/CEO Summit 2024/Audience Engagement-2.JPG",
+            "assets/images/events/Events I Organized/CEO Summit 2024/Photoshoot.png",
+            "assets/images/events/Events I Organized/CEO Summit 2024/Team Engagement.jpg"
+        ]
     },
     {
         "id": "event_4",
@@ -53,9 +69,68 @@
         "date": "2025-01-01",
         "display_date": "Delhi • 2025 • Covered",
         "location": "Delhi",
+        "category": "Events Covered",
         "media_path": "assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/01.jpg",
         "media_type": "image",
         "is_live": false,
-        "edition": ""
+        "edition": "",
+        "images": [
+            "assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/01.jpg",
+            "assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/02.jpg",
+            "assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/03.jpg",
+            "assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/04.jpg"
+        ]
+    },
+    {
+        "id": "event_5",
+        "title": "Volunteer Gatherings for Social Cause (2019)",
+        "description": "Organising Volunteer Gatherings for Social Cause.",
+        "date": "2019-01-01",
+        "display_date": "2019 • Social Cause",
+        "location": "Bhopal",
+        "category": "Public Campaigns",
+        "media_path": "assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-1.JPG",
+        "media_type": "image",
+        "is_live": false,
+        "edition": "",
+        "images": [
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-1.JPG",
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-2.JPG",
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-3.JPG",
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-4.JPG"
+        ]
+    },
+    {
+        "id": "event_6",
+        "title": "Volunteer Gatherings for Political Campaigns (2025)",
+        "description": "Organising Volunteer Gatherings for Political Campaigns.",
+        "date": "2025-01-01",
+        "display_date": "2025 • Political",
+        "location": "Madhya Pradesh",
+        "category": "Public Campaigns",
+        "media_path": "assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-1.jpg",
+        "media_type": "image",
+        "is_live": false,
+        "edition": "",
+        "images": [
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-1.jpg",
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-2.jpg"
+        ]
+    },
+    {
+        "id": "event_7",
+        "title": "Volunteer Gatherings for Social Cause (2025)",
+        "description": "Organising Volunteer Gatherings for Social Cause.",
+        "date": "2025-02-01",
+        "display_date": "2025 • Social Cause",
+        "location": "Indore",
+        "category": "Public Campaigns",
+        "media_path": "assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Social Cause.png",
+        "media_type": "image",
+        "is_live": false,
+        "edition": "",
+        "images": [
+            "assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Social Cause.png"
+        ]
     }
 ]

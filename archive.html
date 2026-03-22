@@ -223,7 +223,7 @@
             <div
                 class="bg-gradient-to-br from-corporate-900 to-gray-900 text-white rounded-3xl max-w-2xl w-full mx-4 shadow-2xl transform transition-all animate-fade-in relative overflow-hidden">
                 <!-- Close Button -->
-                <div id="popupTimer" class="absolute top-4 left-16 w-8 h-8 bg-blue-100/30 text-white font-bold rounded-full flex items-center justify-center text-sm font-mono z-10">5</div>
+                <div id="popupTimer" class="absolute top-4 right-16 w-8 h-8 bg-blue-100/30 text-white font-bold rounded-full flex items-center justify-center text-sm font-mono z-10">5</div>
                 <button id="closePopup"
                     class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-10">
                     <i class="fa-solid fa-times text-xl"></i>
@@ -591,7 +591,7 @@
                         highlight: e.description,
                         icon: e.media_type === 'video' ? 'fa-video' : 'fa-image',
                         stat: e.edition || 'Completed',
-                        images: [e.media_path],
+                        images: e.images || [e.media_path],
                         type: e.media_type,
                         is_live: e.is_live // Added this
                     }));
@@ -654,28 +654,29 @@
                     mediaHTML = `<video class="card-img-${event.id} absolute inset-0 w-full h-full object-cover" muted loop playsinline><source src="${event.images[0]}" type="video/mp4"></video>`;
                 } else if (event.images && event.images.length > 0) {
                     mediaHTML = event.images.map((img, i) => `
-                        <img src="${img}" alt="${event.title}" class="card-img-${event.id} absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'} pointer-events-none">
+                        <img src="${img}" alt="${event.title}" class="archive-img card-img-${event.id} absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}">
                     `).join('');
                 }
 
                 const card = document.createElement('div');
-                card.className = 'archive-item bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition group cursor-pointer relative z-20';
+                card.className = 'archive-item scale-in group cursor-pointer';
                 card.setAttribute('data-id', event.id);
                 card.innerHTML = `
-                    <div class="h-64 relative overflow-hidden pointer-events-none">
-                        ${mediaHTML}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10"></div>
-                    </div>
-                    <div class="p-6 relative z-20 bg-white pointer-events-none">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="${badgeBg} ${badgeText} text-xs font-bold px-3 py-1 rounded-full">${event.year}</span>
-                            <span class="text-gray-400 text-xs">${event.date}</span>
+                    <div class="relative overflow-hidden rounded-2xl shadow-lg transition duration-500">
+                        <div class="aspect-video relative overflow-hidden">
+                            ${mediaHTML}
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
+                                <i class="fa-solid ${event.icon} text-white text-4xl transform scale-0 group-hover:scale-100 transition duration-500"></i>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold mb-2">${event.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4">${event.location} • ${event.highlight}</p>
-                        <div class="flex items-center gap-2 text-sm text-gray-400">
-                            <i class="fa-solid ${event.icon}"></i>
-                            <span>${event.stat}</span>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                            <div class="flex items-center gap-2 mb-1 text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                                <span>${event.year}</span>
+                                <span class="mx-1">•</span>
+                                <span>${event.date}</span>
+                            </div>
+                            <h3 class="text-white font-bold text-xl group-hover:text-blue-400 transition">${event.title}</h3>
+                            <p class="text-gray-300 text-sm mt-1 line-clamp-1">${event.location} • ${event.highlight}</p>
                         </div>
                     </div>
                 `;
@@ -720,10 +721,10 @@
 
                 // Update active button styles
                 yearFilters.forEach(f => {
-                    f.classList.remove('active', 'border-accent', 'text-accent');
+                    f.classList.remove('active', 'bg-accent', 'text-white', 'border-accent');
                     f.classList.add('border-gray-300', 'text-gray-600');
                 });
-                filter.classList.add('active', 'border-accent', 'text-accent');
+                filter.classList.add('active', 'bg-accent', 'text-white', 'border-accent');
                 filter.classList.remove('border-gray-300', 'text-gray-600');
 
                 // Reset items to show
@@ -968,7 +969,7 @@
     <!-- Submission Success Popup -->
     <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all animate-fade-in relative">
-            <div id="countdownTimer" class="absolute top-4 left-4 w-8 h-8 bg-blue-100/50 text-blue-600 font-bold rounded-full flex items-center justify-center text-sm font-mono">5</div>
+            <div id="countdownTimer" class="absolute top-4 right-16 w-8 h-8 bg-blue-100/50 text-blue-600 font-bold rounded-full flex items-center justify-center text-sm font-mono">5</div>
             <button onclick="document.getElementById('successPopup').style.display = 'none'; clearInterval(window.countdownInterval); clearTimeout(window.successTimeout);" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
                 <i class="fa-solid fa-times text-gray-600"></i>
             </button>

@@ -196,9 +196,15 @@
                             <label class="block text-sm font-bold text-slate-700 mb-1">Confirmed Guests (One per line)</label>
                             <textarea id="eventGuests" rows="3" class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none resize-none"></textarea>
                         </div>
-                        <div class="col-span-2">
-                            <label class="block text-sm font-bold text-slate-700 mb-1">What You Get (One per line)</label>
-                            <textarea id="eventFeatures" rows="3" class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none resize-none"></textarea>
+                        <div>
+                            <label class="block text-xs font-black uppercase text-slate-400 mb-2">Deliverables / What You Get (one per line)</label>
+                            <textarea id="eventFeatures" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 transition outline-none" placeholder="2 Award presentations on stage..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-black uppercase text-slate-400 mb-2">Gallery Images (one path per line)</label>
+                            <textarea id="eventGallery" rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 transition outline-none" placeholder="assets/images/events/.../1.jpg"></textarea>
+                            <p class="text-[10px] text-slate-400 mt-1 font-bold">Copy paths from the Media Gallery above and paste them here.</p>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-1">Category</label>
@@ -542,6 +548,7 @@
                     document.getElementById('eventEdition').value = event.edition || '';
                     document.getElementById('eventGuests').value = (event.guests || []).join('\n');
                     document.getElementById('eventFeatures').value = (event.features || []).join('\n');
+                    document.getElementById('eventGallery').value = (event.images || []).join('\n');
                     document.getElementById('eventCategory').value = event.category || 'Events Organized';
                     document.getElementById('eventIsFeatured').checked = (sitewideSettings.homepage_featured_events || []).includes(event.id);
                     document.getElementById('eventMediaPath').value = event.media_path;
@@ -624,6 +631,7 @@
                     edition: document.getElementById('eventEdition').value,
                     guests: document.getElementById('eventGuests').value.split('\n').filter(g => g.trim()),
                     features: document.getElementById('eventFeatures').value.split('\n').filter(f => f.trim()),
+                    images: document.getElementById('eventGallery').value.split('\n').filter(i => i.trim()),
                     category: document.getElementById('eventCategory').value,
                     media_path: mediaPath,
                     media_type: mediaType,
