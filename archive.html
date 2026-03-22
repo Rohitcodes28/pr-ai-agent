@@ -599,130 +599,93 @@
                         is_live: e.is_live // Added this
                     }));
                     
-                    // Update Live Event Popup
-                    const liveEvent = data.events.find(e => e.is_live);
-                    if (liveEvent) {
-                        const popupTitle = document.getElementById('popup-title');
-                        if (popupTitle) {
-                            popupTitle.textContent = liveEvent.title;
-                            const popupEdition = document.getElementById('popup-edition');
-                            if (popupEdition) popupEdition.textContent = liveEvent.edition || '';
-                            
-                            const popupDetails = document.querySelector('#liveEventPopup .flex-wrap');
-                            if (popupDetails) {
-                                popupDetails.innerHTML = `
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-calendar text-accent"></i>
-                                        <span>${liveEvent.display_date}</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-location-dot text-accent"></i>
-                                        <span>${liveEvent.location}</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-users text-accent"></i>
-                                        <span>${liveEvent.guests ? liveEvent.guests.length : 0}+ Celebrity Guests</span>
-                                    </div>
-                                `;
-                            }
-                            const popupDesc = document.getElementById('popup-desc');
-                            if (popupDesc) popupDesc.textContent = liveEvent.description;
-                        }
-                    }
-                    
+                    // Updated logging
+                    console.log('Loaded events:', ARCHIVE_EVENTS.length);
                     updateGrid();
                 }
             } catch (e) {
                 console.error("Error fetching archives:", e);
+                const counterEl = document.getElementById('eventCounter');
+                if (counterEl) counterEl.textContent = 'Error loading events: ' + e.message;
             }
         }
 
         function updateGrid() {
-            const filteredEvents = ARCHIVE_EVENTS.filter(event => {
-                const isMatch = (currentFilter === 'all' || 
-                                 event.category.trim().toLowerCase() === currentFilter.trim().toLowerCase());
-                return isMatch && !event.is_live;
-            });
-            console.log('Update Grid - Filter:', currentFilter, 'Total:', filteredEvents.length, 'Showing:', Math.min(filteredEvents.length, currentItems));
-            const counterEl = document.getElementById('eventCounter');
-            if (counterEl) {
-                counterEl.textContent = `Showing ${Math.min(filteredEvents.length, currentItems)} of ${filteredEvents.length} events`;
-            }
-
-            archiveGrid.innerHTML = '';
-            autoSlideIntervalsMap.forEach(clearInterval);
-            autoSlideIntervalsMap.clear();
-
-            if (filteredEvents.length <= currentItems) {
-                loadMoreBtnContainer.style.display = 'none';
-            } else {
-                loadMoreBtnContainer.style.display = 'flex';
-            }
-
-            filteredEvents.slice(0, currentItems).forEach((event, index) => {
-                let badgeBg = 'bg-blue-50'; let badgeText = 'text-blue-600';
-                if (event.category === 'Public Campaigns') { badgeBg = 'bg-purple-50'; badgeText = 'text-purple-600'; }
-                if (event.category === 'Events Covered') { badgeBg = 'bg-green-50'; badgeText = 'text-green-600'; }
-                if (event.category === 'Sponsor Experience') { badgeBg = 'bg-amber-50'; badgeText = 'text-amber-600'; }
+            try {
+                const filteredEvents = ARCHIVE_EVENTS.filter(event => {
+                    const isMatch = (currentFilter === 'all' || 
+                                     event.category.trim().toLowerCase() === currentFilter.trim().toLowerCase());
+                    return isMatch && !event.is_live;
+                });
                 
-                let mediaHTML = '';
-                if (event.type === 'video') {
-                    mediaHTML = `<video class="card-img-${event.id} absolute inset-0 w-full h-full object-cover" muted loop playsinline autoplay preload="auto"><source src="${event.images[0]}" type="video/mp4"></video>`;
-                } else if (event.images && event.images.length > 0) {
-                    mediaHTML = event.images.map((img, i) => `
-                        <img src="${img}" alt="${event.title}" class="archive-img card-img-${event.id} absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}">
-                    `).join('');
+                console.log('Update Grid - Filter:', currentFilter, 'Total:', filteredEvents.length);
+                const counterEl = document.getElementById('eventCounter');
+                if (counterEl) {
+                    counterEl.textContent = `Showing ${filteredEvents.length} of ${ARCHIVE_EVENTS.length} total past events`;
                 }
 
-                const card = document.createElement('div');
-                card.className = 'archive-item scale-in group cursor-pointer';
-                card.setAttribute('data-id', event.id);
-                card.innerHTML = `
-                    <div class="relative overflow-hidden rounded-3xl shadow-lg transition-all duration-500 hover:-translate-y-2 border border-black/5 bg-white">
-                        <div class="aspect-video relative overflow-hidden bg-slate-900">
-                            ${mediaHTML}
-                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex items-center justify-center">
-                                <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 transform scale-50 group-hover:scale-100 transition-transform duration-500">
-                                    <i class="fa-solid fa-expand text-white text-xl"></i>
+                archiveGrid.innerHTML = '';
+                autoSlideIntervalsMap.forEach(clearInterval);
+                autoSlideIntervalsMap.clear();
+
+                if (loadMoreBtnContainer) loadMoreBtnContainer.style.display = 'none';
+
+                filteredEvents.forEach((event, index) => {
+                    try {
+                        let badgeBg = 'bg-blue-50'; let badgeText = 'text-blue-600';
+                        if (event.category === 'Public Campaigns') { badgeBg = 'bg-purple-50'; badgeText = 'text-purple-600'; }
+                        if (event.category === 'Events Covered') { badgeBg = 'bg-green-50'; badgeText = 'text-green-600'; }
+                        
+                        let mediaHTML = '';
+                        if (event.type === 'video') {
+                            mediaHTML = `<video class="absolute inset-0 w-full h-full object-cover" muted loop playsinline autoplay preload="auto"><source src="${event.images[0]}" type="video/mp4"></video>`;
+                        } else if (event.images && event.images.length > 0) {
+                            mediaHTML = `<img src="${event.images[0]}" alt="${event.title}" class="absolute inset-0 w-full h-full object-cover">`;
+                        }
+
+                        const card = document.createElement('div');
+                        card.className = 'archive-item group cursor-pointer opacity-100 transition-all duration-300';
+                        card.innerHTML = `
+                            <div class="relative overflow-hidden rounded-3xl shadow-lg border border-black/5 bg-white h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                                <div class="aspect-video relative overflow-hidden bg-slate-900 pointer-events-none">
+                                    ${mediaHTML}
+                                    <div class="absolute inset-0 bg-black/10 transition-opacity duration-300"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                                        <div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30">
+                                            <i class="fa-solid fa-expand text-white text-xl"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-5 bg-white">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-[10px] font-black ${badgeText} uppercase tracking-widest ${badgeBg} px-3 py-1 rounded-full">${event.year}</span>
+                                        <span class="text-gray-400 text-[10px] font-bold">${event.date.split('•')[0]}</span>
+                                    </div>
+                                    <h3 class="text-corporate-900 font-extrabold text-lg group-hover:text-blue-600 transition-colors leading-tight mb-2 line-clamp-2 h-[2.5rem] flex items-center">${event.title}</h3>
+                                    <div class="flex items-center gap-2 text-gray-400 text-[10px] font-bold">
+                                        <i class="fa-solid fa-location-dot text-blue-500"></i>
+                                        <span>${event.location}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="p-5 bg-white relative">
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">${event.year}</span>
-                                <span class="text-gray-400 text-[10px] font-bold">${event.date}</span>
-                            </div>
-                            <h3 class="text-corporate-900 font-black text-lg group-hover:text-blue-600 transition-colors leading-tight line-clamp-1 mb-2">${event.title}</h3>
-                            <div class="flex items-center gap-2 text-gray-400 text-[10px] font-bold">
-                                <i class="fa-solid fa-location-dot text-blue-500"></i>
-                                <span>${event.location}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                archiveGrid.appendChild(card);
-                
-                if (event.type === 'video') {
-                    const video = card.querySelector('video');
-                    mediaObserver.observe(video);
-                    card.addEventListener('mouseenter', () => video.play());
-                } else if (event.images && event.images.length > 1) {
-                    slideshowObserver.observe(card);
-                }
-
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                }, 10 * index);
-
-                card.addEventListener('click', (e) => {
-                    e.preventDefault(); e.stopPropagation();
-                    openSlideshow(event.id);
+                        `;
+                        archiveGrid.appendChild(card);
+                        
+                        card.addEventListener('click', (e) => {
+                            e.preventDefault(); e.stopPropagation();
+                            openSlideshow(event.id);
+                        });
+                        
+                        if (event.type === 'video') {
+                            const video = card.querySelector('video');
+                            if (video) mediaObserver.observe(video);
+                        }
+                    } catch (err) {
+                        console.error('Error rendering card for event:', event.id, err);
+                    }
                 });
-            });
-
-            if (loadMoreBtnContainer) {
-                loadMoreBtnContainer.style.display = filteredEvents.length > currentItems ? 'block' : 'none';
+            } catch (err) {
+                console.error('Error in updateGrid:', err);
             }
         }
 
@@ -775,6 +738,7 @@
             `).join('');
 
             slideshowPopup.style.display = 'flex';
+            slideshowPopup.style.zIndex = '9999';
             setTimeout(() => { slideshowPopup.style.opacity = '1'; }, 10);
             
             let currentPopupSlide = 0;
