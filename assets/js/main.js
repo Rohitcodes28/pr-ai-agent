@@ -193,7 +193,7 @@ if (contactForm) {
             const data = Object.fromEntries(formData.entries());
             data.formType = 'contact';
 
-            const res = await fetch('assets/php/submit.php', {
+            const res = await fetch('submit.php', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' }
@@ -245,7 +245,7 @@ if (applicationForm) {
             });
             if (topics.length > 0) data.topics = topics.join(', ');
 
-            const res = await fetch('assets/php/submit.php', {
+            const res = await fetch('submit.php', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' }
@@ -320,7 +320,7 @@ if (newsletterForm) {
             const data = Object.fromEntries(formData.entries());
             data.formType = 'newsletter';
 
-            const res = await fetch('assets/php/submit.php', {
+            const res = await fetch('submit.php', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' }
