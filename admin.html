@@ -214,8 +214,8 @@
                             <span class="bg-blue-600 text-white text-[10px] uppercase font-black px-3 py-1 rounded-full tracking-wider">${sub.type}</span>
                             <span class="text-slate-400 text-xs font-bold">${sub.timestamp}</span>
                         </div>
-                        <h3 class="font-black text-xl">${sub.data.name || sub.data.full_name || sub.data.email || 'Anonymous'}</h3>
-                        <p class="text-blue-600 font-bold text-sm mb-4">${sub.data.email}</p>
+                        <h3 class="font-black text-xl">${sub.data.name || sub.data.full_name || 'Anonymous'}</h3>
+                        <p class="text-blue-600 font-bold text-sm mb-4">${sub.email || sub.data.email || ''}</p>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8 pt-4 border-t border-slate-100">
                             ${Object.entries(sub.data).filter(([k]) => !['applicationType', 'formType', 'name', 'full_name', 'email'].includes(k)).map(([key, val]) => `
                                 <div>
