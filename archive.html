@@ -567,14 +567,14 @@
         }
 
         // Render Events Grid & Load More Functionality
+        let ARCHIVE_EVENTS = [];
+        let currentFilter = 'all';
+        let currentItems = 6; // Increased to 6
         const archiveGrid = document.getElementById('archiveGrid');
         const yearFilters = document.querySelectorAll('.year-filter');
         const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         const autoSlideIntervalsMap = new Map();
-        let ARCHIVE_EVENTS = [];
-        let currentItems = 3;
-        let currentFilter = 'all';
 
         async function fetchArchives() {
             try {
@@ -643,6 +643,12 @@
             autoSlideIntervalsMap.forEach(clearInterval);
             autoSlideIntervalsMap.clear();
 
+            if (filteredEvents.length <= currentItems) {
+                loadMoreBtnContainer.style.display = 'none';
+            } else {
+                loadMoreBtnContainer.style.display = 'flex';
+            }
+
             filteredEvents.slice(0, currentItems).forEach((event, index) => {
                 let badgeBg = 'bg-accent/10'; let badgeText = 'text-accent';
                 if (event.year === 'Sponsor Experience') { badgeBg = 'bg-blue-100'; badgeText = 'text-blue-600'; }
@@ -662,21 +668,24 @@
                 card.className = 'archive-item scale-in group cursor-pointer';
                 card.setAttribute('data-id', event.id);
                 card.innerHTML = `
-                    <div class="relative overflow-hidden rounded-2xl shadow-lg transition duration-500">
-                        <div class="aspect-video relative overflow-hidden">
+                    <div class="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:-translate-y-2 border border-white/10">
+                        <div class="aspect-video relative overflow-hidden bg-gray-900">
                             ${mediaHTML}
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-500 flex items-center justify-center">
-                                <i class="fa-solid ${event.icon} text-white text-4xl transform scale-0 group-hover:scale-100 transition duration-500"></i>
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
+                                <i class="fa-solid fa-expand text-white text-4xl transform scale-0 group-hover:scale-100 transition-transform duration-500"></i>
                             </div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                            <div class="flex items-center gap-2 mb-1 text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent backdrop-blur-[2px] z-20">
+                            <div class="flex items-center gap-2 mb-2 text-[10px] font-black text-blue-400 uppercase tracking-[0.2em]">
                                 <span>${event.year}</span>
-                                <span class="mx-1">•</span>
+                                <span class="bg-blue-400/20 w-1 h-1 rounded-full"></span>
                                 <span>${event.date}</span>
                             </div>
-                            <h3 class="text-white font-bold text-xl group-hover:text-blue-400 transition">${event.title}</h3>
-                            <p class="text-gray-300 text-sm mt-1 line-clamp-1">${event.location} • ${event.highlight}</p>
+                            <h3 class="text-white font-black text-xl group-hover:text-blue-200 transition-colors leading-tight mb-2">${event.title}</h3>
+                            <div class="flex items-center gap-2 text-gray-400 text-xs font-bold">
+                                <i class="fa-solid fa-location-dot text-blue-400"></i>
+                                <span>${event.location}</span>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -718,7 +727,7 @@
         yearFilters.forEach(filter => {
             filter.addEventListener('click', () => {
                 currentFilter = filter.getAttribute('data-year');
-
+                currentItems = 6; // Reset to 6 on filter change
                 // Update active button styles
                 yearFilters.forEach(f => {
                     f.classList.remove('active', 'bg-accent', 'text-white', 'border-accent');
@@ -728,7 +737,7 @@
                 filter.classList.remove('border-gray-300', 'text-gray-600');
 
                 // Reset items to show
-                currentItems = 3;
+                currentItems = 6;
                 updateGrid();
             });
         });
@@ -745,13 +754,13 @@
             const eventData = ARCHIVE_EVENTS.find(e => e.id === eventId);
             if (!eventData || !eventData.images.length) return;
 
-            // Build Track
-            slideshowTrack.innerHTML = eventData.images.map(img => `
-                <div class="w-full h-full flex-shrink-0 relative">
-                    <img src="${img}" class="w-full h-full object-cover rounded-xl border-4 border-white/10 shadow-lg">
-                    <div class="absolute bottom-6 left-6 bg-black/60 text-white px-4 py-2 rounded-lg backdrop-blur-sm z-50">
-                        <h4 class="font-bold text-lg">${eventData.title}</h4>
-                        <p class="text-xs text-gray-300">${eventData.location}</p>
+            // Build Track with larger images and info overlay
+            slideshowTrack.innerHTML = eventData.images.map((img, i) => `
+                <div class="slideshow-slide min-w-full h-full flex flex-col items-center justify-center p-4 relative">
+                    <img src="${img}" class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl">
+                    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-3 rounded-2xl text-center border border-white/10">
+                        <h4 class="text-white font-bold text-lg">${eventData.title}</h4>
+                        <p class="text-blue-400 text-xs font-black uppercase tracking-widest">${eventData.location} • ${i + 1} / ${eventData.images.length}</p>
                     </div>
                 </div>
             `).join('');
@@ -768,12 +777,12 @@
                 popupSlideInterval = setInterval(() => {
                     currentPopupSlide = (currentPopupSlide + 1) % slideCount;
                     slideshowTrack.style.transform = `translateX(-${currentPopupSlide * 100}%)`;
-                }, 1000);
+                }, 2000); // Slower transition (2s)
             }
 
             popupAutoCloseTimeout = setTimeout(() => {
                 closeSlideshow();
-            }, 10000);
+            }, 30000); // 30 seconds
         }
 
         function closeSlideshow() {

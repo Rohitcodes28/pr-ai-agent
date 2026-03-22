@@ -197,5 +197,95 @@ if ($action === 'list_media') {
     exit;
 }
 
+if ($action === 'sync_events') {
+    // 1. Fetch current events to preserve existing metadata
+    $currentEvents = [];
+    if (file_exists($config['events_json_path'])) {
+        $json = file_get_contents($config['events_json_path']);
+        $currentEvents = json_decode($json, true) ?? [];
+    }
+
+    // 2. Map existing events for quick lookup
+    $eventsMap = [];
+    foreach ($currentEvents as $e) {
+        $eventsMap['title_' . $e['title']] = $e;
+    }
+
+    $newEvents = [];
+    $baseDir = __DIR__ . '/assets/images/events/';
+    
+    // Mappings for categories
+    $categoryMap = [
+        'Events I Covered' => 'Events Covered',
+        'Events I Organized' => 'Events Organized',
+        '👉 Public Campaigns & Crowd Engagement' => 'Public Campaigns',
+        'Sponsor Experience' => 'Sponsor Experience'
+    ];
+
+    if (is_dir($baseDir)) {
+        $categoryFolders = array_diff(scandir($baseDir), ['.', '..']);
+        foreach ($categoryFolders as $catFolder) {
+            $catPath = $baseDir . $catFolder;
+            if (!is_dir($catPath)) continue;
+
+            $category = $categoryMap[$catFolder] ?? 'Events Organized';
+            
+            $eventFolders = array_diff(scandir($catPath), ['.', '..']);
+            foreach ($eventFolders as $eventFolder) {
+                $eventPath = $catPath . '/' . $eventFolder;
+                if (!is_dir($eventPath)) continue;
+
+                $title = $eventFolder;
+                $existing = $eventsMap['title_' . $title] ?? null;
+                $id = $existing['id'] ?? 'event_' . substr(md5($title), 0, 8);
+                
+                // Get all images in this folder
+                $images = [];
+                $files = array_diff(scandir($eventPath), ['.', '..']);
+                foreach ($files as $f) {
+                    $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
+                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                        $images[] = 'assets/images/events/' . $catFolder . '/' . $eventFolder . '/' . $f;
+                    }
+                }
+
+                if (empty($images)) continue;
+
+                $newEvents[] = [
+                    'id' => $id,
+                    'title' => $title,
+                    'description' => $existing['description'] ?? 'Event description for ' . $title,
+                    'date' => $existing['date'] ?? date('Y-m-d'),
+                    'display_date' => $existing['display_date'] ?? $title,
+                    'location' => $existing['location'] ?? 'Location',
+                    'category' => $category,
+                    'media_path' => $images[0],
+                    'media_type' => 'image',
+                    'images' => $images,
+                    'is_live' => $existing['is_live'] ?? false,
+                    'edition' => $existing['edition'] ?? '',
+                    'guests' => $existing['guests'] ?? [],
+                    'features' => $existing['features'] ?? []
+                ];
+            }
+        }
+    }
+
+    // Preserve video events (like Pinkvilla)
+    foreach ($currentEvents as $e) {
+        if ($e['media_type'] === 'video') {
+            $found = false;
+            foreach ($newEvents as $ne) {
+                if ($ne['title'] === $e['title']) { $found = true; break; }
+            }
+            if (!$found) $newEvents[] = $e;
+        }
+    }
+
+    file_put_contents($config['events_json_path'], json_encode($newEvents, JSON_PRETTY_PRINT));
+    echo json_encode(['success' => true, 'events' => $newEvents, 'message' => 'Archive synced with folders']);
+    exit;
+}
+
 http_response_code(400);
 echo json_encode(['success' => false, 'message' => 'Invalid action']);
