@@ -1,8 +1,8 @@
 <?php
 return [
     // Admin Credentials
-    'username' => 'unicornx',
-    'password' => 'UnicornX@2024', // You can change this later
+    'username' => 'admin',
+    'password' => 'admin123',
 
     // Email Settings
     'to_email' => 'contact@unicornxmedia.com',
