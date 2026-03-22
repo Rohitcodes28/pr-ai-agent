@@ -329,7 +329,17 @@ if (newsletterForm) {
             
             if (result.success) {
                 newsletterForm.reset();
-                alert('Successfully subscribed to our newsletter!');
+                btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Subscribed!';
+                btn.classList.add('bg-green-500', 'text-white');
+                btn.classList.remove('bg-white', 'text-purple-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = orig;
+                    btn.classList.remove('bg-green-500', 'text-white');
+                    btn.classList.add('bg-white', 'text-purple-600');
+                    btn.disabled = false;
+                }, 3000);
+                return; // Exit early so 'finally' doesn't immediately reset it
             } else {
                 alert('Subscription failed. Please try again.');
             }
@@ -337,8 +347,10 @@ if (newsletterForm) {
             console.error(error);
             alert('Error: ' + error.message);
         } finally {
-            btn.innerHTML = orig;
-            btn.disabled = false;
+            if (btn.innerHTML === '<i class="fa-solid fa-spinner fa-spin mr-2"></i> ...') {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }
         }
     });
 }
