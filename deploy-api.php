@@ -14,11 +14,19 @@
 //     die('Unauthorized');
 // }
 
-// Trigger the cPanel git deployment
-$output = shell_exec('/usr/local/cpanel/3rdparty/bin/git-deploy 2>&1');
+// 1. Trigger the cPanel git-deploy
+$output = [];
+$return_var = 0;
+exec('/usr/local/cpanel/3rdparty/bin/git-deploy 2>&1', $output, $return_var);
 
-// Log the output for debugging (optional)
-file_put_contents('deploy_log.txt', date('Y-m-d H:i:s') . "\n" . $output . "\n\n", FILE_APPEND);
+// 2. Log the deployment for debugging
+$log = "[" . date('Y-m-d H:i:s') . "] Deployment triggered. Status: $return_var\nOutput: " . implode("\n", $output) . "\n---\n";
+file_put_contents(__DIR__ . '/deploy_log.txt', $log, FILE_APPEND);
 
-echo "Deployment triggered. Output: " . $output;
+if ($return_var === 0) {
+    echo json_encode(['success' => true, 'message' => 'Deployment successful!', 'output' => $output]);
+} else {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Deployment failed.', 'output' => $output]);
+}
 ?>

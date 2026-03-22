@@ -5,7 +5,7 @@ header('Content-Type: text/plain');
 echo "UnicornXMedia Debugger\n";
 echo "----------------------\n";
 
-$config_file = __DIR__ . '/assets/php/config.php';
+$config_file = __DIR__ . '/config.php';
 if (file_exists($config_file)) {
     echo "[PASS] config.php found.\n";
     $config = require $config_file;
