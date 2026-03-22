@@ -209,7 +209,8 @@ if (contactForm) {
                 throw new Error(result.message);
             }
         } catch (error) {
-            msg.textContent = 'Error sending message. Please try again.';
+            console.error(error);
+            msg.textContent = 'Error: ' + error.message;
             msg.className = 'mt-4 text-center text-sm font-semibold text-red-600';
         } finally {
             btn.innerHTML = orig;
@@ -333,8 +334,8 @@ if (newsletterForm) {
                 alert('Subscription failed. Please try again.');
             }
         } catch (error) {
-            alert('Subscription successful!'); // Fallback
-            newsletterForm.reset();
+            console.error(error);
+            alert('Error: ' + error.message);
         } finally {
             btn.innerHTML = orig;
             btn.disabled = false;
