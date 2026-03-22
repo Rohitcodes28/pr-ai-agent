@@ -174,6 +174,9 @@
         </div>
 
         <!-- Category Filter -->
+        <div class="text-center mb-6">
+            <span id="eventCounter" class="text-sm font-bold text-gray-400 uppercase tracking-widest"></span>
+        </div>
         <div class="flex flex-wrap justify-center gap-3 mb-12">
             <button
                 class="year-filter active px-6 py-2 rounded-full font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white transition"
@@ -569,7 +572,7 @@
         // Render Events Grid & Load More Functionality
         let ARCHIVE_EVENTS = [];
         let currentFilter = 'all';
-        let currentItems = 6; // Increased to 6
+        let currentItems = 12; // Increased to 12
         const archiveGrid = document.getElementById('archiveGrid');
         const yearFilters = document.querySelectorAll('.year-filter');
         const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
@@ -635,9 +638,16 @@
         }
 
         function updateGrid() {
-            const filteredEvents = ARCHIVE_EVENTS.filter(event => 
-                currentFilter === 'all' || event.category === currentFilter
-            );
+            const filteredEvents = ARCHIVE_EVENTS.filter(event => {
+                const isMatch = (currentFilter === 'all' || 
+                                 event.category.trim().toLowerCase() === currentFilter.trim().toLowerCase());
+                return isMatch && !event.is_live;
+            });
+            console.log('Update Grid - Filter:', currentFilter, 'Total:', filteredEvents.length, 'Showing:', Math.min(filteredEvents.length, currentItems));
+            const counterEl = document.getElementById('eventCounter');
+            if (counterEl) {
+                counterEl.textContent = `Showing ${Math.min(filteredEvents.length, currentItems)} of ${filteredEvents.length} events`;
+            }
 
             archiveGrid.innerHTML = '';
             autoSlideIntervalsMap.forEach(clearInterval);
@@ -650,14 +660,14 @@
             }
 
             filteredEvents.slice(0, currentItems).forEach((event, index) => {
-                let badgeBg = 'bg-accent/10'; let badgeText = 'text-accent';
-                if (event.year === 'Sponsor Experience') { badgeBg = 'bg-blue-100'; badgeText = 'text-blue-600'; }
-                if (event.year === 'Public Campaigns') { badgeBg = 'bg-purple-100'; badgeText = 'text-purple-600'; }
-                if (event.year === 'Events Covered') { badgeBg = 'bg-green-100'; badgeText = 'text-green-600'; }
+                let badgeBg = 'bg-blue-50'; let badgeText = 'text-blue-600';
+                if (event.category === 'Public Campaigns') { badgeBg = 'bg-purple-50'; badgeText = 'text-purple-600'; }
+                if (event.category === 'Events Covered') { badgeBg = 'bg-green-50'; badgeText = 'text-green-600'; }
+                if (event.category === 'Sponsor Experience') { badgeBg = 'bg-amber-50'; badgeText = 'text-amber-600'; }
                 
                 let mediaHTML = '';
                 if (event.type === 'video') {
-                    mediaHTML = `<video class="card-img-${event.id} absolute inset-0 w-full h-full object-cover" muted loop playsinline><source src="${event.images[0]}" type="video/mp4"></video>`;
+                    mediaHTML = `<video class="card-img-${event.id} absolute inset-0 w-full h-full object-cover" muted loop playsinline autoplay preload="auto"><source src="${event.images[0]}" type="video/mp4"></video>`;
                 } else if (event.images && event.images.length > 0) {
                     mediaHTML = event.images.map((img, i) => `
                         <img src="${img}" alt="${event.title}" class="archive-img card-img-${event.id} absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}">
@@ -668,22 +678,23 @@
                 card.className = 'archive-item scale-in group cursor-pointer';
                 card.setAttribute('data-id', event.id);
                 card.innerHTML = `
-                    <div class="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:-translate-y-2 border border-white/10">
-                        <div class="aspect-video relative overflow-hidden bg-gray-900">
+                    <div class="relative overflow-hidden rounded-3xl shadow-lg transition-all duration-500 hover:-translate-y-2 border border-black/5 bg-white">
+                        <div class="aspect-video relative overflow-hidden bg-slate-900">
                             ${mediaHTML}
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center z-10">
-                                <i class="fa-solid fa-expand text-white text-4xl transform scale-0 group-hover:scale-100 transition-transform duration-500"></i>
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex items-center justify-center">
+                                <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 transform scale-50 group-hover:scale-100 transition-transform duration-500">
+                                    <i class="fa-solid fa-expand text-white text-xl"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent backdrop-blur-[2px] z-20">
-                            <div class="flex items-center gap-2 mb-2 text-[10px] font-black text-blue-400 uppercase tracking-[0.2em]">
-                                <span>${event.year}</span>
-                                <span class="bg-blue-400/20 w-1 h-1 rounded-full"></span>
-                                <span>${event.date}</span>
+                        <div class="p-5 bg-white relative">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">${event.year}</span>
+                                <span class="text-gray-400 text-[10px] font-bold">${event.date}</span>
                             </div>
-                            <h3 class="text-white font-black text-xl group-hover:text-blue-200 transition-colors leading-tight mb-2">${event.title}</h3>
-                            <div class="flex items-center gap-2 text-gray-400 text-xs font-bold">
-                                <i class="fa-solid fa-location-dot text-blue-400"></i>
+                            <h3 class="text-corporate-900 font-black text-lg group-hover:text-blue-600 transition-colors leading-tight line-clamp-1 mb-2">${event.title}</h3>
+                            <div class="flex items-center gap-2 text-gray-400 text-[10px] font-bold">
+                                <i class="fa-solid fa-location-dot text-blue-500"></i>
                                 <span>${event.location}</span>
                             </div>
                         </div>
@@ -727,7 +738,7 @@
         yearFilters.forEach(filter => {
             filter.addEventListener('click', () => {
                 currentFilter = filter.getAttribute('data-year');
-                currentItems = 6; // Reset to 6 on filter change
+                currentItems = 12; 
                 // Update active button styles
                 yearFilters.forEach(f => {
                     f.classList.remove('active', 'bg-accent', 'text-white', 'border-accent');
@@ -736,8 +747,6 @@
                 filter.classList.add('active', 'bg-accent', 'text-white', 'border-accent');
                 filter.classList.remove('border-gray-300', 'text-gray-600');
 
-                // Reset items to show
-                currentItems = 6;
                 updateGrid();
             });
         });

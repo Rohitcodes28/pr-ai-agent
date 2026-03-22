@@ -282,8 +282,11 @@ if ($action === 'sync_events') {
         }
     }
 
-    file_put_contents($config['events_json_path'], json_encode($newEvents, JSON_PRETTY_PRINT));
-    echo json_encode(['success' => true, 'events' => $newEvents, 'message' => 'Archive synced with folders']);
+    if (file_put_contents($config['events_json_path'], json_encode($newEvents, JSON_PRETTY_PRINT)) === false) {
+        echo json_encode(['success' => false, 'message' => 'Failed to write to events.json. Check file permissions.']);
+    } else {
+        echo json_encode(['success' => true, 'events' => $newEvents, 'message' => 'Synced ' . count($newEvents) . ' events successfully.']);
+    }
     exit;
 }
 
