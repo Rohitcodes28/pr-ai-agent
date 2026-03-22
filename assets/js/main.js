@@ -172,7 +172,7 @@ const showSuccessPopup = (messageText) => {
         popup.style.display = 'flex';
         popup.querySelector('p').textContent = messageText;
         
-        let secondsLeft = 4;
+        let secondsLeft = 5;
         if (timerEl) timerEl.textContent = secondsLeft;
         
         clearInterval(countdownInterval);
@@ -188,7 +188,7 @@ const showSuccessPopup = (messageText) => {
         
         successTimeout = setTimeout(() => {
             popup.style.display = 'none';
-        }, 4000);
+        }, 5000);
     }
 };
 

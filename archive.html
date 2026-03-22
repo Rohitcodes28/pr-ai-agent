@@ -223,6 +223,7 @@
             <div
                 class="bg-gradient-to-br from-corporate-900 to-gray-900 text-white rounded-3xl max-w-2xl w-full mx-4 shadow-2xl transform transition-all animate-fade-in relative overflow-hidden">
                 <!-- Close Button -->
+                <div id="popupTimer" class="absolute top-4 left-16 w-8 h-8 bg-blue-100/30 text-white font-bold rounded-full flex items-center justify-center text-sm font-mono z-10">5</div>
                 <button id="closePopup"
                     class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-10">
                     <i class="fa-solid fa-times text-xl"></i>
@@ -238,10 +239,10 @@
                         <span
                             class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Live
                             Now</span>
-                        <span class="text-gray-400 font-semibold tracking-wide">Edition 5</span>
+                        <span id="popup-edition" class="text-gray-400 font-semibold tracking-wide">Edition 5</span>
                     </div>
 
-                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                    <h2 id="popup-title" class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
                         Pinkvilla Screen & Style Icons 2026
                     </h2>
 
@@ -260,7 +261,7 @@
                         </div>
                     </div>
 
-                    <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                    <p id="popup-desc" class="text-gray-300 text-lg mb-8 leading-relaxed">
                         Join India's most prestigious celebration of style, entertainment, and influence. Network with
                         14 celebrity guests, top founders, and industry leaders in an exclusive evening of recognition
                         and opportunity.
@@ -571,160 +572,71 @@
         const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         const autoSlideIntervalsMap = new Map();
+        let ARCHIVE_EVENTS = [];
         let currentItems = 3;
         let currentFilter = 'all';
 
-        function initArchives() {
-            updateGrid();
-        }
-
-        const ARCHIVE_EVENTS = [
-            {
-                id: 'sponsor-1',
-                year: 'Sponsor Experience',
-                date: 'Visibility Focus',
-                title: 'High-Energy Brand Exposure',
-                location: 'Overall Event Energy',
-                highlight: 'Maximize brand visibility and audience engagement',
-                icon: 'fa-bolt',
-                stat: 'Continuous Exposure',
-                images: ['assets/videos/sponsor-video-1.mp4'],
-                type: 'video'
-            },
-            {
-                id: 'sponsor-2',
-                year: 'Sponsor Experience',
-                date: 'Strategic Integration',
-                title: 'Strategic Sponsor Placements',
-                location: 'Sponsor Visibility Focus',
-                highlight: 'Integrated logos and branding across crowd zones',
-                icon: 'fa-bullseye',
-                stat: 'Premium Recall',
-                images: ['assets/videos/sponsor-video-2.mp4'],
-                type: 'video'
-            },
-            {
-                id: 'gis-2025',
-                year: 'Events Covered',
-                date: 'Feb 24-25, 2025',
-                title: 'Global Investors Summit (GIS 2025)',
-                location: 'Bhopal, MP',
-                highlight: 'Observed crowd engagement and displays',
-                icon: 'fa-eye',
-                stat: '25,000+ Attendees',
-                images: [
-                    'assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/1.jpg',
-                    'assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/2.jpg',
-                    'assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/3.jpg',
-                    'assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/4.jpg',
-                    'assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/5.jpg'
-                ]
-            },
-            {
-                id: 'ceo-summit',
-                year: 'Events Organized',
-                date: '2024',
-                title: 'CEO Summit 2024',
-                location: 'Mumbai',
-                highlight: 'Networking and Founder Alignment',
-                icon: 'fa-users',
-                stat: 'C-Level Networking',
-                images: [
-                    'assets/images/events/Events I Organized/CEO Summit 2024/Audience Engagement.JPG',
-                    'assets/images/events/Events I Organized/CEO Summit 2024/Photoshoot.png',
-                    'assets/images/events/Events I Organized/CEO Summit 2024/Team Engagement.jpg'
-                ]
-            },
-            {
-                id: 'viksit-bharat',
-                year: 'Events Covered',
-                date: '2025',
-                title: 'India Mission to Viksit Bharat',
-                location: 'Delhi',
-                highlight: 'Social Cause Initiative • Covered',
-                icon: 'fa-eye',
-                stat: 'National Mission',
-                images: [
-                    'assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/01.jpg',
-                    'assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/02.jpg',
-                    'assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/03.jpg'
-                ]
-            },
-            {
-                id: 'volunteer-2025',
-                year: 'Public Campaigns',
-                date: '2025',
-                title: 'Political Campaign Mobilization',
-                location: 'Various',
-                highlight: 'Organising Volunteer Gatherings',
-                icon: 'fa-bullhorn',
-                stat: 'Direct Engagement',
-                images: [
-                    'assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-1.jpg',
-                    'assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Political Campaigns-2.jpg',
-                    'assets/images/events/👉 Public Campaigns & Crowd Engagement/2025 Organising Volunteer Gatherings for Social Cause.png'
-                ]
-            },
-            {
-                id: 'volunteer-2019',
-                year: 'Public Campaigns',
-                date: '2019',
-                title: 'Social Cause Gatherings',
-                location: 'Regional',
-                highlight: 'Volunteer Coordination for Social Impact',
-                icon: 'fa-heart',
-                stat: 'Community Driven',
-                images: [
-                    'assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-1.JPG',
-                    'assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-2.JPG',
-                    'assets/images/events/👉 Public Campaigns & Crowd Engagement/2019 Organising Volunteer Gatherings for Social Cause-3.JPG'
-                ]
-            }
-        ];
-
-        // Smart Media Observer for Videos
-        const mediaObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const video = entry.target;
-                if (entry.isIntersecting) video.play().catch(() => {});
-                else video.pause();
-            });
-        }, { threshold: 0.1 });
-
-        // Slideshow Observer (Only run visible cards)
-        const slideshowObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const card = entry.target;
-                const eventId = card.getAttribute('data-id');
-                const event = ARCHIVE_EVENTS.find(e => e.id === eventId);
-                
-                if (entry.isIntersecting) {
-                    if (!event || event.type === 'video' || event.images.length <= 1) return;
-                    if (autoSlideIntervalsMap.has(eventId)) return;
-
-                    let currentImgIndex = 0;
-                    const interval = setInterval(() => {
-                        const images = card.querySelectorAll(`.card-img-${eventId}`);
-                        if (!images.length) return;
-                        images[currentImgIndex].classList.remove('opacity-100');
-                        images[currentImgIndex].classList.add('opacity-0');
-                        currentImgIndex = (currentImgIndex + 1) % images.length;
-                        images[currentImgIndex].classList.remove('opacity-0');
-                        images[currentImgIndex].classList.add('opacity-100');
-                    }, 2500); 
-                    autoSlideIntervalsMap.set(eventId, interval);
-                } else {
-                    if (autoSlideIntervalsMap.has(eventId)) {
-                        clearInterval(autoSlideIntervalsMap.get(eventId));
-                        autoSlideIntervalsMap.delete(eventId);
+        async function fetchArchives() {
+            try {
+                const res = await fetch('admin_api.php?action=fetch_events');
+                const data = await res.json();
+                if (data.success && data.events) {
+                    ARCHIVE_EVENTS = data.events.map(e => ({
+                        id: e.id,
+                        year: e.display_date.split(' ').pop(), // Fallback to year from date if needed
+                        category: e.category || 'Events Organized',
+                        date: e.display_date,
+                        title: e.title,
+                        location: e.location,
+                        highlight: e.description,
+                        icon: e.media_type === 'video' ? 'fa-video' : 'fa-image',
+                        stat: e.edition || 'Completed',
+                        images: [e.media_path],
+                        type: e.media_type,
+                        is_live: e.is_live // Added this
+                    }));
+                    
+                    // Update Live Event Popup
+                    const liveEvent = data.events.find(e => e.is_live);
+                    if (liveEvent) {
+                        const popupTitle = document.getElementById('popup-title');
+                        if (popupTitle) {
+                            popupTitle.textContent = liveEvent.title;
+                            const popupEdition = document.getElementById('popup-edition');
+                            if (popupEdition) popupEdition.textContent = liveEvent.edition || '';
+                            
+                            const popupDetails = document.querySelector('#liveEventPopup .flex-wrap');
+                            if (popupDetails) {
+                                popupDetails.innerHTML = `
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-calendar text-accent"></i>
+                                        <span>${liveEvent.display_date}</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-location-dot text-accent"></i>
+                                        <span>${liveEvent.location}</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-users text-accent"></i>
+                                        <span>${liveEvent.guests ? liveEvent.guests.length : 0}+ Celebrity Guests</span>
+                                    </div>
+                                `;
+                            }
+                            const popupDesc = document.getElementById('popup-desc');
+                            if (popupDesc) popupDesc.textContent = liveEvent.description;
+                        }
                     }
+                    
+                    updateGrid();
                 }
-            });
-        }, { threshold: 0.1 });
+            } catch (e) {
+                console.error("Error fetching archives:", e);
+            }
+        }
 
         function updateGrid() {
             const filteredEvents = ARCHIVE_EVENTS.filter(event => 
-                currentFilter === 'all' || event.year === currentFilter
+                currentFilter === 'all' || event.category === currentFilter
             );
 
             archiveGrid.innerHTML = '';
@@ -793,7 +705,7 @@
             }
         }
 
-        initArchives();
+        fetchArchives();
 
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', () => {
@@ -891,24 +803,31 @@
         const closePopupBtn = document.getElementById('closePopup');
         const applyFromPopupBtn = document.getElementById('applyFromPopup');
 
-        // Show popup on page load
+        // Show popup on page load with 5-second countdown (Once per session)
         window.addEventListener('load', () => {
+            if (sessionStorage.getItem('liveEventPopupShown')) return;
+
             setTimeout(() => {
                 if (liveEventPopup) {
                     liveEventPopup.style.display = 'flex';
                     liveEventPopup.style.animation = 'fadeIn 0.3s ease-in';
+                    sessionStorage.setItem('liveEventPopupShown', 'true');
+                    
+                    let timeLeft = 5;
+                    const timerEl = document.getElementById('popupTimer');
+                    const countdown = setInterval(() => {
+                        timeLeft--;
+                        if (timerEl) timerEl.textContent = timeLeft;
+                        if (timeLeft <= 0) {
+                            clearInterval(countdown);
+                            liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
+                            setTimeout(() => {
+                                liveEventPopup.style.display = 'none';
+                            }, 300);
+                        }
+                    }, 1000);
                 }
             }, 500);
-
-            // Auto-close after 5 seconds
-            setTimeout(() => {
-                if (liveEventPopup && liveEventPopup.style.display === 'flex') {
-                    liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
-                    setTimeout(() => {
-                        liveEventPopup.style.display = 'none';
-                    }, 300);
-                }
-            }, 3000);
         });
 
         // Close popup on button click
@@ -971,11 +890,7 @@
                     btn.disabled = false;
                     eventApplicationForm.reset();
 
-                    const popup = document.getElementById('successPopup');
-                    if (popup) {
-                        popup.style.display = 'flex';
-                        popup.querySelector('p').textContent = 'Thank you! Your submission has been received. Our team will get back to you shortly.';
-                    }
+                    showSuccessPopup('Thank you! Your submission has been received. Our team will get back to you shortly.');
                 } catch (error) {
                     eventFormMessage.textContent = 'Error submitting application. Please try again or email us directly.';
                     eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
@@ -1053,7 +968,8 @@
     <!-- Submission Success Popup -->
     <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all animate-fade-in relative">
-            <button onclick="document.getElementById('successPopup').style.display = 'none'" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
+            <div id="countdownTimer" class="absolute top-4 left-4 w-8 h-8 bg-blue-100/50 text-blue-600 font-bold rounded-full flex items-center justify-center text-sm font-mono">5</div>
+            <button onclick="document.getElementById('successPopup').style.display = 'none'; clearInterval(window.countdownInterval); clearTimeout(window.successTimeout);" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
                 <i class="fa-solid fa-times text-gray-600"></i>
             </button>
             <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">

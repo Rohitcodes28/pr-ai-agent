@@ -77,6 +77,12 @@
                         <button onclick="setTab('newsletter')" id="tab-newsletter" class="tab-btn border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm">
                             Newsletter
                         </button>
+                        <button onclick="setTab('general-settings')" id="tab-general-settings" class="tab-btn border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm">
+                            <i class="fa-solid fa-cog mr-1"></i> General Settings
+                        </button>
+                        <button onclick="setTab('manage-events')" id="tab-manage-events" class="tab-btn border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm">
+                            <i class="fa-solid fa-calendar-star mr-1"></i> Manage Events
+                        </button>
                     </nav>
                 </div>
             </div>
@@ -91,6 +97,9 @@
                 <div id="statsCount" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-bold text-sm">
                     0 Submissions
                 </div>
+                <button id="addEventBtn" onclick="openEventModal()" class="hidden bg-blue-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">
+                    <i class="fa-solid fa-plus mr-2"></i> Add Event
+                </button>
             </div>
 
             <div id="submissionsList" class="space-y-4">
@@ -99,7 +108,130 @@
                     <i class="fa-solid fa-circle-notch fa-spin text-4xl text-blue-600"></i>
                 </div>
             </div>
+
+            <div id="eventsList" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Events will be rendered here -->
+            </div>
+
+            <!-- General Settings Section -->
+            <div id="settingsSection" class="hidden space-y-8">
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                    <h3 class="text-xl font-black mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-clapperboard text-blue-600"></i> Sponsor Experience Videos
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <label class="block text-sm font-bold text-slate-700">Video 1 (Sponsor)</label>
+                            <input type="text" id="sett-vid1" class="w-full border border-slate-200 rounded-xl px-4 py-2 text-sm" placeholder="assets/videos/...">
+                            <label class="block text-sm font-bold text-slate-700">Caption 1</label>
+                            <input type="text" id="sett-cap1" class="w-full border border-slate-200 rounded-xl px-4 py-2 text-sm">
+                        </div>
+                        <div class="space-y-4">
+                            <label class="block text-sm font-bold text-slate-700">Video 2 (Sponsor)</label>
+                            <input type="text" id="sett-vid2" class="w-full border border-slate-200 rounded-xl px-4 py-2 text-sm" placeholder="assets/videos/...">
+                            <label class="block text-sm font-bold text-slate-700">Caption 2</label>
+                            <input type="text" id="sett-cap2" class="w-full border border-slate-200 rounded-xl px-4 py-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                    <h3 class="text-xl font-black mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-blue-600"></i> Sponsor Context Bullets
+                    </h3>
+                    <textarea id="sett-bullets" rows="5" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm resize-none" placeholder="One bullet per line"></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="saveSettingsUI()" class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-black hover:bg-blue-700 transition shadow-xl shadow-blue-100">
+                        Save General Settings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Media Gallery Section -->
+            <div id="mediaGallerySection" class="mt-12 hidden">
+                <h3 class="text-xl font-black mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-images text-blue-600"></i> Media Gallery
+                </h3>
+                <div id="mediaGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <!-- Media items will be rendered here -->
+                </div>
+            </div>
         </main>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="modalTitle" class="text-2xl font-black">Add New Event</h2>
+                    <button onclick="closeEventModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-times text-xl"></i></button>
+                </div>
+                <form id="eventForm" class="space-y-4">
+                    <input type="hidden" id="eventId">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Event Title</label>
+                            <input type="text" id="eventTitle" required class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Date</label>
+                            <input type="date" id="eventDate" required class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Display Date (e.g. 25th March 2026)</label>
+                            <input type="text" id="eventDisplayDate" required class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none" placeholder="25th March 2026">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Location</label>
+                            <input type="text" id="eventLocation" required class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Description</label>
+                            <textarea id="eventDescription" rows="3" required class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none resize-none"></textarea>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Confirmed Guests (One per line)</label>
+                            <textarea id="eventGuests" rows="3" class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none resize-none"></textarea>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-sm font-bold text-slate-700 mb-1">What You Get (One per line)</label>
+                            <textarea id="eventFeatures" rows="3" class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Category</label>
+                            <select id="eventCategory" class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none bg-white">
+                                <option value="Sponsor Experience">Sponsor Experience</option>
+                                <option value="Public Campaigns">Public Campaigns</option>
+                                <option value="Events Covered">Events Covered</option>
+                                <option value="Events Organized" selected>Events Organized</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Edition (optional)</label>
+                            <input type="text" id="eventEdition" class="w-full border border-slate-200 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-600 outline-none" placeholder="Edition 5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Media File (Image/Video)</label>
+                            <input type="file" id="eventMediaFile" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            <input type="hidden" id="eventMediaPath">
+                            <input type="hidden" id="eventMediaType">
+                        </div>
+                        <div class="flex items-center gap-2 pt-6">
+                            <input type="checkbox" id="eventIsFeatured" class="w-5 h-5 rounded text-blue-600">
+                            <label class="text-sm font-bold text-slate-700">Feature on Homepage</label>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 flex gap-4">
+                        <button type="button" onclick="closeEventModal()" class="flex-1 px-6 py-3 border border-slate-200 rounded-xl font-bold hover:bg-slate-50 transition">Cancel</button>
+                        <button type="submit" id="saveEventBtn" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-lg">Save Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -146,6 +278,9 @@
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('dashboardScreen').classList.remove('hidden');
             fetchSubmissions();
+            fetchEvents();
+            fetchSettings();
+            fetchMediaGallery();
         }
 
         function setTab(tab) {
@@ -158,6 +293,13 @@
             document.getElementById(`tab-${tab}`).classList.add('border-blue-600', 'text-blue-600');
             document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-slate-500');
             
+            // Toggle visibility
+            const isEvents = tab === 'manage-events';
+            document.getElementById('submissionsList').classList.toggle('hidden', isEvents);
+            document.getElementById('eventsList').classList.toggle('hidden', !isEvents);
+            document.getElementById('addEventBtn').classList.toggle('hidden', !isEvents);
+            document.getElementById('statsCount').classList.toggle('hidden', isEvents);
+
             // Update Titles
             const titles = {
                 all: ['All Submissions', 'Manage all your incoming leads'],
@@ -165,12 +307,101 @@
                 event: ['Event Applications', 'Review event organization requests'],
                 podcast: ['Podcast Bookings', 'Manage guests and slots'],
                 attend: ['Attendance Requests', 'Guest list for upcoming sessions'],
-                newsletter: ['Newsletter List', 'Emails for your mailing list']
+                newsletter: ['Newsletter List', 'Emails for your mailing list'],
+                'general-settings': ['General Settings', 'Manage Sponsor Experience and Sitewide dynamic content'],
+                'manage-events': ['Event Management', 'Add, edit, or remove events and set live event']
             };
             document.getElementById('tabTitle').textContent = titles[tab][0];
             document.getElementById('tabSubtitle').textContent = titles[tab][1];
 
-            renderSubmissions();
+            const isGenSettings = tab === 'general-settings';
+            document.getElementById('settingsSection').classList.toggle('hidden', !isGenSettings);
+            document.getElementById('mediaGallerySection').classList.toggle('hidden', !isGenSettings && !isEvents); // Show gallery in both
+            
+            if (isEvents) {
+                renderEvents();
+            } else if (isGenSettings) {
+                renderSettings();
+            } else {
+                renderSubmissions();
+            }
+        }
+
+        // Settings Management
+        let sitewideSettings = {};
+        async function fetchSettings() {
+            try {
+                const res = await fetch(`${API_URL}?action=fetch_settings`);
+                const data = await res.json();
+                if (data.success) {
+                    sitewideSettings = data.settings;
+                }
+            } catch (e) { console.error("Error fetching settings:", e); }
+        }
+
+        function renderSettings() {
+            if (!sitewideSettings.sponsor_experience) return;
+            const se = sitewideSettings.sponsor_experience;
+            document.getElementById('sett-vid1').value = se.vid1 || '';
+            document.getElementById('sett-cap1').value = se.caption1 || '';
+            document.getElementById('sett-vid2').value = se.vid2 || '';
+            document.getElementById('sett-cap2').value = se.caption2 || '';
+            document.getElementById('sett-bullets').value = (se.context_bullets || []).join('\n');
+        }
+
+        async function saveSettingsUI() {
+            sitewideSettings.sponsor_experience = {
+                vid1: document.getElementById('sett-vid1').value,
+                caption1: document.getElementById('sett-cap1').value,
+                vid2: document.getElementById('sett-vid2').value,
+                caption2: document.getElementById('sett-cap2').value,
+                context_bullets: document.getElementById('sett-bullets').value.split('\n').filter(b => b.trim())
+            };
+
+            try {
+                const res = await fetch(`${API_URL}?action=save_settings`, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'save_settings', settings: sitewideSettings })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("Settings saved successfully!");
+                }
+            } catch (e) { alert("Error saving settings"); }
+        }
+
+        // Media Gallery
+        let allMedia = [];
+        async function fetchMediaGallery() {
+            try {
+                const res = await fetch(`${API_URL}?action=list_media`);
+                const data = await res.json();
+                if (data.success) {
+                    allMedia = data.media || [];
+                    if (currentTab === 'general-settings' || currentTab === 'manage-events') renderMediaGallery();
+                }
+            } catch (e) {}
+        }
+
+        function renderMediaGallery() {
+            const grid = document.getElementById('mediaGrid');
+            if (!grid) return;
+            grid.innerHTML = allMedia.map(m => `
+                <div class="group relative aspect-square bg-slate-100 rounded-lg overflow-hidden border border-slate-200">
+                    ${m.type === 'video' 
+                        ? `<video src="${m.path}" class="w-full h-full object-cover"></video>`
+                        : `<img src="${m.path}" class="w-full h-full object-cover">`
+                    }
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-2 text-center">
+                        <div class="text-[10px] text-white font-bold mb-2 truncate w-full">${m.path}</div>
+                        <button onclick="copyToClipboard('${m.path}')" class="bg-white text-blue-600 px-2 py-1 rounded text-[10px] font-bold">Copy Path</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => alert("Path copied!"));
         }
 
         async function fetchSubmissions() {
@@ -238,6 +469,208 @@
             } catch (e) {}
         }
         checkStatus();
+
+        // Event Management Logic
+        let allEvents = [];
+        
+        async function fetchEvents() {
+            try {
+                const res = await fetch(`${API_URL}?action=fetch_events`);
+                const data = await res.json();
+                if (data.success) {
+                    allEvents = data.events || [];
+                    if (currentTab === 'manage-events') renderEvents();
+                }
+            } catch (e) {
+                console.error("Error fetching events:", e);
+            }
+        }
+
+        function renderEvents() {
+            const list = document.getElementById('eventsList');
+            if (allEvents.length === 0) {
+                list.innerHTML = '<div class="col-span-full py-20 bg-white rounded-3xl border border-dashed border-slate-300 text-slate-400 font-bold text-center">No events found. Click "Add Event" to create one.</div>';
+                return;
+            }
+
+            list.innerHTML = allEvents.map(event => `
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="aspect-video bg-slate-100 relative">
+                        ${event.media_type === 'video' 
+                            ? `<video src="${event.media_path}" class="w-full h-full object-cover"></video>`
+                            : `<img src="${event.media_path}" class="w-full h-full object-cover">`
+                        }
+                        ${event.is_live ? '<span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter animate-pulse">Live</span>' : ''}
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-black text-lg mb-1 line-clamp-1">${event.title}</h3>
+                        <p class="text-slate-500 text-sm mb-4 line-clamp-2">${event.description}</p>
+                        <div class="flex items-center gap-4 text-xs font-bold text-slate-400 mb-6">
+                            <span><i class="fa-solid fa-calendar mr-1"></i> ${event.display_date}</span>
+                            <span><i class="fa-solid fa-location-dot mr-1"></i> ${event.location}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="editEvent('${event.id}')" class="flex-1 bg-slate-100 text-slate-700 py-2 rounded-lg font-bold text-xs hover:bg-slate-200 transition">Edit</button>
+                            <button onclick="setLive('${event.id}')" class="flex-1 ${event.is_live ? 'bg-green-100 text-green-700' : 'bg-blue-50 text-blue-600'} py-2 rounded-lg font-bold text-xs hover:opacity-80 transition">${event.is_live ? 'Live Now' : 'Set Live'}</button>
+                            <button onclick="deleteEvent('${event.id}')" class="w-10 h-10 bg-red-50 text-red-500 rounded-lg flex items-center justify-center hover:bg-red-100 transition"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openEventModal(eventId = null) {
+            const modal = document.getElementById('eventModal');
+            const form = document.getElementById('eventForm');
+            const title = document.getElementById('modalTitle');
+            
+            form.reset();
+            document.getElementById('eventId').value = '';
+            document.getElementById('eventMediaPath').value = '';
+            document.getElementById('eventMediaType').value = '';
+            
+            if (eventId) {
+                const event = allEvents.find(e => e.id === eventId);
+                if (event) {
+                    title.textContent = 'Edit Event';
+                    document.getElementById('eventId').value = event.id;
+                    document.getElementById('eventTitle').value = event.title;
+                    document.getElementById('eventDate').value = event.date;
+                    document.getElementById('eventDisplayDate').value = event.display_date;
+                    document.getElementById('eventLocation').value = event.location;
+                    document.getElementById('eventDescription').value = event.description;
+                    document.getElementById('eventEdition').value = event.edition || '';
+                    document.getElementById('eventGuests').value = (event.guests || []).join('\n');
+                    document.getElementById('eventFeatures').value = (event.features || []).join('\n');
+                    document.getElementById('eventCategory').value = event.category || 'Events Organized';
+                    document.getElementById('eventIsFeatured').checked = (sitewideSettings.homepage_featured_events || []).includes(event.id);
+                    document.getElementById('eventMediaPath').value = event.media_path;
+                    document.getElementById('eventMediaType').value = event.media_type;
+                }
+            } else {
+                title.textContent = 'Add New Event';
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeEventModal() {
+            document.getElementById('eventModal').classList.add('hidden');
+        }
+
+        async function setLive(id) {
+            if (!confirm('Make this event live on the homepage?')) return;
+            try {
+                const res = await fetch(`${API_URL}?action=set_live`, {
+                    method: 'POST',
+                    body: JSON.stringify({ id })
+                });
+                const data = await res.json();
+                if (data.success) fetchEvents();
+            } catch (e) { alert('Error setting live event'); }
+        }
+
+        async function deleteEvent(id) {
+            if (!confirm('Permanent delete this event?')) return;
+            try {
+                const res = await fetch(`${API_URL}?action=delete_event`, {
+                    method: 'POST',
+                    body: JSON.stringify({ id })
+                });
+                const data = await res.json();
+                if (data.success) fetchEvents();
+            } catch (e) { alert('Error deleting event'); }
+        }
+
+        document.getElementById('eventForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('saveEventBtn');
+            const originalText = btn.textContent;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving...';
+            btn.disabled = true;
+
+            try {
+                // 1. Handle File Upload if exists
+                const fileInput = document.getElementById('eventMediaFile');
+                let mediaPath = document.getElementById('eventMediaPath').value;
+                let mediaType = document.getElementById('eventMediaType').value;
+
+                if (fileInput.files.length > 0) {
+                    const formData = new FormData();
+                    formData.append('file', fileInput.files[0]);
+                    const uploadRes = await fetch(`${API_URL}?action=upload_media`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const uploadData = await uploadRes.json();
+                    if (uploadData.success) {
+                        mediaPath = uploadData.path;
+                        mediaType = uploadData.type;
+                    } else {
+                        throw new Error(uploadData.message);
+                    }
+                }
+
+                if (!mediaPath) throw new Error("Please select a media file or keep existing");
+
+                // 2. Save Event Data
+                const eventData = {
+                    id: document.getElementById('eventId').value,
+                    title: document.getElementById('eventTitle').value,
+                    date: document.getElementById('eventDate').value,
+                    display_date: document.getElementById('eventDisplayDate').value,
+                    location: document.getElementById('eventLocation').value,
+                    description: document.getElementById('eventDescription').value,
+                    edition: document.getElementById('eventEdition').value,
+                    guests: document.getElementById('eventGuests').value.split('\n').filter(g => g.trim()),
+                    features: document.getElementById('eventFeatures').value.split('\n').filter(f => f.trim()),
+                    category: document.getElementById('eventCategory').value,
+                    media_path: mediaPath,
+                    media_type: mediaType,
+                    is_live: allEvents.find(ev => ev.id === document.getElementById('eventId').value)?.is_live || false
+                };
+
+                // Update featured status in settings
+                const isFeatured = document.getElementById('eventIsFeatured').checked;
+                const featured = sitewideSettings.homepage_featured_events || [];
+                const eventId = eventData.id || 'event_' + Date.now(); // Anticipate ID for new events
+                
+                if (isFeatured) {
+                    if (!featured.includes(eventId)) featured.push(eventId);
+                } else {
+                    const idx = featured.indexOf(eventId);
+                    if (idx > -1) featured.splice(idx, 1);
+                }
+                sitewideSettings.homepage_featured_events = featured;
+
+                // Save Event
+                const res = await fetch(`${API_URL}?action=save_event`, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'save_event', event: eventData })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    // Save settings if featured changed
+                    await fetch(`${API_URL}?action=save_settings`, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'save_settings', settings: sitewideSettings })
+                    });
+                    closeEventModal();
+                    fetchEvents();
+                    fetchSettings();
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert("Error: " + error.message);
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        };
+
+        window.editEvent = openEventModal;
     </script>
 </body>
 </html>

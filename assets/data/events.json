@@ -1,92 +1,61 @@
 [
     {
-        "id": "event-2026-1",
-        "year": "2026",
-        "date": "March 25",
-        "title": "Pinkvilla Screen & Style Icons",
-        "location": "JW Marriott, Mumbai",
-        "highlight": "14 Celebrity Guests",
-        "icon": "fa-users",
-        "stat": "500+ Attendees",
-        "images": [
-            "Photos/Events-1.jpg",
-            "Photos/Events-2.jpg",
-            "Photos/Events-3.jpg"
+        "id": "event_1",
+        "title": "Pinkvilla Screen & Style Icons 2026",
+        "description": "The flagship awards of the global lifestyle and entertainment media hub. Recognizing the crème de la crème of global superstars, business moguls, and fashion icons.",
+        "date": "2026-03-25",
+        "display_date": "25th March 2026",
+        "location": "JW Marriott, Juhu, Mumbai",
+        "media_path": "assets/videos/vid1.mp4",
+        "media_type": "video",
+        "is_live": true,
+        "edition": "Edition 5",
+        "features": [
+            "2 Award presentations on stage", 
+            "2 Reels on Instagram & Facebook", 
+            "2 Static posts on Instagram & Facebook", 
+            "2 Articles on Pinkvilla.com", 
+            "Red Carpet presence", 
+            "1 VIP pass included"
+        ],
+        "guests": [
+            "Akshay Kumar", "Varun Dhawan", "Ajay Devgan", "Suniel Shetty", "Arjun Rampal", "Kiara Advani", "Kriti Sanon", "Tamannaah Bhatia", "Huma Qureshi", "Mira Kapoor", "Aneet Padda", "Ahaan Pandey", "Hina Khan", "Rupali Ganguly"
         ]
     },
     {
-        "id": "event-2025-1",
-        "year": "2025",
-        "date": "November 15",
-        "title": "Celebrity Networking Summit",
-        "location": "Taj Palace, Mumbai",
-        "highlight": "Industry Leaders",
-        "icon": "fa-star",
-        "stat": "Premium Event",
-        "images": [
-            "Photos/Events-2.jpg",
-            "Photos/Events-1.jpg",
-            "Photos/IMG_5250.jpg"
-        ]
+        "id": "event_2",
+        "title": "GIS 2025",
+        "description": "Observed how such displays attract and engage crowds.",
+        "date": "2025-02-01",
+        "display_date": "Bhopal • Feb 2025",
+        "location": "Bhopal",
+        "media_path": "assets/images/events/Events I Covered/GIS 2025 - Observed how such displays attract and engage crowds/1.jpg",
+        "media_type": "image",
+        "is_live": false,
+        "edition": ""
     },
     {
-        "id": "event-2025-2",
-        "year": "2025",
-        "date": "September 8",
-        "title": "Red Carpet Premiere",
-        "location": "PVR Icon, Mumbai",
-        "highlight": "Film Launch",
-        "icon": "fa-camera",
-        "stat": "Media Coverage",
-        "images": [
-            "Photos/Events-3.jpg",
-            "Photos/Events-4.jpg",
-            "Photos/Events-5.jpg"
-        ]
+        "id": "event_3",
+        "title": "CEO Summit 2024",
+        "description": "Audience Engagement at CEO Summit.",
+        "date": "2024-06-01",
+        "display_date": "Mumbai • 2024",
+        "location": "Mumbai",
+        "media_path": "assets/images/events/Events I Organized/CEO Summit 2024/Audience Engagement.JPG",
+        "media_type": "image",
+        "is_live": false,
+        "edition": ""
     },
     {
-        "id": "event-2025-3",
-        "year": "2025",
-        "date": "July 20",
-        "title": "Founder Visibility Summit",
-        "location": "Pan India",
-        "highlight": "Multi-City Tour",
-        "icon": "fa-bullhorn",
-        "stat": "5B+ Reach",
-        "images": [
-            "Photos/IMG_5250.jpg",
-            "Photos/Events-2.jpg",
-            "Photos/Events-1.jpg"
-        ]
-    },
-    {
-        "id": "event-2024-1",
-        "year": "2024",
-        "date": "December 10",
-        "title": "Annual Awards Ceremony",
-        "location": "ITC Grand, Bangalore",
-        "highlight": "Excellence Awards",
-        "icon": "fa-trophy",
-        "stat": "50+ Awards",
-        "images": [
-            "Photos/Events-4.jpg",
-            "Photos/Events-3.jpg",
-            "Photos/Events-5.jpg"
-        ]
-    },
-    {
-        "id": "event-2024-2",
-        "year": "2024",
-        "date": "August 5",
-        "title": "VIP Networking Gala",
-        "location": "Oberoi, Mumbai",
-        "highlight": "Exclusive Event",
-        "icon": "fa-handshake",
-        "stat": "Elite Circle",
-        "images": [
-            "Photos/Events-5.jpg",
-            "Photos/Events-1.jpg",
-            "Photos/Events-4.jpg"
-        ]
+        "id": "event_4",
+        "title": "Viksit Bharat 2025",
+        "description": "India Mission to Viksit Bharat 2025.",
+        "date": "2025-01-01",
+        "display_date": "Delhi • 2025 • Covered",
+        "location": "Delhi",
+        "media_path": "assets/images/events/Events I Covered/India Mission to Viksit Bharat 2025/01.jpg",
+        "media_type": "image",
+        "is_live": false,
+        "edition": ""
     }
 ]

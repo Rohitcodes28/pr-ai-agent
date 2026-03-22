@@ -55,5 +55,147 @@ if ($action === 'fetch_submissions') {
     exit;
 }
 
+if ($action === 'fetch_events') {
+    if (file_exists($config['events_json_path'])) {
+        $json = file_get_contents($config['events_json_path']);
+        $events = json_decode($json, true) ?? [];
+        echo json_encode(['success' => true, 'events' => $events]);
+    } else {
+        echo json_encode(['success' => true, 'events' => []]);
+    }
+    exit;
+}
+
+if ($action === 'save_event') {
+    $eventData = $jsonData['event'] ?? null;
+    if (!$eventData) {
+        echo json_encode(['success' => false, 'message' => 'Missing event data']);
+        exit;
+    }
+
+    $events = [];
+    if (file_exists($config['events_json_path'])) {
+        $json = file_get_contents($config['events_json_path']);
+        $events = json_decode($json, true) ?? [];
+    }
+
+    if (isset($eventData['id']) && $eventData['id']) {
+        // Update existing
+        foreach ($events as &$e) {
+            if ($e['id'] === $eventData['id']) {
+                $e = array_merge($e, $eventData);
+                break;
+            }
+        }
+    } else {
+        // Create new
+        $eventData['id'] = 'event_' . time();
+        $events[] = $eventData;
+    }
+
+    file_put_contents($config['events_json_path'], json_encode($events, JSON_PRETTY_PRINT));
+    echo json_encode(['success' => true, 'message' => 'Event saved successfully']);
+    exit;
+}
+
+if ($action === 'delete_event') {
+    $eventId = $jsonData['id'] ?? '';
+    if (file_exists($config['events_json_path'])) {
+        $json = file_get_contents($config['events_json_path']);
+        $events = json_decode($json, true) ?? [];
+        $events = array_filter($events, fn($e) => $e['id'] !== $eventId);
+        file_put_contents($config['events_json_path'], json_encode(array_values($events), JSON_PRETTY_PRINT));
+    }
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+if ($action === 'set_live') {
+    $eventId = $jsonData['id'] ?? '';
+    if (file_exists($config['events_json_path'])) {
+        $json = file_get_contents($config['events_json_path']);
+        $events = json_decode($json, true) ?? [];
+        foreach ($events as &$e) {
+            $e['is_live'] = ($e['id'] === $eventId);
+        }
+        file_put_contents($config['events_json_path'], json_encode($events, JSON_PRETTY_PRINT));
+    }
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+if ($action === 'upload_media') {
+    if (!isset($_FILES['file'])) {
+        echo json_encode(['success' => false, 'message' => 'No file uploaded']);
+        exit;
+    }
+
+    $file = $_FILES['file'];
+    $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $type = strpos($file['type'], 'video') !== false ? 'videos' : 'images';
+    $targetDir = __DIR__ . "/assets/$type/events/";
+    
+    if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+    
+    $fileName = time() . '_' . basename($file['name']);
+    $targetPath = $targetDir . $fileName;
+    
+    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+        echo json_encode(['success' => true, 'path' => "assets/$type/events/$fileName", 'type' => ($type === 'videos' ? 'video' : 'image')]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to move uploaded file']);
+    }
+    exit;
+}
+
+if ($action === 'fetch_settings') {
+    if (file_exists($config['settings_json_path'])) {
+        $json = file_get_contents($config['settings_json_path']);
+        echo json_encode(['success' => true, 'settings' => json_decode($json, true)]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Settings file not found']);
+    }
+    exit;
+}
+
+if ($action === 'save_settings') {
+    $settingsData = $jsonData['settings'] ?? null;
+    if ($settingsData) {
+        file_put_contents($config['settings_json_path'], json_encode($settingsData, JSON_PRETTY_PRINT));
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Missing settings data']);
+    }
+    exit;
+}
+
+if ($action === 'list_media') {
+    $media = [];
+    
+    // Recursive iterator for images
+    $imgDir = __DIR__ . '/assets/images/events/';
+    if (is_dir($imgDir)) {
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($imgDir));
+        foreach ($iterator as $file) {
+            if ($file->isFile() && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file->getFilename())) {
+                $relativePath = str_replace(__DIR__ . '/', '', $file->getPathname());
+                $media[] = ['path' => $relativePath, 'type' => 'image'];
+            }
+        }
+    }
+
+    // Videos
+    $vidDir = __DIR__ . '/assets/videos/';
+    if (is_dir($vidDir)) {
+        $vids = glob($vidDir . "*.mp4");
+        foreach ($vids as $vid) {
+            $media[] = ['path' => 'assets/videos/' . basename($vid), 'type' => 'video'];
+        }
+    }
+
+    echo json_encode(['success' => true, 'media' => $media]);
+    exit;
+}
+
 http_response_code(400);
 echo json_encode(['success' => false, 'message' => 'Invalid action']);

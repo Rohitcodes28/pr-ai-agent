@@ -12,6 +12,8 @@ return [
     // Submission Data Storage (JSON Database)
     'save_to_json' => true,
     'json_path' => __DIR__ . '/assets/data/submissions.json',
+    'events_json_path' => __DIR__ . '/assets/data/events.json',
+    'settings_json_path' => __DIR__ . '/assets/data/settings.json',
     
     // Security
     'allowed_origins' => ['*']
