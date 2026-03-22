@@ -577,27 +577,61 @@
         const yearFilters = document.querySelectorAll('.year-filter');
         const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
         const loadMoreBtn = document.getElementById('loadMoreBtn');
+        // Automatic Slideshow for Cards with Multiple Images
         const autoSlideIntervalsMap = new Map();
+
+        function startSlideshow(card) {
+            const images = card.querySelectorAll('.archive-img');
+            if (images.length <= 1) return;
+
+            let current = 0;
+            const interval = setInterval(() => {
+                images[current].classList.replace('opacity-100', 'opacity-0');
+                current = (current + 1) % images.length;
+                images[current].classList.replace('opacity-0', 'opacity-100');
+            }, 3000);
+            autoSlideIntervalsMap.set(card, interval);
+        }
+
+        const slideshowObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startSlideshow(entry.target);
+                } else {
+                    const interval = autoSlideIntervalsMap.get(entry.target);
+                    if (interval) {
+                        clearInterval(interval);
+                        autoSlideIntervalsMap.delete(entry.target);
+                    }
+                }
+            });
+        }, { threshold: 0.2 });
 
         async function fetchArchives() {
             try {
                 const res = await fetch('admin_api.php?action=fetch_events');
                 const data = await res.json();
                 if (data.success && data.events) {
-                    ARCHIVE_EVENTS = data.events.map(e => ({
-                        id: e.id,
-                        year: e.display_date.split(' ').pop(), // Fallback to year from date if needed
-                        category: e.category || 'Events Organized',
-                        date: e.display_date,
-                        title: e.title,
-                        location: e.location,
-                        highlight: e.description,
-                        icon: e.media_type === 'video' ? 'fa-video' : 'fa-image',
-                        stat: e.edition || 'Completed',
-                        images: e.images || [e.media_path],
-                        type: e.media_type,
-                        is_live: e.is_live // Added this
-                    }));
+                    ARCHIVE_EVENTS = data.events.map(e => {
+                        // Better year extraction: find the first 4-digit number starting with 20
+                        const yearMatch = e.display_date.match(/\b(20\d{2})\b/);
+                        const extractedYear = yearMatch ? yearMatch[1] : e.display_date.split(' ').pop();
+                        
+                        return {
+                            id: e.id,
+                            year: extractedYear,
+                            category: e.category || 'Events Organized',
+                            date: e.display_date,
+                            title: e.title,
+                            location: e.location,
+                            highlight: e.description,
+                            icon: e.media_type === 'video' ? 'fa-video' : 'fa-image',
+                            stat: e.edition || 'Completed',
+                            images: e.images || [e.media_path],
+                            type: e.media_type,
+                            is_live: e.is_live
+                        };
+                    });
                     
                     // Updated logging
                     console.log('Loaded events:', ARCHIVE_EVENTS.length);
@@ -613,10 +647,9 @@
         function updateGrid() {
             try {
                 const filteredEvents = ARCHIVE_EVENTS.filter(event => {
-                    const isMatch = (currentFilter === 'all' || 
-                                     event.category.trim().toLowerCase() === currentFilter.trim().toLowerCase());
-                    return isMatch && !event.is_live;
-                });
+                if (currentFilter === 'all') return !event.is_live;
+                return event.category.trim().toLowerCase() === currentFilter.trim().toLowerCase() && !event.is_live;
+            });
                 
                 console.log('Update Grid - Filter:', currentFilter, 'Total:', filteredEvents.length);
                 const counterEl = document.getElementById('eventCounter');
@@ -638,9 +671,11 @@
                         
                         let mediaHTML = '';
                         if (event.type === 'video') {
-                            mediaHTML = `<video class="absolute inset-0 w-full h-full object-cover" muted loop playsinline autoplay preload="auto"><source src="${event.images[0]}" type="video/mp4"></video>`;
+                            mediaHTML = `<video class="absolute inset-0 w-full h-full object-cover" muted loop playsinline autoplay preload="auto"><source src="${encodeURI(event.images[0])}" type="video/mp4"></video>`;
                         } else if (event.images && event.images.length > 0) {
-                            mediaHTML = `<img src="${event.images[0]}" alt="${event.title}" class="absolute inset-0 w-full h-full object-cover">`;
+                            mediaHTML = event.images.map((img, i) => `
+                                <img src="${encodeURI(img)}" alt="${event.title}" class="archive-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}">
+                            `).join('');
                         }
 
                         const card = document.createElement('div');
@@ -658,8 +693,8 @@
                                 </div>
                                 <div class="p-5 bg-white">
                                     <div class="flex items-center justify-between mb-3">
-                                        <span class="text-[10px] font-black ${badgeText} uppercase tracking-widest ${badgeBg} px-3 py-1 rounded-full">${event.year}</span>
-                                        <span class="text-gray-400 text-[10px] font-bold">${event.date.split('•')[0]}</span>
+                                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-gray-100 px-3 py-1 rounded-full">${event.year}</span>
+                                        <span class="text-gray-400 text-[10px] font-bold">${event.date.split('•')[0].trim()}</span>
                                     </div>
                                     <h3 class="text-corporate-900 font-extrabold text-lg group-hover:text-blue-600 transition-colors leading-tight mb-2 line-clamp-2 h-[2.5rem] flex items-center">${event.title}</h3>
                                     <div class="flex items-center gap-2 text-gray-400 text-[10px] font-bold">
@@ -679,6 +714,8 @@
                         if (event.type === 'video') {
                             const video = card.querySelector('video');
                             if (video) mediaObserver.observe(video);
+                        } else if (event.images && event.images.length > 1) {
+                            slideshowObserver.observe(card);
                         }
                     } catch (err) {
                         console.error('Error rendering card for event:', event.id, err);
