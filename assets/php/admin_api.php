@@ -47,6 +47,15 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 // Action: Fetch Submissions
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'fetch_submissions') {
+    $data_dir = dirname($config['json_path']);
+    
+    // Debug: Check if directory is writable
+    if (!is_writable($data_dir)) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => "Data directory not writable: $data_dir"]);
+        exit;
+    }
+
     if (file_exists($config['json_path'])) {
         $json = file_get_contents($config['json_path']);
         $submissions = json_decode($json, true) ?? [];
@@ -54,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         $submissions = array_reverse($submissions);
         echo json_encode(['success' => true, 'data' => $submissions]);
     } else {
-        echo json_encode(['success' => true, 'data' => []]);
+        echo json_encode(['success' => true, 'data' => [], 'message' => 'File does not exist yet']);
     }
     exit;
 }
