@@ -5,6 +5,9 @@
 session_start();
 $config = require __DIR__ . '/config.php';
 header('Content-Type: application/json');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 
 $rawInput = file_get_contents('php://input');
 $jsonData = json_decode($rawInput, true) ?? [];
@@ -31,6 +34,22 @@ if ($action === 'login') {
     exit;
 }
 
+// Handle Fetch Events (Public)
+if ($action === 'fetch_events') {
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');
+    
+    if (file_exists($config['events_json_path'])) {
+        $json = file_get_contents($config['events_json_path']);
+        $events = json_decode($json, true) ?? [];
+        echo json_encode(['success' => true, 'events' => $events]);
+    } else {
+        echo json_encode(['success' => true, 'events' => []]);
+    }
+    exit;
+}
+
 // --- Protected Actions ---
 if (!isset($_SESSION['admin_logged_in'])) {
     http_response_code(403);
@@ -51,17 +70,6 @@ if ($action === 'fetch_submissions') {
         echo json_encode(['success' => true, 'submissions' => array_reverse($submissions)]);
     } else {
         echo json_encode(['success' => true, 'submissions' => [], 'message' => 'No submissions yet']);
-    }
-    exit;
-}
-
-if ($action === 'fetch_events') {
-    if (file_exists($config['events_json_path'])) {
-        $json = file_get_contents($config['events_json_path']);
-        $events = json_decode($json, true) ?? [];
-        echo json_encode(['success' => true, 'events' => $events]);
-    } else {
-        echo json_encode(['success' => true, 'events' => []]);
     }
     exit;
 }

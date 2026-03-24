@@ -256,7 +256,7 @@
             err.classList.add('hidden');
 
             try {
-                const res = await fetch(`${API_URL}?action=login`, {
+                const res = await fetch(`${API_URL}?action=login&t=${Date.now()}`, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'login', username: u, password: p })
                 });
@@ -337,7 +337,7 @@
         let sitewideSettings = {};
         async function fetchSettings() {
             try {
-                const res = await fetch(`${API_URL}?action=fetch_settings`);
+                const res = await fetch(`${API_URL}?action=fetch_settings&t=${Date.now()}`);
                 const data = await res.json();
                 if (data.success) {
                     sitewideSettings = data.settings;
@@ -380,7 +380,7 @@
         let allMedia = [];
         async function fetchMediaGallery() {
             try {
-                const res = await fetch(`${API_URL}?action=list_media`);
+                const res = await fetch(`${API_URL}?action=list_media&t=${Date.now()}`);
                 const data = await res.json();
                 if (data.success) {
                     allMedia = data.media || [];
@@ -415,7 +415,7 @@
             if(loader) loader.style.display = 'block';
 
             try {
-                const res = await fetch(`${API_URL}?action=fetch_submissions`);
+                const res = await fetch(`${API_URL}?action=fetch_submissions&t=${Date.now()}`);
                 const data = await res.json();
                 
                 if (data.success) {
@@ -469,7 +469,7 @@
         // Initial Status Check
         async function checkStatus() {
             try {
-                const res = await fetch(`${API_URL}?action=check_status`);
+                const res = await fetch(`${API_URL}?action=check_status&t=${Date.now()}`);
                 const data = await res.json();
                 if (data.loggedIn) showDashboard();
             } catch (e) {}
@@ -481,7 +481,7 @@
         
         async function fetchEvents() {
             try {
-                const res = await fetch(`${API_URL}?action=fetch_events`);
+                const res = await fetch(`${API_URL}?action=fetch_events&t=${Date.now()}`);
                 const data = await res.json();
                 if (data.success) {
                     allEvents = data.events || [];

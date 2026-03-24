@@ -960,8 +960,8 @@
             try {
                 // Fetch Events and Settings
                 const [eventsRes, settingsRes] = await Promise.all([
-                    fetch('admin_api.php?action=fetch_events'),
-                    fetch('admin_api.php?action=fetch_settings')
+                    fetch(`admin_api.php?action=fetch_events&t=${Date.now()}`),
+                    fetch(`admin_api.php?action=fetch_settings&t=${Date.now()}`)
                 ]);
                 
                 const eventsData = await eventsRes.json();

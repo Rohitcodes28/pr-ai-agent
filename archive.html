@@ -609,7 +609,7 @@
 
         async function fetchArchives() {
             try {
-                const res = await fetch('admin_api.php?action=fetch_events');
+                const res = await fetch(`admin_api.php?action=fetch_events&t=${Date.now()}`);
                 const data = await res.json();
                 if (data.success && data.events) {
                     ARCHIVE_EVENTS = data.events.map(e => {
