@@ -1,1015 +1,723 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive | UnicornXMedia</title>
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text x='50' y='70' font-size='50' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>UX</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events Archive | UnicornXMedia — Curated Experiences</title>
+<meta name="description" content="Browse UnicornXMedia's curated archive of PR campaigns, live events, and media breakthroughs.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23070708'/><text x='50' y='70' font-size='46' font-family='serif' font-weight='600' fill='%23c9a84c' text-anchor='middle'>UX</text></svg>">
+<!-- EARLY THEME: prevents flash of wrong theme -->
+<script>if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('light-mode');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --black:#070708;--obsidian:#0d0d10;--surface:#111116;--card:#16161c;
+  --border:rgba(255,255,255,0.07);--gold:#c9a84c;--gold-light:#e8c97a;
+  --gold-glow:rgba(201,168,76,0.15);--gold-dim:rgba(201,168,76,0.4);
+  --white:#fff;--white-80:rgba(255,255,255,0.8);--white-40:rgba(255,255,255,0.4);
+  --white-15:rgba(255,255,255,0.05);
+  --gradient-gold:linear-gradient(135deg,#c9a84c,#e8c97a,#a07830);
+  --font-display:'Cormorant Garamond',serif;--font-ui:'DM Sans',sans-serif;
+  --font-mono:'Space Grotesk',sans-serif;
+  --pad:clamp(24px,5vw,80px);--max:1440px;--sec:clamp(80px,10vw,140px);
+}
+/* ===== LIGHT MODE ===== */
+html.light-mode,body.light-mode{
+  --black:#f5f5f7;--obsidian:#eaeaec;--surface:#f0f0f2;--card:#ffffff;
+  --border:rgba(0,0,0,0.1);--gold:#8a6f25;--gold-light:#c9a84c;
+  --white:#111112;--white-80:rgba(0,0,0,0.82);--white-40:rgba(0,0,0,0.48);
+  --white-15:rgba(0,0,0,0.08);--gold-glow:rgba(138,111,37,0.1);
+  --gold-dim:rgba(138,111,37,0.3);
+}
+html.light-mode body,body.light-mode{background:var(--black);color:var(--white);}
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-ui);line-height:1.75;overflow-x:hidden;transition:background .4s,color .4s;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.03;pointer-events:none;z-index:9999;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:var(--font-ui);}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        corporate: {
-                            900: '#0B1120',
-                            800: '#111827',
-                            100: '#F3F4F6'
-                        },
-                        accent: '#2563EB'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom Cursor */
-        body {
-            cursor: none;
-        }
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #2563EB;
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(37, 99, 235, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        .cursor-hover .cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(37, 99, 235, 0.1);
-            border-color: rgba(37, 99, 235, 0.8);
-        }
-        @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
+/* ===== CURSOR ===== */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:100000;}
+.cursor-dot{width:8px;height:8px;background:var(--white);mix-blend-mode:difference;}
+.cursor-ring{width:40px;height:40px;border:1.5px solid var(--gold);transition:width .2s,height .2s,background .2s,border-color .2s;mix-blend-mode:difference;}
+body.cursor-hover .cursor-ring{width:60px;height:60px;background:rgba(201,168,76,0.1);border-color:var(--gold);}
 
-        .archive-img {
-            transition: transform 0.5s ease;
-        }
+/* ===== SCROLL PROGRESS ===== */
+#scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--gradient-gold);z-index:10001;width:0%;pointer-events:none;}
 
-        .archive-item:hover .archive-img {
-            transform: scale(1.1);
-        }
+/* ===== THEME TOGGLE ===== */
+.theme-toggle{background:none;border:none;color:var(--white-40);font-size:1.1rem;cursor:pointer;transition:color .3s;display:flex;align-items:center;justify-content:center;padding:5px;gap:0;}
+.theme-toggle:hover{color:var(--white);}
+body.light-mode .theme-toggle .fa-sun{display:none;}
+body.light-mode .theme-toggle .fa-moon{display:inline-block;}
+body:not(.light-mode) .theme-toggle .fa-moon{display:none;}
 
-        .year-filter {
-            transition: all 0.3s ease;
-        }
+/* ===== NAV ===== */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;padding:22px var(--pad);transition:all .3s;}
+.site-nav.scrolled{padding:14px var(--pad);background:rgba(7,7,8,0.92);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border);}
+body.light-mode .site-nav.scrolled{background:rgba(248,249,250,0.95);}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.logo-ux{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--gold);}
+.logo-name{font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--white-40);}
+.nav-links{display:flex;align-items:center;gap:2.5rem;margin:0 auto;}
+.nav-link{font-size:.85rem;font-weight:500;color:var(--white-40);letter-spacing:.02em;position:relative;transition:color .3s;}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:50%;right:50%;height:1px;background:var(--gold);transition:left .3s,right .3s;}
+.nav-link:hover,.nav-link.active{color:var(--white);}
+.nav-link:hover::after,.nav-link.active::after{left:0;right:0;}
+.btn-nav{border:1px solid var(--gold-dim);color:var(--gold);padding:10px 24px;font-size:.82rem;font-weight:600;letter-spacing:.04em;position:relative;overflow:hidden;transition:color .3s;background:none;}
+.btn-nav::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.btn-nav:hover::before{transform:scaleX(1);}
+.btn-nav:hover{color:var(--black);}
+.btn-nav-text{position:relative;z-index:1;}
+.nav-hamburger{display:none;background:none;border:none;padding:4px;flex-direction:column;gap:5px;}
+.nav-hamburger span{display:block;width:24px;height:1.5px;background:var(--white);transition:all .3s;}
+.nav-hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.active span:nth-child(2){opacity:0;}
+.nav-hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+#mobile-nav{display:none;position:fixed;inset:0;background:var(--black);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+#mobile-nav.open{display:flex;}
+#mobile-nav .nav-link{font-family:var(--font-display);font-size:2.2rem;font-weight:300;color:var(--white-80);}
 
-        .year-filter.active {
-            background: #2563EB;
-            color: white;
-        }
+/* ===== PAGE HERO ===== */
+.page-hero{padding:clamp(130px,15vw,180px) var(--pad) clamp(50px,6vw,80px);max-width:var(--max);margin:0 auto;}
+.sec-eyebrow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem;}
+.page-headline{font-family:var(--font-display);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;line-height:.92;margin-bottom:1rem;}
+.page-sub{color:var(--white-40);max-width:60ch;margin-bottom:2rem;}
 
-        .mobile-menu {
-            display: none;
-        }
+/* ===== FILTER BAR ===== */
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:2rem;}
+.year-filter{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--white-40);padding:8px 20px;cursor:pointer;transition:all .3s;}
+.year-filter:hover{border-color:var(--gold-dim);color:var(--gold);}
+.year-filter.active{background:var(--gold);border-color:var(--gold);color:var(--black);}
 
-        .mobile-menu.active {
-            display: block;
-        }
+/* ===== EVENTS COUNTER ===== */
+#eventCounter{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--white-40);}
 
-        /* Performance Optimizations */
-        .archive-item, .cursor-dot, .cursor-outline {
-            will-change: transform, opacity;
-        }
-        .archive-item {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-        }
-    </style>
+/* ===== ARCHIVE GRID — EQUAL SIZE CARDS ===== */
+.archive-section{padding:0 var(--pad) var(--sec);max-width:var(--max);margin:0 auto;}
+#archiveGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.archive-card{background:var(--card);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s;display:flex;flex-direction:column;}
+.archive-card:hover{transform:translateY(-6px);border-color:var(--gold-dim);box-shadow:0 24px 60px rgba(0,0,0,0.5);}
+.archive-card-media{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--obsidian);}
+.archive-card-media img,.archive-card-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1s;}
+.archive-card-media img.hidden-img{opacity:0;}
+.archive-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,8,.8) 0%,transparent 60%);pointer-events:none;}
+.archive-card-expand{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+.archive-card:hover .archive-card-expand{opacity:1;}
+.expand-icon{width:48px;height:48px;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;}
+.archive-card-info{padding:20px;flex:1;display:flex;flex-direction:column;gap:8px;}
+.archive-card-meta{display:flex;align-items:center;justify-content:space-between;}
+.archive-tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:var(--gold-glow);border:1px solid var(--gold-dim);padding:3px 10px;}
+.archive-date{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;color:var(--white-40);}
+.archive-card-title{font-family:var(--font-display);font-size:1.25rem;font-weight:400;line-height:1.25;color:var(--white);transition:color .3s;}
+.archive-card:hover .archive-card-title{color:var(--gold);}
+.archive-card-loc{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--white-40);}
+.archive-card-loc i{color:var(--gold);font-size:.7rem;}
+
+/* ===== LOAD MORE ===== */
+.load-more-wrap{text-align:center;margin-top:3rem;}
+.load-more-btn{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--white-40);padding:14px 48px;cursor:pointer;transition:all .3s;}
+.load-more-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+
+/* ===== APPLY FORM SECTION ===== */
+.apply-section{background:var(--obsidian);padding:var(--sec) var(--pad);border-top:1px solid var(--border);}
+.apply-inner{max-width:760px;margin:0 auto;}
+.apply-eyebrow{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem;}
+.apply-title{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:300;margin-bottom:.6rem;}
+.apply-sub{color:var(--white-40);font-size:.95rem;margin-bottom:2.5rem;}
+.apply-form{background:var(--form-bg);border:1px solid var(--form-border);padding:40px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field.full{grid-column:1/-1;}
+label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--label-text);}
+.apply-form input,.apply-form textarea,.apply-form select{background:var(--input-bg);border:none;border-bottom:1px solid var(--input-border);color:var(--input-text);font-family:var(--font-ui);font-size:.93rem;padding:12px 0;width:100%;transition:border-color .3s;outline:none;border-radius:0;}
+.apply-form input:focus,.apply-form textarea:focus{border-bottom-color:var(--gold);}
+.apply-form textarea{resize:vertical;min-height:110px;}
+.apply-form input::placeholder,.apply-form textarea::placeholder{color:var(--white-40);opacity:.5;}
+.checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:24px;font-size:.83rem;color:var(--white-40);}
+.checkbox-row a{color:var(--gold);}
+.checkbox-row a:hover{text-decoration:underline;}
+.checkbox-row input[type="checkbox"]{margin-top:3px;width:15px;height:15px;accent-color:var(--gold);flex-shrink:0;}
+.btn-submit{background:var(--gold);color:var(--black);border:none;padding:15px 40px;font-family:var(--font-ui);font-size:.9rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:background .3s;display:inline-flex;align-items:center;gap:8px;}
+.btn-submit:hover{background:var(--gold-light);}
+#formMsg{margin-top:12px;font-size:.85rem;color:var(--gold);}
+
+/* ===== NEWSLETTER ===== */
+.newsletter-section{padding:72px var(--pad);background:var(--surface);border-top:1px solid var(--border);}
+.newsletter-inner{max-width:640px;margin:0 auto;text-align:center;}
+.newsletter-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;margin-bottom:.8rem;}
+.newsletter-sub{color:var(--white-40);font-size:.9rem;margin-bottom:1.8rem;}
+.newsletter-form-row{display:flex;border:1px solid var(--border);overflow:hidden;max-width:500px;margin:0 auto;}
+.newsletter-form-row input{flex:1;background:transparent;border:none;color:var(--white);font-family:var(--font-ui);font-size:.93rem;padding:13px 18px;outline:none;}
+.newsletter-form-row input::placeholder{color:var(--white-40);}
+.newsletter-form-row button{background:var(--gold);color:var(--black);border:none;padding:13px 26px;font-family:var(--font-ui);font-size:.85rem;font-weight:700;cursor:pointer;transition:background .3s;}
+.newsletter-form-row button:hover{background:var(--gold-light);}
+
+/* ===== FOOTER ===== */
+.site-footer{background:var(--obsidian);padding-top:48px;}
+.footer-brand{text-align:center;padding:0 var(--pad) 36px;border-bottom:1px solid var(--border);}
+.footer-wordmark{font-family:var(--font-display);font-size:clamp(2.5rem,9vw,7rem);font-weight:600;color:var(--white);opacity:.06;letter-spacing:-.02em;user-select:none;}
+.footer-glow{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+.footer-grid{max-width:var(--max);margin:0 auto;padding:44px var(--pad) 36px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:36px;}
+.footer-logo-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.foot-about{font-size:.85rem;color:var(--white-40);}
+.foot-heading{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.foot-links{list-style:none;}.foot-links li{margin-bottom:9px;}.foot-links a{font-size:.85rem;color:var(--white-40);transition:color .3s;}.foot-links a:hover{color:var(--gold);}
+.foot-contact{list-style:none;}.foot-contact li{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--white-40);margin-bottom:8px;}.foot-contact li i{color:var(--gold);font-size:.78rem;width:14px;}
+.social-row{display:flex;gap:10px;margin-top:12px;}.soc-btn{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--white-40);font-size:.82rem;transition:all .3s;}.soc-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-bottom{max-width:var(--max);margin:0 auto;padding:18px var(--pad);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-size:.78rem;color:var(--white-40);}
+.footer-legal{display:flex;gap:20px;}.footer-legal a{font-size:.78rem;color:var(--white-40);transition:color .3s;}.footer-legal a:hover{color:var(--gold);}
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.reveal.active{opacity:1;transform:translateY(0);}
+
+/* ===== POPUP ===== */
+.popup-backdrop{position:fixed;inset:0;background:rgba(7,7,8,.85);backdrop-filter:blur(12px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;}
+.popup-box{background:var(--card);border:1px solid var(--border);max-width:640px;width:100%;padding:40px;position:relative;}
+.popup-close-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.popup-timer{font-family:var(--font-mono);font-size:.75rem;color:var(--white-40);background:var(--surface);border:1px solid var(--border);padding:4px 10px;}
+.popup-close{background:none;border:1px solid var(--border);color:var(--white-40);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;}
+.popup-close:hover{border-color:var(--gold);color:var(--gold);}
+.live-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.live-dot{width:8px;height:8px;background:#ef4444;border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
+.badge-live{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#ef4444;border:1px solid rgba(239,68,68,.4);padding:3px 10px;}
+.live-title{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);font-weight:300;margin-bottom:1rem;}
+.live-desc{color:var(--white-40);font-size:.9rem;margin-bottom:1.5rem;}
+
+/* ===== SLIDESHOW POPUP ===== */
+.slideshow-backdrop{position:fixed;inset:0;background:rgba(7,7,8,.96);z-index:9500;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+.slideshow-backdrop.open{opacity:1;}
+.slideshow-close{position:absolute;top:20px;right:20px;width:44px;height:44px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border-radius:50%;transition:background .3s;}
+.slideshow-close:hover{background:rgba(255,255,255,.2);}
+.slideshow-content{width:100%;max-width:1100px;aspect-ratio:16/9;position:relative;overflow:hidden;}
+.slideshow-track{display:flex;height:100%;transition:transform .5s ease;}
+.slideshow-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;}
+.slideshow-slide img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;}
+.slideshow-info{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(7,7,8,.7);backdrop-filter:blur(12px);border:1px solid var(--border);padding:12px 24px;text-align:center;white-space:nowrap;}
+.slideshow-info h4{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--white);}
+.slideshow-info p{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;color:var(--gold);}
+
+/* ===== SUCCESS POPUP ===== */
+.success-popup{background:var(--card);border:1px solid var(--border);max-width:400px;width:100%;padding:48px 40px;text-align:center;position:relative;}
+.success-icon{width:64px;height:64px;background:rgba(72,187,120,.1);border:1px solid rgba(72,187,120,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:1.5rem;color:#48bb78;}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){#archiveGrid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){
+  #archiveGrid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .site-nav .nav-links,.btn-nav{display:none;}
+  .nav-hamburger{display:flex;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  body{cursor:auto;}
+  .cursor-dot,.cursor-ring{display:none;}
+}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style>
 </head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div id="scroll-progress"></div>
 
-<body class="bg-corporate-100 text-corporate-900 antialiased overflow-x-hidden">
-    <!-- Custom Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+<!-- Mobile Nav -->
+<div id="mobile-nav">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="archive.html" class="nav-link active">Events</a>
+  <a href="podcasts.html" class="nav-link">Podcasts</a>
+  <a href="workshops.html" class="nav-link">Workshops</a>
+  <a href="index.html#apply" class="nav-link">Apply Now</a>
+  <button class="theme-toggle" id="themeToggleMobile" style="font-size:2rem;margin-top:1rem;">
+    <i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
+  </button>
+</div>
 
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
-                    <div
-                        class="w-10 h-10 bg-black text-white flex-shrink-0 flex items-center justify-center font-bold text-xl tracking-tighter">
-                        UX</div>
-                    <span class="font-bold text-xl tracking-tight">UnicornXMedia</span>
-                </a>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html#services"
-                        class="text-gray-600 hover:text-accent font-semibold transition">Services</a>
-                    <a href="index.html#live-event"
-                        class="text-gray-600 hover:text-accent font-semibold transition">Live Events</a>
-                    <a href="podcasts.html"
-                        class="text-gray-600 hover:text-accent font-semibold transition">Podcasts</a>
-                    <a href="archive.html" class="text-accent font-semibold">Events</a>
-                    <a href="index.html#contact"
-                        class="text-gray-600 hover:text-accent font-semibold transition">Contact</a>
-                    <a href="index.html#apply"
-                        class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg">Apply
-                        Now</a>
-                </div>
-                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-accent">
-                    <i class="fa-solid fa-bars text-2xl"></i>
-                </button>
-            </div>
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-gray-200 py-4">
-                <div class="flex flex-col space-y-4">
-                    <a href="index.html#services"
-                        class="text-gray-600 hover:text-accent font-semibold transition px-4">Services</a>
-                    <a href="index.html#live-event"
-                        class="text-gray-600 hover:text-accent font-semibold transition px-4">Live Events</a>
-                    <a href="podcasts.html"
-                        class="text-gray-600 hover:text-accent font-semibold transition px-4">Podcasts</a>
-                    <a href="archive.html" class="text-accent font-semibold px-4">Events</a>
-                    <a href="index.html#contact"
-                        class="text-gray-600 hover:text-accent font-semibold transition px-4">Contact</a>
-                    <a href="index.html#apply"
-                        class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg mx-4 text-center">Apply
-                        Now</a>
-                </div>
-            </div>
+<!-- Nav -->
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-logo"><span class="logo-ux">UX</span><span class="logo-name">UnicornXMedia</span></a>
+  <div class="nav-links">
+    <a href="index.html#services" class="nav-link">Services</a>
+    <a href="archive.html" class="nav-link active">Events</a>
+    <a href="podcasts.html" class="nav-link">Podcasts</a>
+    <a href="workshops.html" class="nav-link">Workshops</a>
+    <a href="index.html#contact" class="nav-link">Contact</a>
+    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle theme">
+      <i class="fa-solid fa-sun"></i>
+      <i class="fa-solid fa-moon"></i>
+    </button>
+  </div>
+  <a href="index.html#apply" class="btn-nav"><span class="btn-nav-text">Apply Now</span></a>
+  <button class="nav-hamburger" id="mobileMenuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero reveal">
+  <span class="sec-eyebrow"><i class="fa-solid fa-film" style="margin-right:6px;"></i>Curated Archive</span>
+  <h1 class="page-headline">Curated<br><em>Experiences.</em></h1>
+  <p class="page-sub">A curated history of our past PR campaigns, stage moments, and media breakthroughs.</p>
+  <div style="margin-bottom:1.2rem;"><span id="eventCounter"></span></div>
+  <div class="filter-bar">
+    <button class="year-filter active" data-year="all">All</button>
+    <button class="year-filter" data-year="Sponsor Experience">Sponsor Experience</button>
+    <button class="year-filter" data-year="Public Campaigns">Public Campaigns</button>
+    <button class="year-filter" data-year="Events Covered">Events Covered</button>
+    <button class="year-filter" data-year="Events Organized">Events Organized</button>
+  </div>
+</section>
+
+<!-- Archive Grid -->
+<section class="archive-section">
+  <div id="archiveGrid"></div>
+  <div class="load-more-wrap" id="loadMoreContainer" style="display:none;">
+    <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+  </div>
+</section>
+
+<!-- Apply for Event Access -->
+<section class="apply-section" id="event-apply">
+  <div class="apply-inner">
+    <span class="apply-eyebrow"><i class="fa-solid fa-ticket" style="margin-right:6px;"></i>Event Access</span>
+    <h2 class="apply-title">Apply for<br><em>Event Access</em></h2>
+    <p class="apply-sub">Get exclusive access to our curated events and networking opportunities.</p>
+    <form class="apply-form" id="eventApplicationForm">
+      <input type="hidden" name="applicationType" value="event">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="aef-name">Full Name *</label>
+          <input type="text" id="aef-name" name="fullName" required placeholder="Your full name">
         </div>
-    </nav>
-
-    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Events</h1>
-            <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
-            <p class="text-xl text-gray-500 max-w-2xl mx-auto">
-                A curated history of our past PR campaigns, stage moments, and media breakthroughs.
-            </p>
+        <div class="form-field">
+          <label for="aef-email">Email Address *</label>
+          <input type="email" id="aef-email" name="email" required placeholder="email@company.com">
         </div>
-
-        <!-- Category Filter -->
-        <div class="text-center mb-6">
-            <span id="eventCounter" class="text-sm font-bold text-gray-400 uppercase tracking-widest"></span>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="aef-company">Company / Brand *</label>
+          <input type="text" id="aef-company" name="company" required placeholder="Your company or brand name">
         </div>
-        <div class="flex flex-wrap justify-center gap-3 mb-12">
-            <button
-                class="year-filter active px-6 py-2 rounded-full font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-white transition"
-                data-year="all">
-                All
-            </button>
-            <button
-                class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="Sponsor Experience">
-                Sponsor Experience
-            </button>
-            <button
-                class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="Public Campaigns">
-                Public Campaigns
-            </button>
-            <button
-                class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="Events Covered">
-                Events Covered
-            </button>
-            <button
-                class="year-filter px-6 py-2 rounded-full font-semibold border-2 border-gray-300 text-gray-600 hover:bg-accent hover:text-white hover:border-accent transition"
-                data-year="Events Organized">
-                Events Organized
-            </button>
+        <div class="form-field">
+          <label for="aef-phone">Phone Number *</label>
+          <input type="tel" id="aef-phone" name="phone" required placeholder="+91 00000 00000">
         </div>
-    </section>
-
-    <!-- Archive Grid -->
-    <section class="pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div id="archiveGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      </div>
+      <div class="form-row">
+        <div class="form-field full">
+          <label for="aef-role">Your Role / Title *</label>
+          <input type="text" id="aef-role" name="role" required placeholder="e.g., CEO, Founder, Director">
         </div>
-
-        <!-- Load More Button -->
-        <div id="loadMoreContainer" class="text-center mt-12">
-            <button id="loadMoreBtn"
-                class="border-2 border-corporate-900 text-corporate-900 px-8 py-3 rounded-full font-bold hover:bg-corporate-900 hover:text-white transition">
-                Load More Archives
-            </button>
+      </div>
+      <div class="form-row">
+        <div class="form-field full">
+          <label for="aef-reason">Why do you want to attend? *</label>
+          <textarea id="aef-reason" name="reason" required placeholder="Tell us your goals and what you hope to achieve"></textarea>
         </div>
-
-        <!-- Live Event Popup -->
-        <div id="liveEventPopup"
-            class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            style="display: none;">
-            <div
-                class="bg-gradient-to-br from-corporate-900 to-gray-900 text-white rounded-3xl max-w-2xl w-full mx-4 shadow-2xl transform transition-all animate-fade-in relative overflow-hidden">
-                <!-- Close Button -->
-                <div id="popupTimer" class="absolute top-4 right-16 w-8 h-8 bg-blue-100/30 text-white font-bold rounded-full flex items-center justify-center text-sm font-mono z-10">5</div>
-                <button id="closePopup"
-                    class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-10">
-                    <i class="fa-solid fa-times text-xl"></i>
-                </button>
-
-                <!-- Decorative Elements -->
-                <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-10">
-                    <i class="fa-solid fa-star text-[300px]"></i>
-                </div>
-
-                <div class="p-6 md:p-8 relative z-10">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span
-                            class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Live
-                            Now</span>
-                        <span id="popup-edition" class="text-gray-400 font-semibold tracking-wide">Edition 5</span>
-                    </div>
-
-                    <h2 id="popup-title" class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                        Pinkvilla Screen & Style Icons 2026
-                    </h2>
-
-                    <div class="flex flex-wrap gap-4 mb-6 text-sm">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-calendar text-accent"></i>
-                            <span>March 25, 2026</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-location-dot text-accent"></i>
-                            <span>JW Marriott, Mumbai</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-users text-accent"></i>
-                            <span>500+ Attendees</span>
-                        </div>
-                    </div>
-
-                    <p id="popup-desc" class="text-gray-300 text-lg mb-8 leading-relaxed">
-                        Join India's most prestigious celebration of style, entertainment, and influence. Network with
-                        14 celebrity guests, top founders, and industry leaders in an exclusive evening of recognition
-                        and opportunity.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="index.html#live-event"
-                            class="bg-accent hover:bg-blue-600 text-white px-8 py-4 rounded-full font-bold transition shadow-lg text-center">
-                            <i class="fa-solid fa-ticket mr-2"></i>View Full Details
-                        </a>
-                        <a href="#event-apply" id="applyFromPopup" data-form-type="attend"
-                            class="apply-link bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-bold transition border border-white/20 text-center">
-                            <i class="fa-solid fa-paper-plane mr-2"></i>Attend
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Application Form Section -->
-        <section id="event-apply" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold mb-4">Apply for Event Access</h2>
-                    <div class="w-20 h-1 bg-accent mx-auto mb-6"></div>
-                    <p class="text-gray-600 text-lg">Get exclusive access to our curated events and networking
-                        opportunities</p>
-                </div>
-
-                <form id="eventApplicationForm"
-                    class="bg-white rounded-2xl p-8 lg:p-12 shadow-xl border border-gray-100">
-                    <input type="hidden" name="applicationType" value="event">
-
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Full Name *</label>
-                            <input type="text" name="fullName" required
-                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Email Address *</label>
-                            <input type="email" name="email" required
-                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Company / Brand *</label>
-                            <input type="text" name="company" required
-                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
-                            <input type="tel" name="phone" required
-                                class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white">
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Your Role/Title *</label>
-                        <input type="text" name="role" required
-                            class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white"
-                            placeholder="e.g., CEO, Founder, Director">
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Why do you want to attend? *</label>
-                        <textarea name="reason" rows="4" required
-                            class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition bg-white resize-none"
-                            placeholder="Tell us about your goals and what you hope to achieve"></textarea>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="flex items-start gap-2 text-sm text-gray-600">
-                            <input type="checkbox" name="terms" required class="mt-1 w-4 h-4 text-accent rounded">
-                            <span>I agree to the <a href="terms.html"
-                                    class="text-accent hover:underline font-semibold">Terms & Conditions</a> and <a
-                                    href="terms.html#privacy" class="text-accent hover:underline font-semibold">Privacy
-                                    Policy</a></span>
-                        </label>
-                    </div>
-
-                    <button type="submit"
-                        class="w-full bg-gradient-to-r from-corporate-900 to-accent text-white py-4 rounded-lg font-bold hover:shadow-2xl transition-all transform hover:scale-[1.02]">
-                        <i class="fa-solid fa-paper-plane mr-2"></i>Submit Application
-                    </button>
-                    <p id="eventFormMessage" class="mt-4 text-center text-sm font-semibold"></p>
-                </form>
-            </div>
-        </section>
-
-    </section>
-    <!-- Newsletter Section -->
-    <section class="py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 relative overflow-hidden">
-        <!-- Animated Background Elements -->
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl animate-pulse"
-                style="animation-delay: 1s;"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="mb-6">
-                <span
-                    class="inline-block bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">
-                    🎉 Event Updates
-                </span>
-            </div>
-            <h3 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
-                Never Miss an <span class="text-yellow-300">Epic Event</span>
-            </h3>
-            <p class="text-white/90 mb-10 text-lg md:text-xl max-w-2xl mx-auto">
-                Get exclusive event invitations, behind-the-scenes access, and early-bird tickets delivered to your
-                inbox.
-            </p>
-
-            <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                <div class="flex-1 relative">
-                    <i
-                        class="fa-solid fa-envelope absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="email" name="newsletter_email" required placeholder="Enter your email address"
-                        class="w-full pl-14 pr-6 py-5 rounded-full focus:ring-4 focus:ring-white/50 focus:outline-none text-gray-800 font-medium shadow-xl">
-                </div>
-                <button type="submit"
-                    class="bg-white text-purple-600 px-10 py-5 rounded-full font-bold hover:bg-yellow-300 hover:text-purple-700 transition-all shadow-xl transform hover:scale-105 hover:shadow-2xl">
-                    <i class="fa-solid fa-rocket mr-2"></i>Subscribe Now
-                </button>
-            </form>
-
-            <p class="text-white/80 text-sm mt-6">
-                <i class="fa-solid fa-shield-halved mr-1"></i>
-                We respect your privacy. Unsubscribe anytime.
-            </p>
-        </div>
-    </section>
-
-
-    <footer class="bg-corporate-100 border-t border-gray-200 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <!-- Brand -->
-                <div class="md:col-span-1">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div
-                            class="w-10 h-10 bg-black text-white flex-shrink-0 flex items-center justify-center font-bold text-xl tracking-tighter">
-                            UX</div>
-                        <span class="font-bold text-xl tracking-tight text-corporate-900">UnicornXMedia</span>
-                    </div>
-                    <p class="text-gray-500 text-sm">
-                        Amplifying founder stories through strategic PR, events, and media partnerships.
-                    </p>
-                </div>
-
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="font-bold text-corporate-900 mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="index.html#services"
-                                class="text-gray-500 hover:text-accent transition">Services</a></li>
-                        <li><a href="index.html#live-event" class="text-gray-500 hover:text-accent transition">Live
-                                Events</a></li>
-                        <li><a href="podcasts.html" class="text-gray-500 hover:text-accent transition">Podcasts</a></li>
-                        <li><a href="archive.html" class="text-gray-500 hover:text-accent transition">Events</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Services -->
-                <div>
-                    <h4 class="font-bold text-corporate-900 mb-4">Services</h4>
-                    <ul class="space-y-2">
-                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">PR
-                                Campaigns</a></li>
-                        <li><a href="index.html#services" class="text-gray-500 hover:text-accent transition">Event
-                                Management</a></li>
-                        <li><a href="podcasts.html" class="text-gray-500 hover:text-accent transition">Podcast
-                                Features</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div>
-                    <h4 class="font-bold text-corporate-900 mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-500 text-sm">
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-phone text-accent"></i>
-                            <span>+91 9625363995</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-envelope text-accent"></i>
-                            <span>contact@unicornxmedia.com</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-location-dot text-accent"></i>
-                            <span>Delhi, India</span>
-                        </li>
-                    </ul>
-                    <div class="flex space-x-3 mt-4">
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-accent hover:border-accent transition">
-                            <i class="fa-brands fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Bar -->
-            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-gray-500 text-sm">
-                    © 2026 UnicornXMedia. All rights reserved.
-                </div>
-                <div class="flex gap-6 text-sm">
-                    <a href="terms.html" class="text-gray-500 hover:text-accent transition">Terms & Conditions</a>
-                    <a href="terms.html#privacy" class="text-gray-500 hover:text-accent transition">Privacy Policy</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile Menu Toggle
-
-        // Newsletter Form Submission
-        const newsletterForm = document.getElementById('newsletterForm');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const formData = new FormData(newsletterForm);
-                const data = {
-                    email: formData.get('newsletter_email'),
-                    type: 'newsletter'
-                };
-
-                try {
-                    const button = newsletterForm.querySelector('button[type="submit"]');
-                    const originalText = button.textContent;
-                    button.textContent = 'Subscribing...';
-                    button.disabled = true;
-
-                    const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    button.textContent = '✓ Subscribed!';
-                    button.className = button.className.replace('bg-white text-accent', 'bg-green-500 text-white');
-                    newsletterForm.reset();
-
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.className = button.className.replace('bg-green-500 text-white', 'bg-white text-accent');
-                        button.disabled = false;
-                    }, 3000);
-                } catch (error) {
-                    const button = newsletterForm.querySelector('button[type="submit"]');
-                    button.textContent = 'Error - Try Again';
-                    button.disabled = false;
-                    setTimeout(() => {
-                        button.textContent = 'Subscribe';
-                    }, 3000);
-                }
-            });
-        }
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('active');
-                const icon = mobileMenuBtn.querySelector('i');
-                if (mobileMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-
-            // Close mobile menu when clicking on a link
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                    const icon = mobileMenuBtn.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                });
-            });
-        }
-
-        // Render Events Grid & Load More Functionality
-        let ARCHIVE_EVENTS = [];
-        let currentFilter = 'all';
-        let currentItems = 12; // Increased to 12
-        const archiveGrid = document.getElementById('archiveGrid');
-        const yearFilters = document.querySelectorAll('.year-filter');
-        const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-        // Automatic Slideshow for Cards with Multiple Images
-        const autoSlideIntervalsMap = new Map();
-
-        function startSlideshow(card) {
-            const images = card.querySelectorAll('.archive-img');
-            if (images.length <= 1) return;
-
-            let current = 0;
-            const interval = setInterval(() => {
-                images[current].classList.replace('opacity-100', 'opacity-0');
-                current = (current + 1) % images.length;
-                images[current].classList.replace('opacity-0', 'opacity-100');
-            }, 3000);
-            autoSlideIntervalsMap.set(card, interval);
-        }
-
-        const slideshowObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    startSlideshow(entry.target);
-                } else {
-                    const interval = autoSlideIntervalsMap.get(entry.target);
-                    if (interval) {
-                        clearInterval(interval);
-                        autoSlideIntervalsMap.delete(entry.target);
-                    }
-                }
-            });
-        }, { threshold: 0.2 });
-
-        async function fetchArchives() {
-            try {
-                const res = await fetch(`admin_api.php?action=fetch_events&t=${Date.now()}`);
-                const data = await res.json();
-                if (data.success && data.events) {
-                    ARCHIVE_EVENTS = data.events.map(e => {
-                        // Better year extraction: find the first 4-digit number starting with 20
-                        const yearMatch = e.display_date.match(/\b(20\d{2})\b/);
-                        const extractedYear = yearMatch ? yearMatch[1] : e.display_date.split(' ').pop();
-                        
-                        return {
-                            id: e.id,
-                            year: extractedYear,
-                            category: e.category || 'Events Organized',
-                            date: e.display_date,
-                            title: e.title,
-                            location: e.location,
-                            highlight: e.description,
-                            icon: e.media_type === 'video' ? 'fa-video' : 'fa-image',
-                            stat: e.edition || 'Completed',
-                            images: e.images || [e.media_path],
-                            type: e.media_type,
-                            is_live: e.is_live
-                        };
-                    });
-                    
-                    // Updated logging
-                    console.log('Loaded events:', ARCHIVE_EVENTS.length);
-                    updateGrid();
-                }
-            } catch (e) {
-                console.error("Error fetching archives:", e);
-                const counterEl = document.getElementById('eventCounter');
-                if (counterEl) counterEl.textContent = 'Error loading events: ' + e.message;
-            }
-        }
-
-        function updateGrid() {
-            try {
-                const filteredEvents = ARCHIVE_EVENTS.filter(event => {
-                if (currentFilter === 'all') return !event.is_live;
-                return event.category.trim().toLowerCase() === currentFilter.trim().toLowerCase() && !event.is_live;
-            });
-                
-                console.log('Update Grid - Filter:', currentFilter, 'Total:', filteredEvents.length);
-                const counterEl = document.getElementById('eventCounter');
-                if (counterEl) {
-                    counterEl.textContent = `Showing ${filteredEvents.length} of ${ARCHIVE_EVENTS.length} total past events`;
-                }
-
-                archiveGrid.innerHTML = '';
-                autoSlideIntervalsMap.forEach(clearInterval);
-                autoSlideIntervalsMap.clear();
-
-                if (loadMoreBtnContainer) loadMoreBtnContainer.style.display = 'none';
-
-                filteredEvents.forEach((event, index) => {
-                    try {
-                        let badgeBg = 'bg-blue-50'; let badgeText = 'text-blue-600';
-                        if (event.category === 'Public Campaigns') { badgeBg = 'bg-purple-50'; badgeText = 'text-purple-600'; }
-                        if (event.category === 'Events Covered') { badgeBg = 'bg-green-50'; badgeText = 'text-green-600'; }
-                        
-                        let mediaHTML = '';
-                        if (event.type === 'video') {
-                            mediaHTML = `<video class="absolute inset-0 w-full h-full object-cover" muted loop playsinline autoplay preload="auto"><source src="${encodeURI(event.images[0])}" type="video/mp4"></video>`;
-                        } else if (event.images && event.images.length > 0) {
-                            mediaHTML = event.images.map((img, i) => `
-                                <img src="${encodeURI(img)}" alt="${event.title}" class="archive-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}">
-                            `).join('');
-                        }
-
-                        const card = document.createElement('div');
-                        card.className = 'archive-item group cursor-pointer opacity-100 transition-all duration-300';
-                        card.innerHTML = `
-                            <div class="relative overflow-hidden rounded-3xl shadow-lg border border-black/5 bg-white h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                                <div class="aspect-video relative overflow-hidden bg-slate-900 pointer-events-none">
-                                    ${mediaHTML}
-                                    <div class="absolute inset-0 bg-black/10 transition-opacity duration-300"></div>
-                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                                        <div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30">
-                                            <i class="fa-solid fa-expand text-white text-xl"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-5 bg-white">
-                                    <div class="flex items-center justify-between mb-3">
-                                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-gray-100 px-3 py-1 rounded-full">${event.year}</span>
-                                        <span class="text-gray-400 text-[10px] font-bold">${event.date.split('•')[0].trim()}</span>
-                                    </div>
-                                    <h3 class="text-corporate-900 font-extrabold text-lg group-hover:text-blue-600 transition-colors leading-tight mb-2 line-clamp-2 h-[2.5rem] flex items-center">${event.title}</h3>
-                                    <div class="flex items-center gap-2 text-gray-400 text-[10px] font-bold">
-                                        <i class="fa-solid fa-location-dot text-blue-500"></i>
-                                        <span>${event.location}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                        archiveGrid.appendChild(card);
-                        
-                        card.addEventListener('click', (e) => {
-                            e.preventDefault(); e.stopPropagation();
-                            openSlideshow(event.id);
-                        });
-                        
-                        if (event.type === 'video') {
-                            const video = card.querySelector('video');
-                            if (video) mediaObserver.observe(video);
-                        } else if (event.images && event.images.length > 1) {
-                            slideshowObserver.observe(card);
-                        }
-                    } catch (err) {
-                        console.error('Error rendering card for event:', event.id, err);
-                    }
-                });
-            } catch (err) {
-                console.error('Error in updateGrid:', err);
-            }
-        }
-
-        fetchArchives();
-
-        if (loadMoreBtn) {
-            loadMoreBtn.addEventListener('click', () => {
-                currentItems += 3;
-                updateGrid();
-            });
-        }
-
-        yearFilters.forEach(filter => {
-            filter.addEventListener('click', () => {
-                currentFilter = filter.getAttribute('data-year');
-                currentItems = 12; 
-                // Update active button styles
-                yearFilters.forEach(f => {
-                    f.classList.remove('active', 'bg-accent', 'text-white', 'border-accent');
-                    f.classList.add('border-gray-300', 'text-gray-600');
-                });
-                filter.classList.add('active', 'bg-accent', 'text-white', 'border-accent');
-                filter.classList.remove('border-gray-300', 'text-gray-600');
-
-                updateGrid();
-            });
-        });
-
-        // Slideshow Popup Logic
-        const slideshowPopup = document.getElementById('slideshowPopup');
-        const slideshowTrack = document.getElementById('slideshowTrack');
-        const closeSlideshowBtn = document.getElementById('closeSlideshowBtn');
-        let popupSlideInterval;
-        let popupAutoCloseTimeout;
-
-        function openSlideshow(eventId) {
-            if(!slideshowPopup) return;
-            const eventData = ARCHIVE_EVENTS.find(e => e.id === eventId);
-            if (!eventData || !eventData.images.length) return;
-
-            // Build Track with larger images and info overlay
-            slideshowTrack.innerHTML = eventData.images.map((img, i) => `
-                <div class="slideshow-slide min-w-full h-full flex flex-col items-center justify-center p-4 relative">
-                    <img src="${img}" class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl">
-                    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-3 rounded-2xl text-center border border-white/10">
-                        <h4 class="text-white font-bold text-lg">${eventData.title}</h4>
-                        <p class="text-blue-400 text-xs font-black uppercase tracking-widest">${eventData.location} • ${i + 1} / ${eventData.images.length}</p>
-                    </div>
-                </div>
-            `).join('');
-
-            slideshowPopup.style.display = 'flex';
-            slideshowPopup.style.zIndex = '9999';
-            setTimeout(() => { slideshowPopup.style.opacity = '1'; }, 10);
-            
-            let currentPopupSlide = 0;
-            const slideCount = eventData.images.length;
-            slideshowTrack.style.transform = `translateX(0%)`;
-
-            // Start 1-second right-to-left
-            if (slideCount > 1) {
-                popupSlideInterval = setInterval(() => {
-                    currentPopupSlide = (currentPopupSlide + 1) % slideCount;
-                    slideshowTrack.style.transform = `translateX(-${currentPopupSlide * 100}%)`;
-                }, 2000); // Slower transition (2s)
-            }
-
-            popupAutoCloseTimeout = setTimeout(() => {
-                closeSlideshow();
-            }, 30000); // 30 seconds
-        }
-
-        function closeSlideshow() {
-            if(!slideshowPopup) return;
-            clearInterval(popupSlideInterval);
-            clearTimeout(popupAutoCloseTimeout);
-            slideshowPopup.style.opacity = '0';
-            setTimeout(() => {
-                slideshowPopup.style.display = 'none';
-                slideshowTrack.innerHTML = '';
-            }, 300);
-        }
-
-        if(closeSlideshowBtn) {
-            closeSlideshowBtn.addEventListener('click', closeSlideshow);
-        }
-        
-        if(slideshowPopup) {
-            slideshowPopup.addEventListener('click', (e) => {
-                if (e.target === slideshowPopup) {
-                    closeSlideshow();
-                }
-            });
-        }
-
-        // Live Event Popup Functionality
-        const liveEventPopup = document.getElementById('liveEventPopup');
-        const closePopupBtn = document.getElementById('closePopup');
-        const applyFromPopupBtn = document.getElementById('applyFromPopup');
-
-        // Show popup on page load with 5-second countdown (Once per session)
-        window.addEventListener('load', () => {
-            if (sessionStorage.getItem('liveEventPopupShown')) return;
-
-            setTimeout(() => {
-                if (liveEventPopup) {
-                    liveEventPopup.style.display = 'flex';
-                    liveEventPopup.style.animation = 'fadeIn 0.3s ease-in';
-                    sessionStorage.setItem('liveEventPopupShown', 'true');
-                    
-                    let timeLeft = 5;
-                    const timerEl = document.getElementById('popupTimer');
-                    const countdown = setInterval(() => {
-                        timeLeft--;
-                        if (timerEl) timerEl.textContent = timeLeft;
-                        if (timeLeft <= 0) {
-                            clearInterval(countdown);
-                            liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
-                            setTimeout(() => {
-                                liveEventPopup.style.display = 'none';
-                            }, 300);
-                        }
-                    }, 1000);
-                }
-            }, 500);
-        });
-
-        // Close popup on button click
-        if (closePopupBtn && liveEventPopup) {
-            closePopupBtn.addEventListener('click', () => {
-                liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
-                setTimeout(() => {
-                    liveEventPopup.style.display = 'none';
-                }, 300);
-            });
-        }
-
-        // Close popup when clicking outside
-        if (liveEventPopup) {
-            liveEventPopup.addEventListener('click', (e) => {
-                if (e.target === liveEventPopup) {
-                    liveEventPopup.style.animation = 'fadeOut 0.3s ease-out';
-                    setTimeout(() => {
-                        liveEventPopup.style.display = 'none';
-                    }, 300);
-                }
-            });
-        }
-
-        // Handle apply from popup button
-        if (applyFromPopupBtn) {
-            applyFromPopupBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                liveEventPopup.style.display = 'none';
-                document.getElementById('event-apply').scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-
-        // Event Application Form Submission
-        const eventApplicationForm = document.getElementById('eventApplicationForm');
-        const eventFormMessage = document.getElementById('eventFormMessage');
-
-        if (eventApplicationForm) {
-            eventApplicationForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const formData = new FormData(eventApplicationForm);
-                const data = {};
-                formData.forEach((value, key) => data[key] = value);
-                data.type = 'event';
-
-                try {
-                    const btn = eventApplicationForm.querySelector('button[type="submit"]');
-                    const origText = btn.innerHTML;
-                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...';
-                    btn.disabled = true;
-
-                    const response = await fetch('assets/php/submit.php', {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-
-                    btn.innerHTML = origText;
-                    btn.disabled = false;
-                    eventApplicationForm.reset();
-
-                    showSuccessPopup('Thank you! Your submission has been received. Our team will get back to you shortly.');
-                } catch (error) {
-                    eventFormMessage.textContent = 'Error submitting application. Please try again or email us directly.';
-                    eventFormMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
-                }
-            });
-        }
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: scale(0.95); }
-                to { opacity: 1; transform: scale(1); }
-            }
-            @keyframes fadeOut {
-                from { opacity: 1; transform: scale(1); }
-                to { opacity: 0; transform: scale(0.95); }
-            }
-        `;
-        document.head.appendChild(style);
-
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-    <script>
-        // Custom Cursor Logic
-        (function() {
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-
-            if (cursorDot && cursorOutline) {
-                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
-                
-                window.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    cursorDot.style.left = mouseX + 'px';
-                    cursorDot.style.top = mouseY + 'px';
-                });
-                
-                const animate = () => {
-                    outlineX += (mouseX - outlineX) * 0.15;
-                    outlineY += (mouseY - outlineY) * 0.15;
-                    cursorOutline.style.left = outlineX + 'px';
-                    cursorOutline.style.top = outlineY + 'px';
-                    requestAnimationFrame(animate);
-                };
-                animate();
-
-                const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item, .podcast-card');
-                hoverElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        document.body.classList.add('cursor-hover');
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        document.body.classList.remove('cursor-hover');
-                    });
-                });
-            }
-        })();
-    </script>
-    
-    <!-- Submission Success Popup -->
-    <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all animate-fade-in relative">
-            <div id="countdownTimer" class="absolute top-4 right-16 w-8 h-8 bg-blue-100/50 text-blue-600 font-bold rounded-full flex items-center justify-center text-sm font-mono">5</div>
-            <button onclick="document.getElementById('successPopup').style.display = 'none'; clearInterval(window.countdownInterval); clearTimeout(window.successTimeout);" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
-                <i class="fa-solid fa-times text-gray-600"></i>
-            </button>
-            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-            <p class="text-gray-600 font-medium">Your submission has been received. Our team will get back to you shortly.</p>
-        </div>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" name="terms" id="aef-terms" required>
+        <span>I agree to the <a href="terms.html">Terms &amp; Conditions</a> and <a href="terms.html#privacy">Privacy Policy</a></span>
+      </div>
+      <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i>Submit Application</button>
+      <p id="formMsg"></p>
+    </form>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section">
+  <div class="newsletter-inner reveal">
+    <span class="sec-eyebrow">Event Updates</span>
+    <h2 class="newsletter-title">Never Miss an<br>Epic Event</h2>
+    <p class="newsletter-sub">Exclusive event invitations, behind-the-scenes access, and early-bird tickets — weekly.</p>
+    <form id="newsletterForm" class="newsletter-form-row">
+      <input type="email" name="newsletter_email" required placeholder="Enter your email address">
+      <button type="submit"><i class="fa-solid fa-rocket" style="margin-right:6px;"></i>Subscribe</button>
+    </form>
+    <p style="font-size:.75rem;color:var(--white-40);margin-top:.8rem;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>We respect your privacy. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-brand"><div class="footer-wordmark">UnicornXMedia</div></div>
+  <div class="footer-glow"></div>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-row"><span class="logo-ux">UX</span><span class="logo-name">UnicornXMedia</span></div>
+      <p class="foot-about">Amplifying founder stories through strategic PR, events, workshops, and media partnerships worldwide.</p>
     </div>
-    
-    <!-- Slideshow Popup -->
-    <div id="slideshowPopup" class="fixed inset-0 bg-black/95 z-[60] flex items-center justify-center p-4 transition-all duration-300" style="display: none; opacity: 0;">
-        <button id="closeSlideshowBtn" class="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition z-[70]">
-            <i class="fa-solid fa-times text-white text-2xl"></i>
-        </button>
-        <div class="relative w-full max-w-5xl aspect-video rounded-xl overflow-hidden border border-white/20 shadow-2xl">
-            <div id="slideshowTrack" class="flex h-full w-full transition-transform duration-500 ease-in-out">
-            </div>
-        </div>
+    <div>
+      <div class="foot-heading">Quick Links</div>
+      <ul class="foot-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#live-event">Live Events</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="archive.html">Events Archive</a></li>
+      </ul>
     </div>
+    <div>
+      <div class="foot-heading">Services</div>
+      <ul class="foot-links">
+        <li><a href="index.html#services">PR Campaigns</a></li>
+        <li><a href="workshops.html">Workshop Programs</a></li>
+        <li><a href="podcasts.html">Podcast Features</a></li>
+        <li><a href="index.html#apply">Apply Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-heading">Contact</div>
+      <ul class="foot-contact">
+        <li><i class="fa-solid fa-phone"></i>+91 9625363995</li>
+        <li><i class="fa-solid fa-envelope"></i>contact@unicornxmedia.com</li>
+        <li><i class="fa-solid fa-location-dot"></i>Delhi, India</li>
+      </ul>
+      <div class="social-row">
+        <a href="#" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 UnicornXMedia. All rights reserved.</div>
+    <div class="footer-legal"><a href="terms.html">Terms &amp; Conditions</a><a href="terms.html#privacy">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<!-- Live Event Popup -->
+<div id="liveEventPopup" class="popup-backdrop">
+  <div class="popup-box">
+    <div class="popup-close-row">
+      <div class="popup-timer" id="popupTimer">5</div>
+      <button class="popup-close" id="closePopup"><i class="fa-solid fa-times"></i></button>
+    </div>
+    <div class="live-badge-row"><div class="live-dot"></div><span class="badge-live">Live Now</span><span id="popup-edition" style="font-family:var(--font-mono);font-size:.7rem;color:var(--white-40);margin-left:6px;">Edition 5</span></div>
+    <h2 class="live-title" id="popup-title">Pinkvilla Screen &amp; Style Icons 2026</h2>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1rem;font-size:.82rem;color:var(--white-40);">
+      <span><i class="fa-solid fa-calendar" style="color:var(--gold);margin-right:5px;"></i><span id="popup-date">March 25, 2026</span></span>
+      <span><i class="fa-solid fa-location-dot" style="color:var(--gold);margin-right:5px;"></i><span id="popup-loc">JW Marriott, Mumbai</span></span>
+    </div>
+    <p class="live-desc" id="popup-desc">Join India's most prestigious celebration of style, entertainment, and influence. Network with 14 celebrity guests, top founders, and industry leaders.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="index.html#live-event" class="btn-submit" onclick="document.getElementById('liveEventPopup').style.display='none'"><i class="fa-solid fa-ticket"></i>View Full Details</a>
+      <a href="#event-apply" id="applyFromPopup" style="border:1px solid var(--border);padding:14px 24px;color:var(--white-80);font-size:.9rem;font-weight:500;display:inline-flex;align-items:center;gap:8px;"><i class="fa-solid fa-paper-plane"></i>Attend</a>
+    </div>
+  </div>
+</div>
+
+<!-- Success Popup -->
+<div id="successPopup" class="popup-backdrop">
+  <div class="success-popup">
+    <div class="popup-close-row">
+      <div class="popup-timer" id="countdownTimer">5</div>
+      <button class="popup-close" id="closeSuccess"><i class="fa-solid fa-times"></i></button>
+    </div>
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:.5rem;">Thank You!</h3>
+    <p style="color:var(--white-40);font-size:.9rem;">Your submission has been received. Our team will get back to you shortly.</p>
+  </div>
+</div>
+
+<!-- Slideshow Popup -->
+<div id="slideshowPopup" class="slideshow-backdrop">
+  <button class="slideshow-close" id="closeSlideshowBtn"><i class="fa-solid fa-times"></i></button>
+  <div class="slideshow-content">
+    <div id="slideshowTrack" class="slideshow-track"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Universal Premium Engine
+  function initTheme(){
+    var t=localStorage.getItem('theme')||'dark';
+    if(t==='light'){document.documentElement.classList.add('light-mode');document.body.classList.add('light-mode');}
+    var bts=document.getElementById('themeToggleDesktop'),btm=document.getElementById('themeToggleMobile');
+    var tog=function(){
+      document.documentElement.classList.toggle('light-mode');
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('theme',document.body.classList.contains('light-mode')?'light':'dark');
+    };
+    if(bts)bts.addEventListener('click',tog);
+    if(btm)btm.addEventListener('click',tog);
+  } initTheme();
+
+  // Scroll logic
+  window.addEventListener('scroll',function(){
+    var p=document.getElementById('scroll-progress');if(p){var s=window.scrollY,h=document.body.scrollHeight-window.innerHeight;p.style.width=(s/h*100)+'%';}
+    var n=document.getElementById('siteNav');if(n)n.classList.toggle('scrolled',window.scrollY>60);
+  },{passive:true});
+
+  // Cursor logic
+  var d=document.getElementById('cursorDot'),r=document.getElementById('cursorRing');
+  if(d&&r){
+    var mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my,init=false;
+    window.addEventListener('mousemove',function(e){
+      mx=e.clientX;my=e.clientY;d.style.left=mx+'px';d.style.top=my+'px';
+      if(!init){init=true;d.style.opacity='1';r.style.opacity='1';rx=mx;ry=my;}
+    },{passive:true});
+    (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(function(el){
+      el.addEventListener('mouseenter',function(){document.body.classList.add('cursor-hover');});
+      el.addEventListener('mouseleave',function(){document.body.classList.remove('cursor-hover');});
+    });
+  }
+
+  // Mobile nav
+  var h=document.getElementById('mobileMenuBtn'),m=document.getElementById('mobile-nav');
+  if(h&&m){h.addEventListener('click',function(){h.classList.toggle('active');m.classList.toggle('open');});}
+
+  // Reveal animations
+  document.querySelectorAll('.reveal').forEach(function(el){
+    new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('active');});},{threshold:0.12}).observe(el);
+  });
+
+  // ===== ARCHIVE DATA & GRID =====
+  var ARCHIVE_EVENTS=[];
+  var currentFilter='all';
+  var archiveGrid=document.getElementById('archiveGrid');
+  var yearFilters=document.querySelectorAll('.year-filter');
+  var autoSlide=new Map();
+
+  function startSlide(card){
+    var imgs=card.querySelectorAll('.archive-card-media img');
+    if(imgs.length<=1)return;
+    var cur=0;
+    var iv=setInterval(function(){
+      imgs[cur].classList.add('hidden-img');
+      cur=(cur+1)%imgs.length;
+      imgs[cur].classList.remove('hidden-img');
+    },3000);
+    autoSlide.set(card,iv);
+  }
+
+  var slideObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){startSlide(entry.target);}
+      else{var iv=autoSlide.get(entry.target);if(iv){clearInterval(iv);autoSlide.delete(entry.target);}}
+    });
+  },{threshold:0.2});
+
+  async function fetchArchives(){
+    try{
+      // Try PHP API first (live server), then fall back to static JSON (local dev)
+      var eventsData=null;
+      try{
+        var res=await fetch('admin_api.php?action=fetch_events&t='+Date.now());
+        var data=await res.json();
+        if(data.success&&data.events)eventsData=data.events;
+      }catch(e){eventsData=null;}
+
+      // Fallback: load directly from events.json
+      if(!eventsData){
+        var res2=await fetch('assets/data/events.json?t='+Date.now());
+        eventsData=await res2.json();
+        // Map raw JSON format
+        eventsData=eventsData.map(function(e){
+          return Object.assign({},e,{
+            display_date:e.display_date,
+            images:e.images||[e.media_path],
+            media_type:e.media_type||'image',
+            is_live:!!e.is_live
+          });
+        });
+        // Wrap to match API format
+        eventsData={events:eventsData,success:true};
+        eventsData=eventsData.events;
+      }
+
+      if(eventsData){
+        ARCHIVE_EVENTS=eventsData.map(function(e){
+          var ym=e.display_date.match(/\b(20\d{2})\b/);
+          return{id:e.id,year:ym?ym[1]:(e.date?e.date.slice(0,4):e.display_date.slice(-4)),category:e.category||'Events Organized',
+            date:e.display_date,title:e.title,location:e.location,highlight:e.description,
+            images:e.images||[e.media_path],type:e.media_type||'image',is_live:!!e.is_live};
+        });
+        updateGrid();
+        var ctr=document.getElementById('eventCounter');
+        if(ctr)ctr.textContent='Showing '+ARCHIVE_EVENTS.filter(function(e){return!e.is_live;}).length+' curated events';
+      }
+    }catch(err){
+      console.error('Fetch error:',err);
+      var ctr=document.getElementById('eventCounter');
+      if(ctr)ctr.textContent='Unable to load events.';
+    }
+  }
+
+  function updateGrid(){
+    var filtered=ARCHIVE_EVENTS.filter(function(ev){
+      if(currentFilter==='all')return!ev.is_live;
+      return ev.category.trim().toLowerCase()===currentFilter.trim().toLowerCase()&&!ev.is_live;
+    });
+    var ctr=document.getElementById('eventCounter');
+    if(ctr)ctr.textContent='Showing '+filtered.length+' events';
+    archiveGrid.innerHTML='';
+    autoSlide.forEach(clearInterval);autoSlide.clear();
+    filtered.forEach(function(ev){
+      var mediaHTML='';
+      if(ev.type==='video'){
+        mediaHTML='<video class="archive-video" muted loop playsinline controls preload="auto"><source src="'+encodeURI(ev.images[0])+'" type="video/mp4"></video>';
+      } else if(ev.images&&ev.images.length>0){
+        mediaHTML=ev.images.map(function(img,i){return'<img src="'+encodeURI(img)+'" alt="'+ev.title+'" '+(i>0?'class="hidden-img"':'')+'>';}).join('');
+      }
+      var card=document.createElement('div');
+      card.className='archive-card reveal';
+      card.innerHTML=
+        '<div class="archive-card-media">'+
+          mediaHTML+
+          '<div class="archive-card-overlay"></div>'+
+          '<div class="archive-card-expand"><div class="expand-icon"><i class="fa-solid fa-expand"></i></div></div>'+
+        '</div>'+
+        '<div class="archive-card-info">'+
+          '<div class="archive-card-meta"><span class="archive-tag">'+ev.category+'</span><span class="archive-date">'+ev.year+'</span></div>'+
+          '<div class="archive-card-title">'+ev.title+'</div>'+
+          '<div class="archive-card-loc"><i class="fa-solid fa-location-dot"></i>'+ev.location+'</div>'+
+        '</div>';
+      archiveGrid.appendChild(card);
+      new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('active');});},{threshold:0.1}).observe(card);
+      card.addEventListener('click',function(){openSlideshow(ev.id);});
+      if(ev.type!=='video'&&ev.images&&ev.images.length>1)slideObs.observe(card);
+    });
+  }
+
+  yearFilters.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      currentFilter=btn.getAttribute('data-year');
+      yearFilters.forEach(function(f){f.classList.remove('active');});
+      btn.classList.add('active');
+      updateGrid();
+    });
+  });
+
+  fetchArchives();
+
+  // ===== SLIDESHOW POPUP =====
+  var slideshowPopup=document.getElementById('slideshowPopup');
+  var slideshowTrack=document.getElementById('slideshowTrack');
+  var closeSlideshowBtn=document.getElementById('closeSlideshowBtn');
+  var popupInterval,popupTimeout;
+
+  function openSlideshow(eventId){
+    if(!slideshowPopup)return;
+    var ev=ARCHIVE_EVENTS.find(function(e){return e.id===eventId;});
+    if(!ev||!ev.images.length)return;
+    slideshowTrack.innerHTML=ev.images.map(function(img,i){
+      return'<div class="slideshow-slide"><img src="'+img+'" alt="'+ev.title+'"><div class="slideshow-info"><h4>'+ev.title+'</h4><p>'+ev.location+' &nbsp;·&nbsp; '+(i+1)+'/'+ev.images.length+'</p></div></div>';
+    }).join('');
+    slideshowPopup.style.display='flex';setTimeout(function(){slideshowPopup.classList.add('open');},10);
+    var cur=0,total=ev.images.length;
+    if(total>1)popupInterval=setInterval(function(){cur=(cur+1)%total;slideshowTrack.style.transform='translateX(-'+(cur*100)+'%)';},2500);
+    popupTimeout=setTimeout(closeSlideshow,35000);
+  }
+  function closeSlideshow(){
+    if(!slideshowPopup)return;
+    clearInterval(popupInterval);clearTimeout(popupTimeout);
+    slideshowPopup.classList.remove('open');
+    setTimeout(function(){slideshowPopup.style.display='none';slideshowTrack.innerHTML='';},300);
+  }
+  if(closeSlideshowBtn)closeSlideshowBtn.addEventListener('click',closeSlideshow);
+  if(slideshowPopup)slideshowPopup.addEventListener('click',function(e){if(e.target===slideshowPopup)closeSlideshow();});
+
+  // ===== LIVE EVENT POPUP =====
+  var livePopup=document.getElementById('liveEventPopup');
+  window.addEventListener('load',function(){
+    if(sessionStorage.getItem('liveEventPopupShown'))return;
+    setTimeout(function(){
+      if(livePopup){
+        livePopup.style.display='flex';
+        sessionStorage.setItem('liveEventPopupShown','true');
+        var tl=5,te=document.getElementById('popupTimer');
+        var ci=setInterval(function(){tl--;if(te)te.textContent=tl;if(tl<=0){clearInterval(ci);livePopup.style.display='none';}},1000);
+      }
+    },1500);
+  });
+  var closePopup=document.getElementById('closePopup');
+  if(closePopup)closePopup.addEventListener('click',function(){livePopup.style.display='none';});
+  if(livePopup)livePopup.addEventListener('click',function(e){if(e.target===livePopup)livePopup.style.display='none';});
+  var applyFromPopup=document.getElementById('applyFromPopup');
+  if(applyFromPopup)applyFromPopup.addEventListener('click',function(e){
+    e.preventDefault();livePopup.style.display='none';
+    var t=document.getElementById('event-apply');if(t)t.scrollIntoView({behavior:'smooth'});
+  });
+
+  // ===== SUCCESS POPUP =====
+  var showSuccessPopup=function(){
+    var p=document.getElementById('successPopup'),t=document.getElementById('countdownTimer');
+    if(p){p.style.display='flex';var s=5;if(t)t.textContent=s;
+      clearInterval(window._spi);clearTimeout(window._spt);
+      window._spi=setInterval(function(){s--;if(t)t.textContent=s;if(s<=0)clearInterval(window._spi);},1000);
+      window._spt=setTimeout(function(){p.style.display='none';},5000);
+    }
+  };
+  var closeSuccess=document.getElementById('closeSuccess');
+  if(closeSuccess)closeSuccess.addEventListener('click',function(){
+    document.getElementById('successPopup').style.display='none';
+    clearInterval(window._spi);clearTimeout(window._spt);
+  });
+
+  // ===== APPLICATION FORM =====
+  var appForm=document.getElementById('eventApplicationForm');
+  if(appForm){appForm.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=this.querySelector('button[type="submit"]'),orig=btn.innerHTML;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';btn.disabled=true;
+    var fd=new FormData(this),data={};
+    fd.forEach(function(v,k){data[k]=v;});data.formType='event';
+    try{
+      var res=await fetch('submit.php',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
+      var r=await res.json();
+      if(r.success){this.reset();showSuccessPopup();}
+      else{var msg=document.getElementById('formMsg');if(msg)msg.textContent=r.message||'Submission failed.';}
+    }catch(err){var msg=document.getElementById('formMsg');if(msg)msg.textContent='Server error. Please try again.';}
+    finally{btn.innerHTML=orig;btn.disabled=false;}
+  });}
+
+  // ===== NEWSLETTER =====
+  var nf=document.getElementById('newsletterForm');
+  if(nf){nf.addEventListener('submit',async function(e){
+    e.preventDefault();var btn=this.querySelector('button'),orig=btn.innerHTML;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>';btn.disabled=true;
+    var data={email:new FormData(this).get('newsletter_email'),formType:'newsletter'};
+    try{
+      var res=await fetch('submit.php',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
+      var r=await res.json();
+      if(r.success){this.reset();btn.innerHTML='<i class="fa-solid fa-check" style="margin-right:5px;"></i>Subscribed!';btn.style.background='#48bb78';
+        setTimeout(function(){btn.innerHTML=orig;btn.style.background='';btn.disabled=false;},3000);return;}
+    }catch(err){}
+    btn.innerHTML=orig;btn.disabled=false;
+  });}
+
+  // ===== DYNAMIC CONTENT FROM ADMIN API =====
+  (async function(){
+    try{
+      var res=await fetch('admin_api.php?action=fetch_events&t='+Date.now());
+      var data=await res.json();
+      if(data.success&&data.events){
+        var live=data.events.find(function(e){return e.is_live;});
+        if(live){
+          ['popup-title','popup-edition'].forEach(function(id,i){
+            var el=document.getElementById(id);if(el)el.textContent=i===0?live.title:(live.edition||'');
+          });
+          var pd=document.getElementById('popup-date');if(pd)pd.textContent=live.display_date;
+          var pl=document.getElementById('popup-loc');if(pl)pl.textContent=live.location;
+          var pdesc=document.getElementById('popup-desc');if(pdesc)pdesc.textContent=live.description;
+        }
+      }
+    }catch(err){}
+  })();
+})();
+</script>
 </body>
-
 </html>

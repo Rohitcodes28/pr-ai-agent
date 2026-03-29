@@ -1,141 +1,506 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podcasts | UnicornXMedia</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text x='50' y='70' font-size='50' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>UX</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        corporate: {
-                            900: '#0B1120',
-                            800: '#111827',
-                            100: '#F3F4F6'
-                        },
-                        accent: '#2563EB'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom Cursor */
-        body {
-            cursor: none;
-        }
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #2563EB;
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(37, 99, 235, 0.5);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        .cursor-hover .cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(37, 99, 235, 0.1);
-            border-color: rgba(37, 99, 235, 0.8);
-        }
-        @media (max-width: 768px) {
-            body {
-                cursor: auto;
-            }
-            .cursor-dot, .cursor-outline {
-                display: none;
-            }
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        .podcast-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .podcast-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .mobile-menu {
-            display: none;
-        }
-        .mobile-menu.active {
-            display: block;
-        }
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podcasts | UnicornXMedia — Founder Visibility Platform</title>
+<meta name="description" content="Get featured on top-tier podcasts with UnicornXMedia. Reach millions of engaged listeners and build your founder authority.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23070708'/><text x='50' y='70' font-size='46' font-family='serif' font-weight='600' fill='%23c9a84c' text-anchor='middle'>UX</text></svg>">
+<!-- EARLY THEME: prevents flash of wrong theme -->
+<script>if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('light-mode');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--black:#070708;--obsidian:#0d0d10;--surface:#111116;--card:#16161c;--border:rgba(255,255,255,0.07);--gold:#c9a84c;--gold-light:#e8c97a;--gold-glow:rgba(201,168,76,0.15);--gold-dim:rgba(201,168,76,0.4);--white:#fff;--white-80:rgba(255,255,255,0.8);--white-40:rgba(255,255,255,0.4);--white-15:rgba(255,255,255,0.05);--gradient-gold:linear-gradient(135deg,#c9a84c,#e8c97a,#a07830);--font-display:'Cormorant Garamond',serif;--font-ui:'DM Sans',sans-serif;--font-mono:'Space Grotesk',sans-serif;--text-hero:clamp(3rem,8vw,6.5rem);--text-h2:clamp(1.8rem,3.5vw,3rem);--text-h3:clamp(1.2rem,2vw,1.6rem);--text-body:clamp(0.93rem,1.2vw,1.05rem);--lh-display:0.92;--lh-heading:1.1;--lh-body:1.75;--pad:clamp(24px,5vw,80px);--max:1440px;--sec:clamp(80px,10vw,140px);}
+html.light-mode,body.light-mode{--black:#f5f5f7;--obsidian:#eaeaec;--surface:#f0f0f2;--card:#ffffff;--border:rgba(0,0,0,0.1);--gold:#8a6f25;--gold-light:#c9a84c;--white:#111112;--white-80:rgba(0,0,0,0.82);--white-40:rgba(0,0,0,0.48);--white-15:rgba(0,0,0,0.08);--gold-glow:rgba(138,111,37,0.1);--gold-dim:rgba(138,111,37,0.3);}
+html.light-mode body,body.light-mode{background:var(--black);color:var(--white);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-ui);font-size:var(--text-body);line-height:var(--lh-body);overflow-x:hidden;transition:background .4s,color .4s;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.03;pointer-events:none;z-index:9999;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:var(--font-ui);}
+#scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--gradient-gold);z-index:10001;width:0%;pointer-events:none;}
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:10000;}
+.cursor-dot{width:8px;height:8px;background:var(--white);mix-blend-mode:difference;}
+.cursor-ring{width:40px;height:40px;border:1.5px solid var(--gold);transition:width .2s,height .2s,background .2s,border-color .2s;mix-blend-mode:difference;}
+body.cursor-hover .cursor-ring{width:60px;height:60px;background:rgba(201,168,76,0.1);border-color:var(--gold);}
+/* Nav */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;padding:28px var(--pad);transition:all .3s;}
+.site-nav.scrolled{padding:14px var(--pad);background:rgba(7,7,8,0.92);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border);}
+body.light-mode .site-nav.scrolled{background:rgba(248,249,250,0.96);}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.logo-ux{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--gold);}
+.logo-name{font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--white-40);}
+.nav-links{display:flex;align-items:center;gap:2.5rem;margin:0 auto;}
+.nav-link{font-size:.85rem;font-weight:500;color:var(--white-40);letter-spacing:.02em;position:relative;transition:color .3s,letter-spacing .3s;}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:50%;right:50%;height:1px;background:var(--gold);transition:left .3s,right .3s;}
+.nav-link:hover,.nav-link.active{color:var(--white);letter-spacing:.05em;}
+.nav-link:hover::after,.nav-link.active::after{left:0;right:0;}
+.btn-nav{border:1px solid var(--gold-dim);color:var(--gold);padding:10px 24px;font-size:.82rem;font-weight:600;letter-spacing:.04em;position:relative;overflow:hidden;transition:color .3s;background:none;}
+.btn-nav::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.btn-nav:hover::before{transform:scaleX(1);}
+.btn-nav:hover{color:var(--black);}
+.btn-nav-text{position:relative;z-index:1;}
+.nav-hamburger{display:none;background:none;border:none;padding:4px;flex-direction:column;gap:5px;}
+.nav-hamburger span{display:block;width:24px;height:1.5px;background:var(--white);transition:all .3s;}
+.nav-hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.active span:nth-child(2){opacity:0;}
+.nav-hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+#mobile-nav{display:none;position:fixed;inset:0;background:var(--black);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+#mobile-nav.open{display:flex;}
+#mobile-nav .nav-link{font-family:var(--font-display);font-size:2.2rem;font-weight:300;color:var(--white-80);}
+/* Page hero */
+.page-hero{padding:clamp(120px,15vw,180px) var(--pad) clamp(60px,8vw,100px);max-width:var(--max);margin:0 auto;text-align:center;}
+.sec-eyebrow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem;}
+.page-headline{font-family:var(--font-display);font-size:var(--text-hero);font-weight:300;line-height:var(--lh-display);margin-bottom:1.2rem;}
+.page-sub{color:var(--white-40);max-width:60ch;margin:0 auto 2.5rem;}
+.cta-row{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--gold);color:var(--black);padding:14px 36px;font-family:var(--font-ui);font-size:.9rem;font-weight:700;letter-spacing:.04em;position:relative;overflow:hidden;transition:color .3s;display:inline-block;}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--gold-light);transform:translateX(-101%);transition:transform .3s ease;z-index:0;}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-primary-text{position:relative;z-index:1;}
+.btn-outline{border:1px solid var(--border);color:var(--white-80);padding:14px 36px;font-size:.9rem;font-weight:500;transition:border-color .3s,color .3s;display:inline-block;}
+.btn-outline:hover{border-color:var(--gold-dim);color:var(--gold);}
+/* Stats */
+.stats-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);}
+.stats-inner{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:repeat(4,1fr);}
+.stat-item{padding:32px 20px;text-align:center;position:relative;}
+.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--border);}
+.stat-num{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--gold);line-height:1;}
+.stat-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white-40);margin-top:8px;}
+/* Section */
+.section{padding:var(--sec) var(--pad);max-width:var(--max);margin:0 auto;}
+.section-dark{background:var(--obsidian);}
+.sec-title{font-family:var(--font-display);font-size:var(--text-h2);font-weight:300;line-height:var(--lh-heading);margin-bottom:1rem;}
+.sec-desc{color:var(--white-40);max-width:56ch;margin: 0 auto 3rem;}
+/* Why cards */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.why-card{background:var(--card);border:1px solid var(--border);padding:36px 28px;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.why-card:hover{border-color:var(--gold-dim);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.why-icon{font-size:1.6rem;color:var(--gold);margin-bottom:1.2rem;opacity:.8;}
+.why-title{font-family:var(--font-display);font-size:var(--text-h3);font-weight:400;margin-bottom:.6rem;}
+.why-desc{font-size:.88rem;color:var(--white-40);line-height:var(--lh-body);}
+/* Podcast cards */
+.podcast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pod-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.pod-card:hover{border-color:var(--gold-dim);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.pod-card-img{height:220px;overflow:hidden;}
+.pod-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);}
+.pod-card:hover .pod-card-img img{transform:scale(1.05);}
+.pod-card-body{padding:22px;}
+.pod-tag{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;background:var(--gold-glow);border:1px solid var(--gold-dim);color:var(--gold);padding:2px 8px;display:inline-block;margin-bottom:.8rem;}
+.pod-freq{font-family:var(--font-mono);font-size:.62rem;color:var(--white-40);letter-spacing:.08em;margin-left:8px;}
+.pod-title{font-family:var(--font-display);font-size:1.2rem;font-weight:400;margin-bottom:.5rem;}
+.pod-desc{font-size:.83rem;color:var(--white-40);line-height:var(--lh-body);margin-bottom:.8rem;}
+.pod-listeners{font-family:var(--font-mono);font-size:.7rem;color:var(--white-40);display:flex;align-items:center;gap:6px;}
+.pod-listeners i{color:var(--gold);}
+/* Apply form */
+.apply-wrap{max-width:860px;margin:0 auto;}
+.form-panel{background:var(--card);border:1px solid var(--border);padding:40px;}
+.form-group{margin-bottom:1.4rem;}
+.form-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--white-40);display:block;margin-bottom:6px;}
+.form-field{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--white);font-family:var(--font-ui);font-size:.93rem;padding:8px 0;outline:none;transition:border-color .3s;}
+.form-field:focus{border-bottom-color:var(--gold);}
+.form-field option{background:var(--card);}
+textarea.form-field{resize:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.check-item{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--white-80);cursor:pointer;}
+.check-item input{accent-color:var(--gold);}
+.form-check-label{display:flex;align-items:flex-start;gap:10px;font-size:.83rem;color:var(--white-40);cursor:pointer;margin-top:1rem;}
+.form-check-label a{color:var(--gold);}
+.btn-submit{width:100%;background:var(--gold);color:var(--black);padding:15px;font-family:var(--font-ui);font-size:.93rem;font-weight:700;letter-spacing:.04em;border:none;cursor:pointer;position:relative;overflow:hidden;transition:color .3s;margin-top:1.5rem;}
+.btn-submit::before{content:'';position:absolute;inset:0;background:var(--gold-light);transform:translateX(-101%);transition:transform .3s ease;}
+.btn-submit:hover::before{transform:translateX(0);}
+.btn-submit-text{position:relative;z-index:1;}
+/* Newsletter */
+.newsletter-section{padding:72px var(--pad);background:var(--surface);border-top:1px solid var(--border);}
+.newsletter-inner{max-width:640px;margin:0 auto;text-align:center;}
+.newsletter-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;margin-bottom:.8rem;}
+.newsletter-sub{color:var(--white-40);font-size:.9rem;margin-bottom:1.8rem;}
+.newsletter-form{display:flex;border:1px solid var(--border);overflow:hidden;}
+.newsletter-form input{flex:1;background:transparent;border:none;color:var(--white);font-family:var(--font-ui);font-size:.93rem;padding:13px 18px;outline:none;}
+.newsletter-form input::placeholder{color:var(--white-40);}
+.newsletter-form button{background:var(--gold);color:var(--black);border:none;padding:13px 26px;font-family:var(--font-ui);font-size:.85rem;font-weight:700;cursor:pointer;transition:background .3s;}
+.newsletter-form button:hover{background:var(--gold-light);}
+/* Footer */
+.site-footer{background:var(--obsidian);padding-top:48px;}
+.footer-brand{text-align:center;padding:0 var(--pad) 36px;border-bottom:1px solid var(--border);}
+.footer-wordmark{font-family:var(--font-display);font-size:clamp(2.5rem,9vw,7rem);font-weight:600;color:var(--white);opacity:.07;letter-spacing:-.02em;user-select:none;}
+.footer-glow{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+.footer-grid{max-width:var(--max);margin:0 auto;padding:44px var(--pad) 36px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:36px;}
+.footer-logo-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.foot-about{font-size:.85rem;color:var(--white-40);line-height:var(--lh-body);}
+.foot-heading{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.foot-links{list-style:none;}.foot-links li{margin-bottom:9px;}
+.foot-links a{font-size:.85rem;color:var(--white-40);transition:color .3s;}.foot-links a:hover{color:var(--gold);}
+.foot-contact{list-style:none;}.foot-contact li{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--white-40);margin-bottom:8px;}
+.foot-contact li i{color:var(--gold);font-size:.78rem;width:14px;}
+.social-row{display:flex;gap:10px;margin-top:12px;}
+.soc-btn{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--white-40);font-size:.82rem;transition:all .3s;}
+.soc-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-bottom{max-width:var(--max);margin:0 auto;padding:18px var(--pad);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-size:.78rem;color:var(--white-40);}
+.footer-legal{display:flex;gap:20px;}.footer-legal a{font-size:.78rem;color:var(--white-40);transition:color .3s;}.footer-legal a:hover{color:var(--gold);}
+/* Success popup */
+.popup-backdrop{position:fixed;inset:0;background:rgba(7,7,8,.75);backdrop-filter:blur(10px);z-index:50000;display:flex;align-items:center;justify-content:center;padding:20px;}
+.success-popup-box{background:var(--card);border:1px solid var(--border);max-width:380px;width:100%;text-align:center;padding:36px;position:relative;}
+.success-icon{width:60px;height:60px;background:rgba(72,187,120,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:#48bb78;font-size:1.5rem;}
+.popup-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:var(--white-15);border:none;color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+/* Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.reveal.active{opacity:1;transform:translateY(0);}
+.stagger-1{transition-delay:.1s;}.stagger-2{transition-delay:.2s;}.stagger-3{transition-delay:.3s;}
+/* Theme Toggle */
+.theme-toggle{background:none;border:none;color:var(--white-40);font-size:1.1rem;cursor:pointer;transition:color .3s;display:flex;align-items:center;justify-content:center;padding:5px;gap:0;}
+.theme-toggle:hover{color:var(--white);}
+body.light-mode .theme-toggle .fa-sun{display:none;}
+body.light-mode .theme-toggle .fa-moon{display:inline-block;}
+body:not(.light-mode) .theme-toggle .fa-moon{display:none;}
+/* Mobile */
+@media(max-width:768px){body{cursor:auto;}.cursor-dot,.cursor-ring{display:none;}.site-nav .nav-links,.btn-nav{display:none;}.nav-hamburger{display:flex;}.stats-inner{grid-template-columns:1fr 1fr;}.stat-item:nth-child(2)::after{display:none;}.why-grid{grid-template-columns:1fr;}.podcast-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style>
 </head>
-<body class="bg-corporate-100 text-corporate-900 antialiased overflow-x-hidden">
-    <!-- Custom Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div id="scroll-progress"></div>
+<div id="mobile-nav">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="archive.html" class="nav-link">Events</a>
+  <a href="podcasts.html" class="nav-link active">Podcasts</a>
+  <a href="workshops.html" class="nav-link">Workshops</a>
+  <a href="index.html#apply" class="nav-link">Apply Now</a>
+  <button class="theme-toggle" id="themeToggleMobile" style="font-size:2rem;margin-top:1rem;"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i></button>
+</div>
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-logo"><span class="logo-ux">UX</span><span class="logo-name">UnicornXMedia</span></a>
+  <div class="nav-links">
+    <a href="index.html#services" class="nav-link">Services</a>
+    <a href="archive.html" class="nav-link">Events</a>
+    <a href="podcasts.html" class="nav-link active">Podcasts</a>
+    <a href="workshops.html" class="nav-link">Workshops</a>
+    <a href="index.html#contact" class="nav-link">Contact</a>
+    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle theme">
+      <i class="fa-solid fa-sun"></i>
+      <i class="fa-solid fa-moon"></i>
+    </button>
+  </div>
+  <a href="index.html#apply" class="btn-nav"><span class="btn-nav-text">Apply Now</span></a>
+  <button class="nav-hamburger" id="mobileMenuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
-                    <div class="w-10 h-10 bg-black text-white flex-shrink-0 flex items-center justify-center font-bold text-xl tracking-tighter">UX</div>
-                    <span class="font-bold text-xl tracking-tight">UnicornXMedia</span>
-                </a>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html#services" class="text-gray-600 hover:text-accent font-semibold transition">Services</a>
-                    <a href="index.html#live-event" class="text-gray-600 hover:text-accent font-semibold transition">Live Events</a>
-                    <a href="podcasts.html" class="text-accent font-semibold">Podcasts</a>
-                    <a href="archive.html" class="text-gray-600 hover:text-accent font-semibold transition">Events</a>
-                    <a href="index.html#contact" class="text-gray-600 hover:text-accent font-semibold transition">Contact</a>
-                    <a href="index.html#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg">Apply Now</a>
-                </div>
-                <button id="mobileMenuBtn" class="md:hidden text-gray-600 hover:text-accent">
-                    <i class="fa-solid fa-bars text-2xl"></i>
-                </button>
-            </div>
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-gray-200 py-4">
-                <div class="flex flex-col space-y-4">
-                    <a href="index.html#services" class="text-gray-600 hover:text-accent font-semibold transition px-4">Services</a>
-                    <a href="index.html#live-event" class="text-gray-600 hover:text-accent font-semibold transition px-4">Live Events</a>
-                    <a href="podcasts.html" class="text-accent font-semibold px-4">Podcasts</a>
-                    <a href="archive.html" class="text-gray-600 hover:text-accent font-semibold transition px-4">Events</a>
-                    <a href="index.html#contact" class="text-gray-600 hover:text-accent font-semibold transition px-4">Contact</a>
-                    <a href="index.html#apply" class="bg-corporate-900 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-accent transition shadow-lg mx-4 text-center">Apply Now</a>
-                </div>
-            </div>
+<!-- Hero -->
+<section class="page-hero reveal">
+  <span class="sec-eyebrow"><i class="fa-solid fa-microphone" style="margin-right:6px;"></i>Podcast Features</span>
+  <h1 class="page-headline">Amplify Your<br><em>Voice.</em></h1>
+  <p class="page-sub">Get featured on high-authority podcasts that reach millions. Share your founder story, insights, and expertise with engaged audiences who matter.</p>
+  <div class="cta-row">
+    <a href="#podcast-apply" class="btn-primary"><span class="btn-primary-text">Request to Join</span></a>
+    <a href="#featured-podcasts" class="btn-outline">View Podcasts <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i></a>
+  </div>
+</section>
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">50+</div><div class="stat-label">Podcast Partners</div></div>
+    <div class="stat-item reveal stagger-1"><div class="stat-num">10M+</div><div class="stat-label">Monthly Listeners</div></div>
+    <div class="stat-item reveal stagger-2"><div class="stat-num">200+</div><div class="stat-label">Founders Featured</div></div>
+    <div class="stat-item reveal stagger-3"><div class="stat-num">95%</div><div class="stat-label">Success Rate</div></div>
+  </div>
+</div>
+<!-- Why Section -->
+<div style="background:var(--obsidian);padding:var(--sec) 0;">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="sec-eyebrow">Why It Matters</span>
+      <h2 class="sec-title">Why Podcast Features<br>Change the Game</h2>
+      <p class="sec-desc">Podcasts offer unmatched depth and authenticity to share your story</p>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-icon"><i class="fa-solid fa-users"></i></div>
+        <h3 class="why-title">Engaged Audiences</h3>
+        <p class="why-desc">Podcast listeners are highly engaged, spending 30+ minutes actively listening to your story and insights.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h3 class="why-title">Build Trust</h3>
+        <p class="why-desc">Long-form conversations build deeper connections and establish you as a thought leader in your industry.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fa-solid fa-rocket"></i></div>
+        <h3 class="why-title">Amplified Reach</h3>
+        <p class="why-desc">Get discovered by investors, partners, and customers through podcast platforms and social media clips.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Featured Podcasts -->
+<div id="featured-podcasts" style="padding:var(--sec) 0;">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="sec-eyebrow">Our Network</span>
+      <h2 class="sec-title">Featured Podcasts</h2>
+      <p class="sec-desc">Premium podcast platforms where we feature founders and industry leaders</p>
+    </div>
+    <div class="podcast-grid">
+      <div class="pod-card reveal">
+        <div class="pod-card-img"><img src="assets/images/podcasts/podcast-image-1.jpg" alt="Founder Stories" loading="lazy"></div>
+        <div class="pod-card-body">
+          <span class="pod-tag">Business</span><span class="pod-freq">· Weekly</span>
+          <h3 class="pod-title">Founder Stories</h3>
+          <p class="pod-desc">Deep dives into startup journeys, challenges, and victories with successful founders.</p>
+          <div class="pod-listeners"><i class="fa-solid fa-headphones"></i>2M+ Listeners</div>
         </div>
-    </nav>
+      </div>
+      <div class="pod-card reveal stagger-1">
+        <div class="pod-card-img"><img src="assets/images/podcasts/podcast-image-2.jpg" alt="Innovation Leaders" loading="lazy"></div>
+        <div class="pod-card-body">
+          <span class="pod-tag">Tech</span><span class="pod-freq">· Bi-weekly</span>
+          <h3 class="pod-title">Innovation Leaders</h3>
+          <p class="pod-desc">Conversations with tech innovators shaping the future of business and technology.</p>
+          <div class="pod-listeners"><i class="fa-solid fa-headphones"></i>1.5M+ Listeners</div>
+        </div>
+      </div>
+      <div class="pod-card reveal stagger-2">
+        <div class="pod-card-img"><img src="assets/images/podcasts/podcast-image-3.jpg" alt="Scale Masters" loading="lazy"></div>
+        <div class="pod-card-body">
+          <span class="pod-tag">Growth</span><span class="pod-freq">· Weekly</span>
+          <h3 class="pod-title">Scale Masters</h3>
+          <p class="pod-desc">Strategies and insights from founders who've successfully scaled their ventures.</p>
+          <div class="pod-listeners"><i class="fa-solid fa-headphones"></i>3M+ Listeners</div>
+        </div>
+      </div>
+      <div class="pod-card reveal">
+        <div class="pod-card-img"><img src="assets/images/podcasts/podcast-image-4.jpg" alt="Investor Insights" loading="lazy"></div>
+        <div class="pod-card-body">
+          <span class="pod-tag">Investment</span><span class="pod-freq">· Monthly</span>
+          <h3 class="pod-title">Investor Insights</h3>
+          <p class="pod-desc">Connect with VCs and angel investors discussing funding trends and opportunities.</p>
+          <div class="pod-listeners"><i class="fa-solid fa-headphones"></i>1M+ Listeners</div>
+        </div>
+      </div>
+      <div class="pod-card reveal stagger-1">
+        <div class="pod-card-img"><img src="assets/images/podcasts/podcast-image-5.jpg" alt="Brand Builders" loading="lazy"></div>
+        <div class="pod-card-body">
+          <span class="pod-tag">Marketing</span><span class="pod-freq">· Weekly</span>
+          <h3 class="pod-title">Brand Builders</h3>
+          <p class="pod-desc">Learn from founders who've built iconic brands from scratch.</p>
+          <div class="pod-listeners"><i class="fa-solid fa-headphones"></i>2.5M+ Listeners</div>
+        </div>
+      </div>
+      <div class="pod-card reveal stagger-2">
+        <div class="pod-card-img"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" alt="CEO Chronicles" loading="lazy"></div>
+        <div class="pod-card-body">
+          <span class="pod-tag">Leadership</span><span class="pod-freq">· Bi-weekly</span>
+          <h3 class="pod-title">CEO Chronicles</h3>
+          <p class="pod-desc">Exclusive interviews with CEOs sharing their leadership philosophies and lessons.</p>
+          <div class="pod-listeners"><i class="fa-solid fa-headphones"></i>1.8M+ Listeners</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Apply Section -->
+<div id="podcast-apply" style="background:var(--obsidian);padding:var(--sec) 0;">
+  <div class="section" style="padding-top:0;padding-bottom:0;">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="sec-eyebrow">Apply</span>
+      <h2 class="sec-title">Request to Join<br>a Podcast</h2>
+      <p class="sec-desc">Share your story with millions. Fill out the form below and we'll match you with the perfect podcast.</p>
+    </div>
+    <div class="apply-wrap reveal">
+      <div class="form-panel">
+        <form id="podcastForm">
+          <input type="hidden" name="applicationType" value="podcast">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Full Name *</label><input type="text" name="name" required class="form-field" placeholder=" "></div>
+            <div class="form-group"><label class="form-label">Email *</label><input type="email" name="email" required class="form-field" placeholder=" "></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Phone *</label><input type="tel" name="phone" required class="form-field" placeholder=" "></div>
+            <div class="form-group"><label class="form-label">Company *</label><input type="text" name="company" required class="form-field" placeholder=" "></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Your Role / Title *</label><input type="text" name="role" required class="form-field" placeholder="e.g. CEO, Founder"></div>
+            <div class="form-group"><label class="form-label">Industry *</label>
+              <select name="industry" required class="form-field">
+                <option value="">Select Industry</option>
+                <option>Technology</option><option>Finance</option><option>Healthcare</option>
+                <option>E-commerce</option><option>SaaS</option><option>Consumer Goods</option>
+                <option>Education</option><option>Real Estate</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Tell Us Your Story *</label><textarea name="story" rows="5" required class="form-field" placeholder="What makes your founder journey unique? What insights can you share?"></textarea></div>
+          <div class="form-group">
+            <label class="form-label">Preferred Podcast Topics</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="topics" value="Startup Journey"> Startup Journey</label>
+              <label class="check-item"><input type="checkbox" name="topics" value="Fundraising"> Fundraising</label>
+              <label class="check-item"><input type="checkbox" name="topics" value="Scaling"> Scaling</label>
+              <label class="check-item"><input type="checkbox" name="topics" value="Leadership"> Leadership</label>
+              <label class="check-item"><input type="checkbox" name="topics" value="Innovation"> Innovation</label>
+              <label class="check-item"><input type="checkbox" name="topics" value="Marketing"> Marketing</label>
+            </div>
+          </div>
+          <label class="form-check-label"><input type="checkbox" name="terms" required style="margin-top:2px;"> I agree to the <a href="terms.html">Terms &amp; Conditions</a> and <a href="terms.html#privacy">Privacy Policy</a></label>
+          <button type="submit" class="btn-submit"><span class="btn-submit-text"><i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Request</span></button>
+          <p id="podcastFormMessage" style="margin-top:12px;text-align:center;font-size:.85rem;"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Newsletter -->
+<section class="newsletter-section">
+  <div class="newsletter-inner reveal">
+    <span class="sec-eyebrow">Podcast Insider</span>
+    <h2 class="newsletter-title">Get Featured on<br>Top Podcasts</h2>
+    <p class="newsletter-sub">Exclusive podcast invitations, guest opportunities, and insider tips to amplify your voice — weekly.</p>
+    <form id="newsletterForm" class="newsletter-form">
+      <input type="email" name="newsletter_email" required placeholder="Enter your email address">
+      <button type="submit"><i class="fa-solid fa-rocket" style="margin-right:6px;"></i>Subscribe</button>
+    </form>
+    <p style="font-size:.75rem;color:var(--white-40);margin-top:.8rem;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>We respect your privacy. Unsubscribe anytime.</p>
+  </div>
+</section>
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-brand"><div class="footer-wordmark">UnicornXMedia</div></div>
+  <div class="footer-glow"></div>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-row"><span class="logo-ux">UX</span><span class="logo-name">UnicornXMedia</span></div>
+      <p class="foot-about">Amplifying founder stories through strategic PR, events, workshops, and media partnerships worldwide.</p>
+    </div>
+    <div>
+      <div class="foot-heading">Quick Links</div>
+      <ul class="foot-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#live-event">Live Events</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="archive.html">Events Archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-heading">Services</div>
+      <ul class="foot-links">
+        <li><a href="index.html#services">PR Campaigns</a></li>
+        <li><a href="workshops.html">Workshop Programs</a></li>
+        <li><a href="podcasts.html">Podcast Features</a></li>
+        <li><a href="index.html#apply">Apply Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-heading">Contact</div>
+      <ul class="foot-contact">
+        <li><i class="fa-solid fa-phone"></i>+91 9625363995</li>
+        <li><i class="fa-solid fa-envelope"></i>contact@unicornxmedia.com</li>
+        <li><i class="fa-solid fa-location-dot"></i>Delhi, India</li>
+      </ul>
+      <div class="social-row">
+        <a href="#" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 UnicornXMedia. All rights reserved.</div>
+    <div class="footer-legal"><a href="terms.html">Terms &amp; Conditions</a><a href="terms.html#privacy">Privacy Policy</a></div>
+  </div>
+</footer>
+<!-- Success Popup -->
+<div id="successPopup" class="popup-backdrop" style="display:none;">
+  <div class="success-popup-box">
+    <button class="popup-close" onclick="document.getElementById('successPopup').style.display='none'"><i class="fa-solid fa-times"></i></button>
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:.5rem;">Thank You!</h3>
+    <p style="color:var(--white-40);font-size:.9rem;">Your request has been received. Our team will get back to you shortly.</p>
+  </div>
+</div>
+<script>
+(function(){
+  // Theme Switcher Logic
+  function initTheme(){
+    const t=localStorage.getItem('theme')||'dark';
+    if(t==='light')document.body.classList.add('light-mode');
+    const bts=document.getElementById('themeToggleDesktop'),btm=document.getElementById('themeToggleMobile');
+    const tog=()=>{
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('theme',document.body.classList.contains('light-mode')?'light':'dark');
+    };
+    if(bts)bts.addEventListener('click',tog);
+    if(btm)btm.addEventListener('click',tog);
+  }
+  initTheme();
+  // Scroll progress
+  window.addEventListener('scroll',function(){var p=document.getElementById('scroll-progress');if(p){var s=window.scrollY,h=document.body.scrollHeight-window.innerHeight;p.style.width=(s/h*100)+'%';}},{passive:true});
+  // Nav scroll
+  window.addEventListener('scroll',function(){var n=document.getElementById('siteNav');if(n)n.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+  // Mobile nav
+  var btn=document.getElementById('mobileMenuBtn'),mn=document.getElementById('mobile-nav');
+  if(btn&&mn){btn.addEventListener('click',function(){btn.classList.toggle('active');mn.classList.toggle('open');});}
+  // Cursor
+  var dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+  if(dot&&ring){
+    document.body.style.cursor='none';
+    var mx=0,my=0,rx=0,ry=0;
+    window.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';},{passive:true});
+    (function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+    document.querySelectorAll('a,button,.pod-card,.why-card').forEach(function(el){
+      el.addEventListener('mouseenter',function(){document.body.classList.add('cursor-hover');},{passive:true});
+      el.addEventListener('mouseleave',function(){document.body.classList.remove('cursor-hover');},{passive:true});
+    });
+  }
+  // Reveal
+  var revs=document.querySelectorAll('.reveal');
+  new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('active');});},{threshold:0.12}).observe&&revs.forEach(function(el){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('active');}});},{threshold:0.12}).observe(el);});
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=this.getAttribute('href');if(h==='#')return;e.preventDefault();var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
+})();
+// Podcast Form
+var pf=document.getElementById('podcastForm');
+if(pf){pf.addEventListener('submit',async function(e){
+  e.preventDefault();var btn=this.querySelector('button[type="submit"]'),orig=btn.innerHTML;
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Submitting...';btn.disabled=true;
+  var fd=new FormData(this),data={},topics=[];
+  fd.forEach(function(v,k){if(k==='topics')topics.push(v);else data[k]=v;});
+  if(topics.length)data.topics=topics.join(', ');
+  try{
+    var res=await fetch('submit.php',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
+    var r=await res.json();
+    if(r.success){this.reset();document.getElementById('successPopup').style.display='flex';}
+    else{document.getElementById('podcastFormMessage').textContent=r.message||'Submission failed.';document.getElementById('podcastFormMessage').style.color='#e53e3e';}
+  }catch(err){document.getElementById('podcastFormMessage').textContent='Server error. Please try again.';}
+  btn.innerHTML=orig;btn.disabled=false;
+});}
+// Newsletter
+var nf=document.getElementById('newsletterForm');
+if(nf){nf.addEventListener('submit',async function(e){
+  e.preventDefault();var btn=this.querySelector('button'),orig=btn.innerHTML;
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>';btn.disabled=true;
+  var fd=new FormData(this),data=Object.fromEntries(fd.entries());data.formType='newsletter';
+  try{
+    var res=await fetch('submit.php',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
+    var r=await res.json();
+    if(r.success){this.reset();btn.innerHTML='<i class="fa-solid fa-check" style="margin-right:5px;"></i>Subscribed!';btn.style.background='#48bb78';
+    setTimeout(function(){btn.innerHTML=orig;btn.style.background='';btn.disabled=false;},3000);return;}
+  }catch(err){}
+  btn.innerHTML=orig;btn.disabled=false;
+});}
+</script>
+</body>
+</html>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center reveal">
         <div class="mb-8">
             <span class="bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider">🎙️ Podcast Features</span>
         </div>
@@ -638,7 +1003,7 @@
                     btn.disabled = true;
 
                     // Send to PHP Backend
-                    const response = await fetch('assets/php/submit.php', {
+                    const response = await fetch('submit.php', {
                         method: 'POST',
                         body: JSON.stringify(data),
                         headers: { 'Content-Type': 'application/json' }
@@ -671,7 +1036,7 @@
             data.formType = 'newsletter';
 
             try {
-                const response = await fetch('assets/php/submit.php', {
+                const response = await fetch('submit.php', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: { 'Content-Type': 'application/json' }
@@ -691,70 +1056,41 @@
             }
         });
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-    <script>
-        // Custom Cursor Logic
-        (function() {
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
+(function(){
+  // Universal Premium Engine
+  function initTheme(){
+    var t=localStorage.getItem('theme')||'dark';
+    if(t==='light'){document.documentElement.classList.add('light-mode');document.body.classList.add('light-mode');}
+    var bts=document.getElementById('themeToggleDesktop'),btm=document.getElementById('themeToggleMobile');
+    var tog=function(){
+      document.documentElement.classList.toggle('light-mode');
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('theme',document.body.classList.contains('light-mode')?'light':'dark');
+    };
+    if(bts)bts.addEventListener('click',tog);
+    if(btm)btm.addEventListener('click',tog);
+  } initTheme();
 
-            if (cursorDot && cursorOutline) {
-                let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
-                
-                window.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    cursorDot.style.left = mouseX + 'px';
-                    cursorDot.style.top = mouseY + 'px';
-                });
-                
-                const animate = () => {
-                    outlineX += (mouseX - outlineX) * 0.15;
-                    outlineY += (mouseY - outlineY) * 0.15;
-                    cursorOutline.style.left = outlineX + 'px';
-                    cursorOutline.style.top = outlineY + 'px';
-                    requestAnimationFrame(animate);
-                };
-                animate();
+  // Scroll logic
+  window.addEventListener('scroll',function(){
+    var n=document.getElementById('siteNav');if(n)n.classList.toggle('scrolled',window.scrollY>60);
+  });
 
-                const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .hover-card, .archive-item, .podcast-card');
-                hoverElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        document.body.classList.add('cursor-hover');
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        document.body.classList.remove('cursor-hover');
-                    });
-                });
-            }
-        })();
-    </script>
-    
-    <!-- Submission Success Popup -->
-    <div id="successPopup" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform transition-all relative">
-            <button onclick="document.getElementById('successPopup').style.display = 'none'" class="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition">
-                <i class="fa-solid fa-times text-gray-600"></i>
-            </button>
-            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-            <p class="text-gray-600 font-medium">Your request has been received. Our team will get back to you shortly.</p>
-        </div>
-    </div>
+  // Cursor logic
+  var d=document.getElementById('cursorDot'),r=document.getElementById('cursorRing');
+  if(d&&r){
+    var mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my,init=false;
+    window.addEventListener('mousemove',function(e){
+      mx=e.clientX;my=e.clientY;d.style.left=mx+'px';d.style.top=my+'px';
+      if(!init){init=true;d.style.opacity='1';r.style.opacity='1';rx=mx;ry=my;}
+    });
+    (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);})();
+  }
+
+  // Mobile nav
+  var h=document.getElementById('mobileMenuBtn'),m=document.getElementById('mobile-nav');
+  if(h&&m){h.addEventListener('click',function(){h.classList.toggle('active');m.classList.toggle('open');});}
+})();
+</script>
 </body>
 </html>

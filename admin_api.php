@@ -50,6 +50,18 @@ if ($action === 'fetch_events') {
     exit;
 }
 
+// Handle Fetch Workshops (Public - no auth required)
+if ($action === 'fetch_workshops') {
+    $wsPath = dirname($config['events_json_path']) . '/workshops.json';
+    if (file_exists($wsPath)) {
+        $json = file_get_contents($wsPath);
+        echo json_encode(['success' => true, 'workshops' => json_decode($json, true) ?? []]);
+    } else {
+        echo json_encode(['success' => true, 'workshops' => []]);
+    }
+    exit;
+}
+
 // --- Protected Actions ---
 if (!isset($_SESSION['admin_logged_in'])) {
     http_response_code(403);
@@ -295,6 +307,36 @@ if ($action === 'sync_events') {
     } else {
         echo json_encode(['success' => true, 'events' => $newEvents, 'message' => 'Synced ' . count($newEvents) . ' events successfully.']);
     }
+    exit;
+}
+
+if ($action === 'save_workshop') {
+    $wsData = $jsonData['workshop'] ?? null;
+    if (!$wsData) { echo json_encode(['success' => false, 'message' => 'Missing workshop data']); exit; }
+    $wsPath = dirname($config['events_json_path']) . '/workshops.json';
+    $workshops = file_exists($wsPath) ? (json_decode(file_get_contents($wsPath), true) ?? []) : [];
+    if (!empty($wsData['id'])) {
+        $found = false;
+        foreach ($workshops as &$w) { if ($w['id'] === $wsData['id']) { $w = array_merge($w, $wsData); $found = true; break; } }
+        if (!$found) $workshops[] = $wsData;
+    } else {
+        $wsData['id'] = 'ws_' . time();
+        $workshops[] = $wsData;
+    }
+    file_put_contents($wsPath, json_encode(array_values($workshops), JSON_PRETTY_PRINT));
+    echo json_encode(['success' => true, 'message' => 'Workshop saved']);
+    exit;
+}
+
+if ($action === 'delete_workshop') {
+    $wsId = $jsonData['id'] ?? '';
+    $wsPath = dirname($config['events_json_path']) . '/workshops.json';
+    if (file_exists($wsPath)) {
+        $workshops = json_decode(file_get_contents($wsPath), true) ?? [];
+        $workshops = array_values(array_filter($workshops, fn($w) => $w['id'] !== $wsId));
+        file_put_contents($wsPath, json_encode($workshops, JSON_PRETTY_PRINT));
+    }
+    echo json_encode(['success' => true]);
     exit;
 }
 

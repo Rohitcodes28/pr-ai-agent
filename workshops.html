@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshops | UnicornXMedia — Founder Visibility Platform</title>
+<meta name="description" content="Cohort-based workshops for founders. Finance, MVP Building, AI Tools, and Growth Strategy.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23070708'/><text x='50' y='70' font-size='46' font-family='serif' font-weight='600' fill='%23c9a84c' text-anchor='middle'>UX</text></svg>">
+<!-- EARLY THEME: prevents flash of wrong theme -->
+<script>if(localStorage.getItem('theme')==='light'){document.documentElement.classList.add('light-mode');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--black:#070708;--obsidian:#0d0d10;--surface:#111116;--card:#16161c;--border:rgba(255,255,255,0.07);--gold:#c9a84c;--gold-light:#e8c97a;--gold-glow:rgba(201,168,76,0.15);--gold-dim:rgba(201,168,76,0.4);--white:#fff;--white-80:rgba(255,255,255,0.8);--white-40:rgba(255,255,255,0.4);--white-15:rgba(255,255,255,0.05);--gradient-gold:linear-gradient(135deg,#c9a84c,#e8c97a,#a07830);--font-display:'Cormorant Garamond',serif;--font-ui:'DM Sans',sans-serif;--font-mono:'Space Grotesk',sans-serif;--pad:clamp(24px,5vw,80px);--max:1440px;--sec:clamp(80px,10vw,140px);}
+html.light-mode,body.light-mode{--black:#f5f5f7;--obsidian:#eaeaec;--surface:#f0f0f2;--card:#ffffff;--border:rgba(0,0,0,0.1);--gold:#8a6f25;--gold-light:#c9a84c;--white:#111112;--white-80:rgba(0,0,0,0.82);--white-40:rgba(0,0,0,0.48);--white-15:rgba(0,0,0,0.08);--gold-glow:rgba(138,111,37,0.1);--gold-dim:rgba(138,111,37,0.3);}
+html.light-mode body,body.light-mode{background:var(--black);color:var(--white);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-ui);line-height:1.75;overflow-x:hidden;transition:background .4s,color .4s;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.03;pointer-events:none;z-index:9999;}
+img{max-width:100%;display:block;}a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:var(--font-ui);}
+
+/* ===== CURSOR ===== */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:100000;}
+.cursor-dot{width:8px;height:8px;background:var(--white);mix-blend-mode:difference;}
+.cursor-ring{width:40px;height:40px;border:1.5px solid var(--gold);transition:width .2s,height .2s;mix-blend-mode:difference;}
+body.cursor-hover .cursor-ring{width:56px;height:56px;background:rgba(201,168,76,0.1);}
+#scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--gradient-gold);z-index:10001;width:0%;pointer-events:none;}
+
+/* ===== THEME TOGGLE ===== */
+.theme-toggle{background:none;border:none;color:var(--white-40);font-size:1.1rem;cursor:pointer;transition:color .3s;display:flex;align-items:center;justify-content:center;padding:5px;}
+.theme-toggle:hover{color:var(--white);}
+html.light-mode .theme-toggle .fa-sun,body.light-mode .theme-toggle .fa-sun{display:none;}
+html.light-mode .theme-toggle .fa-moon,body.light-mode .theme-toggle .fa-moon{display:inline-block;}
+html:not(.light-mode) body:not(.light-mode) .theme-toggle .fa-moon{display:none;}
+
+/* ===== NAV ===== */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;padding:22px var(--pad);background:rgba(7,7,8,0.82);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);transition:all .3s;}
+.site-nav.scrolled{padding:14px var(--pad);background:rgba(7,7,8,0.96);}
+html.light-mode .site-nav,body.light-mode .site-nav{background:rgba(245,245,247,0.88);}
+html.light-mode .site-nav.scrolled,body.light-mode .site-nav.scrolled{background:rgba(245,245,247,0.98);}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.logo-ux{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--gold);}
+.logo-name{font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--white-40);}
+.nav-links{display:flex;align-items:center;gap:2.5rem;margin:0 auto;}
+.nav-link{font-size:.85rem;font-weight:500;color:var(--white-40);letter-spacing:.02em;position:relative;transition:color .3s;}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:50%;right:50%;height:1px;background:var(--gold);transition:left .3s,right .3s;}
+.nav-link:hover,.nav-link.active{color:var(--white);}
+.nav-link:hover::after,.nav-link.active::after{left:0;right:0;}
+.btn-nav{border:1px solid var(--gold-dim);color:var(--gold);padding:10px 24px;font-size:.82rem;font-weight:600;letter-spacing:.04em;position:relative;overflow:hidden;transition:color .3s;background:none;}
+.btn-nav::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.btn-nav:hover::before{transform:scaleX(1);}
+.btn-nav:hover{color:var(--black);}
+.btn-nav-text{position:relative;z-index:1;}
+.nav-hamburger{display:none;background:none;border:none;padding:4px;flex-direction:column;gap:5px;}
+.nav-hamburger span{display:block;width:24px;height:1.5px;background:var(--white);transition:all .3s;}
+.nav-hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.active span:nth-child(2){opacity:0;}
+.nav-hamburger.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+#mobile-nav{display:none;position:fixed;inset:0;background:var(--black);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+#mobile-nav.open{display:flex;}
+#mobile-nav .nav-link{font-family:var(--font-display);font-size:2.2rem;font-weight:300;color:var(--white-80);}
+
+/* ===== HERO ===== */
+.page-hero{padding:clamp(130px,15vw,180px) var(--pad) clamp(60px,8vw,90px);max-width:var(--max);margin:0 auto;text-align:center;}
+.sec-eyebrow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem;}
+.page-headline{font-family:var(--font-display);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;line-height:.92;margin-bottom:1.5rem;}
+.page-sub{color:var(--white-40);max-width:60ch;margin:0 auto 2.5rem;}
+
+/* ===== TABS ===== */
+.tab-bar{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--border);margin-bottom:var(--sec);padding:0 var(--pad);}
+.tab-btn{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--white-40);background:none;border:none;padding:14px 28px;position:relative;cursor:pointer;transition:color .3s;}
+.tab-btn::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s;}
+.tab-btn.active{color:var(--gold);}
+.tab-btn.active::after{transform:scaleX(1);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ===== WORKSHOP GRID ===== */
+.workshop-section{padding:0 var(--pad) var(--sec);}
+.ws-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:28px;max-width:var(--max);margin:0 auto;}
+.ws-card{background:var(--card);border:1px solid var(--border);padding:32px;transition:all .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.ws-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.ws-card:hover{transform:translateY(-6px);border-color:var(--gold-dim);box-shadow:0 24px 60px rgba(0,0,0,0.35);}
+.ws-card:hover::before{transform:scaleX(1);}
+.ws-card.past{opacity:.65;}
+.ws-card.past .btn-ws{background:var(--surface);color:var(--white-40);cursor:not-allowed;}
+.ws-card.past .btn-ws::before{display:none;}
+.ws-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;}
+.ws-tag{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;color:var(--gold);background:var(--gold-glow);padding:4px 12px;border:1px solid var(--gold-dim);}
+.ws-status{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;}
+.ws-status.upcoming{background:rgba(72,187,120,.15);color:#48bb78;border:1px solid rgba(72,187,120,.3);}
+.ws-status.past{background:var(--white-15);color:var(--white-40);border:1px solid var(--border);}
+.ws-date{font-family:var(--font-mono);font-size:.65rem;color:var(--white-40);}
+.ws-card h3{font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:.8rem;line-height:1.15;color:var(--white);}
+.ws-card p{font-size:.88rem;color:var(--white-40);line-height:1.65;margin-bottom:1.2rem;flex:1;}
+.ws-instructor{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border);}
+.instructor-icon{width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.85rem;flex-shrink:0;}
+.instructor-info span{display:block;font-size:.82rem;color:var(--white-80);font-weight:500;}
+.instructor-info label{font-size:.6rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;}
+.ws-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
+.ws-price{font-family:var(--font-display);font-size:1.6rem;color:var(--gold);}
+.ws-price.strikethrough{text-decoration:line-through;opacity:.5;font-size:1.1rem;}
+.btn-ws{background:var(--gold);color:var(--black);padding:10px 24px;font-size:.8rem;font-weight:700;letter-spacing:.04em;position:relative;overflow:hidden;transition:color .3s;display:inline-block;}
+.btn-ws::before{content:'';position:absolute;inset:0;background:var(--gold-light);transform:translateX(-101%);transition:transform .3s ease;}
+.btn-ws:hover::before{transform:translateX(0);}
+.btn-ws span{position:relative;z-index:1;}
+
+/* ===== EMPTY STATE ===== */
+.ws-empty{text-align:center;padding:60px 20px;color:var(--white-40);}
+.ws-empty i{font-size:2.5rem;color:var(--border);margin-bottom:1rem;display:block;}
+
+/* ===== CTA ===== */
+.cta-section{padding:var(--sec) var(--pad);background:var(--obsidian);text-align:center;position:relative;overflow:hidden;}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,var(--gold-glow) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+.cta-section h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);font-weight:300;margin-bottom:1rem;position:relative;}
+.cta-section p{color:var(--white-40);margin-bottom:2.5rem;position:relative;}
+
+/* ===== APPLY FORM ===== */
+.apply-section{padding:var(--sec) var(--pad);background:var(--black);}
+.apply-inner{max-width:700px;margin:0 auto;}
+.form-panel{background:var(--card);border:1px solid var(--border);padding:40px;}
+.form-group{margin-bottom:1.4rem;}
+.form-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--white-40);display:block;margin-bottom:6px;}
+.form-field{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--white);font-family:var(--font-ui);font-size:.93rem;padding:8px 0;outline:none;transition:border-color .3s;}
+.form-field:focus{border-bottom-color:var(--gold);}
+.form-field option{background:var(--card);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.form-check-label{display:flex;align-items:flex-start;gap:10px;font-size:.83rem;color:var(--white-40);cursor:pointer;margin-bottom:1rem;}
+.form-check-label a{color:var(--gold);}
+.form-check-label input{accent-color:var(--gold);flex-shrink:0;margin-top:2px;}
+.btn-submit{width:100%;background:var(--gold);color:var(--black);padding:15px;font-family:var(--font-ui);font-size:.93rem;font-weight:700;letter-spacing:.04em;border:none;cursor:pointer;position:relative;overflow:hidden;transition:color .3s;margin-top:1rem;}
+.btn-submit::before{content:'';position:absolute;inset:0;background:var(--gold-light);transform:translateX(-101%);transition:transform .3s ease;}
+.btn-submit:hover::before{transform:translateX(0);}
+.btn-submit-text{position:relative;z-index:1;}
+
+/* ===== NEWSLETTER ===== */
+.newsletter-section{padding:72px var(--pad);background:var(--surface);border-top:1px solid var(--border);}
+.newsletter-inner{max-width:640px;margin:0 auto;text-align:center;}
+.newsletter-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;margin-bottom:.8rem;}
+.newsletter-sub{color:var(--white-40);font-size:.9rem;margin-bottom:1.8rem;}
+.newsletter-form-row{display:flex;border:1px solid var(--border);overflow:hidden;}
+.newsletter-form-row input{flex:1;background:transparent;border:none;color:var(--white);font-family:var(--font-ui);font-size:.93rem;padding:13px 18px;outline:none;}
+.newsletter-form-row input::placeholder{color:var(--white-40);}
+.newsletter-form-row button{background:var(--gold);color:var(--black);border:none;padding:13px 26px;font-family:var(--font-ui);font-size:.85rem;font-weight:700;cursor:pointer;transition:background .3s;}
+.newsletter-form-row button:hover{background:var(--gold-light);}
+
+/* ===== FOOTER ===== */
+.site-footer{background:var(--obsidian);padding-top:48px;}
+.footer-brand{text-align:center;padding:0 var(--pad) 36px;border-bottom:1px solid var(--border);}
+.footer-wordmark{font-family:var(--font-display);font-size:clamp(2.5rem,9vw,7rem);font-weight:600;color:var(--white);opacity:.06;letter-spacing:-.02em;user-select:none;}
+.footer-glow{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+.footer-grid{max-width:var(--max);margin:0 auto;padding:44px var(--pad) 36px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:36px;}
+.footer-logo-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.foot-about{font-size:.85rem;color:var(--white-40);line-height:1.75;}
+.foot-heading{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.foot-links{list-style:none;}.foot-links li{margin-bottom:9px;}.foot-links a{font-size:.85rem;color:var(--white-40);transition:color .3s;}.foot-links a:hover{color:var(--gold);}
+.foot-contact{list-style:none;}.foot-contact li{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--white-40);margin-bottom:8px;}.foot-contact li i{color:var(--gold);font-size:.78rem;width:14px;}
+.social-row{display:flex;gap:10px;margin-top:12px;}.soc-btn{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--white-40);font-size:.82rem;transition:all .3s;}.soc-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-bottom{max-width:var(--max);margin:0 auto;padding:18px var(--pad);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-size:.78rem;color:var(--white-40);}
+.footer-legal{display:flex;gap:20px;}.footer-legal a{font-size:.78rem;color:var(--white-40);transition:color .3s;}.footer-legal a:hover{color:var(--gold);}
+
+/* ===== REVEAL / POPUP ===== */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+.reveal.active{opacity:1;transform:translateY(0);}
+.popup-backdrop{position:fixed;inset:0;background:rgba(7,7,8,.75);backdrop-filter:blur(10px);z-index:50000;display:flex;align-items:center;justify-content:center;padding:20px;}
+.success-popup-box{background:var(--card);border:1px solid var(--border);max-width:380px;width:100%;text-align:center;padding:36px;position:relative;}
+.success-icon{width:60px;height:60px;background:rgba(72,187,120,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:#48bb78;font-size:1.5rem;}
+.popup-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:var(--white-15);border:none;color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;}
+
+@media(max-width:768px){body{cursor:auto;}.cursor-dot,.cursor-ring{display:none;}.site-nav .nav-links,.btn-nav{display:none;}.nav-hamburger{display:flex;}.ws-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.tab-bar{overflow-x:auto;}.tab-btn{white-space:nowrap;padding:12px 18px;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div id="scroll-progress"></div>
+
+<!-- Mobile Nav -->
+<div id="mobile-nav">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="archive.html" class="nav-link">Events</a>
+  <a href="podcasts.html" class="nav-link">Podcasts</a>
+  <a href="workshops.html" class="nav-link active">Workshops</a>
+  <a href="#apply" class="nav-link">Apply Now</a>
+  <button class="theme-toggle" id="themeToggleMobile" style="font-size:2rem;margin-top:1rem;">
+    <i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
+  </button>
+</div>
+
+<!-- Nav -->
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-logo"><span class="logo-ux">UX</span><span class="logo-name">UnicornXMedia</span></a>
+  <div class="nav-links">
+    <a href="index.html#services" class="nav-link">Services</a>
+    <a href="archive.html" class="nav-link">Events</a>
+    <a href="podcasts.html" class="nav-link">Podcasts</a>
+    <a href="workshops.html" class="nav-link active">Workshops</a>
+    <a href="index.html#contact" class="nav-link">Contact</a>
+    <button class="theme-toggle" id="themeToggleDesktop" aria-label="Toggle theme">
+      <i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
+    </button>
+  </div>
+  <a href="#apply" class="btn-nav"><span class="btn-nav-text">Apply Now</span></a>
+  <button class="nav-hamburger" id="mobileMenuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero reveal">
+  <span class="sec-eyebrow"><i class="fa-solid fa-graduation-cap" style="margin-right:6px;"></i>Expert-Led Learning</span>
+  <h1 class="page-headline">Master the Art of<br><em>Scaling.</em></h1>
+  <p class="page-sub">Hands-on, cohort-based workshops on Finance, MVP Building, AI, and Strategy. Led by those who've actually built and scaled.</p>
+</section>
+
+<!-- Tabs -->
+<div class="tab-bar">
+  <button class="tab-btn active" id="tab-upcoming" onclick="switchTab('upcoming')">
+    <i class="fa-solid fa-calendar-check" style="margin-right:6px;"></i>Upcoming Workshops
+  </button>
+  <button class="tab-btn" id="tab-past" onclick="switchTab('past')">
+    <i class="fa-solid fa-clock-rotate-left" style="margin-right:6px;"></i>Past Workshops
+  </button>
+</div>
+
+<!-- Upcoming Workshops -->
+<div class="workshop-section">
+  <div class="tab-panel active" id="panel-upcoming">
+    <div class="ws-grid" id="upcomingGrid">
+      <!-- Loaded dynamically, fallback below -->
+    </div>
+  </div>
+  <div class="tab-panel" id="panel-past">
+    <div class="ws-grid" id="pastGrid">
+    </div>
+  </div>
+</div>
+
+<!-- Apply Form -->
+<section id="apply" class="apply-section">
+  <div class="apply-inner reveal">
+    <span class="sec-eyebrow">Apply Now</span>
+    <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;margin-bottom:1rem;">Reserve Your Seat</h2>
+    <p style="color:var(--white-40);margin-bottom:2.5rem;">Limited cohort sizes ensure personal attention. Apply below and our team will confirm availability within 24 hours.</p>
+    <div class="form-panel">
+      <form id="workshopApplyForm">
+        <input type="hidden" name="formType" value="workshop">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" name="full_name" required class="form-field" placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email" required class="form-field" placeholder="you@company.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" name="phone" class="form-field" placeholder="+91 9999999999">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company / Startup</label>
+            <input type="text" name="company" class="form-field" placeholder="Your Company">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Workshop of Interest</label>
+          <select name="workshop_interest" required class="form-field" id="workshopSelect">
+            <option value="">— Select a workshop —</option>
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Why do you want to attend?</label>
+          <textarea name="motivation" rows="3" class="form-field" placeholder="Tell us about your goals..."></textarea>
+        </div>
+        <label class="form-check-label">
+          <input type="checkbox" required>
+          <span>I agree to the <a href="terms.html">Terms & Conditions</a> and <a href="terms.html#privacy">Privacy Policy</a></span>
+        </label>
+        <button type="submit" class="btn-submit"><span class="btn-submit-text"><i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Application</span></button>
+        <p id="formMsg" style="text-align:center;margin-top:1rem;font-size:.85rem;"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter-section">
+  <div class="newsletter-inner reveal">
+    <span class="sec-eyebrow">Stay Informed</span>
+    <h2 class="newsletter-title">Get Workshop Updates</h2>
+    <p class="newsletter-sub">Early access to new cohorts, discounts, and exclusive founder resources.</p>
+    <form id="newsletterForm" class="newsletter-form-row">
+      <input type="email" name="newsletter_email" required placeholder="Enter your email address">
+      <button type="submit"><i class="fa-solid fa-rocket" style="margin-right:6px;"></i>Subscribe</button>
+    </form>
+    <p style="font-size:.75rem;color:var(--white-40);margin-top:.8rem;"><i class="fa-solid fa-shield-halved" style="margin-right:4px;"></i>We respect your privacy. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-brand"><div class="footer-wordmark">UnicornXMedia</div></div>
+  <div class="footer-glow"></div>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-row"><span class="logo-ux">UX</span><span class="logo-name">UnicornXMedia</span></div>
+      <p class="foot-about">Amplifying founder stories through strategic PR, events, workshops, and media partnerships worldwide.</p>
+    </div>
+    <div>
+      <div class="foot-heading">Quick Links</div>
+      <ul class="foot-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#live-event">Live Events</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="archive.html">Events Archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-heading">Services</div>
+      <ul class="foot-links">
+        <li><a href="index.html#services">PR Campaigns</a></li>
+        <li><a href="workshops.html">Workshop Programs</a></li>
+        <li><a href="podcasts.html">Podcast Features</a></li>
+        <li><a href="index.html#apply">Apply Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-heading">Contact</div>
+      <ul class="foot-contact">
+        <li><i class="fa-solid fa-phone"></i>+91 9625363995</li>
+        <li><i class="fa-solid fa-envelope"></i>contact@unicornxmedia.com</li>
+        <li><i class="fa-solid fa-location-dot"></i>Delhi, India</li>
+      </ul>
+      <div class="social-row">
+        <a href="#" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" class="soc-btn"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 UnicornXMedia. All rights reserved.</div>
+    <div class="footer-legal"><a href="terms.html">Terms & Conditions</a><a href="terms.html#privacy">Privacy Policy</a></div>
+  </div>
+</footer>
+
+<!-- Success Popup -->
+<div id="successPopup" class="popup-backdrop" style="display:none;">
+  <div class="success-popup-box">
+    <button class="popup-close" onclick="document.getElementById('successPopup').style.display='none'"><i class="fa-solid fa-times"></i></button>
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h3 style="font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:.5rem;">Application Received!</h3>
+    <p style="color:var(--white-40);font-size:.9rem;">Our team will confirm your seat within 24 hours.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Universal Premium Engine
+  function initTheme(){
+    var t=localStorage.getItem('theme')||'dark';
+    if(t==='light'){document.documentElement.classList.add('light-mode');document.body.classList.add('light-mode');}
+    var bts=document.getElementById('themeToggleDesktop'),btm=document.getElementById('themeToggleMobile');
+    var tog=function(){
+      document.documentElement.classList.toggle('light-mode');
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('theme',document.body.classList.contains('light-mode')?'light':'dark');
+    };
+    if(bts)bts.addEventListener('click',tog);
+    if(btm)btm.addEventListener('click',tog);
+  } initTheme();
+
+  // Scroll logic
+  window.addEventListener('scroll',function(){
+    var p=document.getElementById('scroll-progress');if(p){var s=window.scrollY,h=document.body.scrollHeight-window.innerHeight;p.style.width=(s/h*100)+'%';}
+    var n=document.getElementById('siteNav');if(n)n.classList.toggle('scrolled',window.scrollY>60);
+  },{passive:true});
+
+  // Cursor logic
+  var d=document.getElementById('cursorDot'),r=document.getElementById('cursorRing');
+  if(d&&r){
+    var mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my,init=false;
+    window.addEventListener('mousemove',function(e){
+      mx=e.clientX;my=e.clientY;d.style.left=mx+'px';d.style.top=my+'px';
+      if(!init){init=true;d.style.opacity='1';r.style.opacity='1';rx=mx;ry=my;}
+    },{passive:true});
+    (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(a);})();
+    document.querySelectorAll('a,button').forEach(function(el){
+      el.addEventListener('mouseenter',function(){document.body.classList.add('cursor-hover');});
+      el.addEventListener('mouseleave',function(){document.body.classList.remove('cursor-hover');});
+    });
+  }
+
+  // Mobile nav
+  var h=document.getElementById('mobileMenuBtn'),m=document.getElementById('mobile-nav');
+  if(h&&m){h.addEventListener('click',function(){h.classList.toggle('active');m.classList.toggle('open');});}
+
+  // Reveal animations
+  document.querySelectorAll('.reveal').forEach(function(el){
+    new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('active');});},{threshold:0.1}).observe(el);
+  });
+
+  // Workshops Logic
+  window.switchTab=function(tab){
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.getElementById('tab-'+tab).classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+    document.getElementById('panel-'+tab).classList.add('active');
+  };
+
+  var STATIC_WORKSHOPS=[
+    {id:'ws_1',title:'Raising Your First Round',category:'Finance',date:'Apr 15, 2026',duration:'4 Weeks',instructor:'Venture Capital Expert',description:'From narrative building to term sheet negotiations. The exact fundraising playbook for early-stage founders.',price:'₹2,499',status:'upcoming',register_url:'#apply'},
+    {id:'ws_2',title:'Build Your MVP in 30 Days',category:'MVP & Product',date:'Apr 20, 2026',duration:'2-Day Intensive',instructor:'Product Architect',description:'Using no-code tools and AI to ship fast without a dev team. Perfect for non-technical founders.',price:'₹3,999',status:'upcoming',register_url:'#apply'},
+    {id:'ws_3',title:'AI for High-Performance Teams',category:'AI Tools',date:'May 5, 2026',duration:'Weekend Workshop',instructor:'AI Strategy Consultant',description:'Automate your workflow. Prompt engineering and custom AI agent deployment — live and applied.',price:'₹1,999',status:'upcoming',register_url:'#apply'},
+    {id:'ws_4',title:'Founder Growth Strategy',category:'Strategy',date:'May 18, 2026',duration:'3 Weeks',instructor:'Growth Advisor',description:'A structured approach to market positioning, channel strategy, and zero-budget acquisition.',price:'₹2,999',status:'upcoming',register_url:'#apply'},
+    {id:'ws_5',title:'Finance Fundamentals for Founders',category:'Finance',date:'Feb 10, 2026',duration:'2 Days',instructor:'CFO Consultant',description:'Balance sheets, cash flow, runway — the essential financial literacy every founder needs.',price:'₹1,499',status:'past',register_url:'#'},
+    {id:'ws_6',title:'Storytelling & Brand Positioning',category:'PR & Brand',date:'Jan 20, 2026',duration:'1-Day Workshop',instructor:'Brand Strategist',description:'How to craft your founder story for media, investors, and customers. Practical, not theoretical.',price:'₹999',status:'past',register_url:'#'}
+  ];
+
+  function buildCard(ws){
+    var isPast=ws.status==='past';
+    return '<div class="ws-card'+(isPast?' past':'')+' reveal">'+
+      '<div class="ws-meta"><span class="ws-tag">'+ws.category+'</span><span class="ws-status '+(isPast?'past':'upcoming')+'">'+(isPast?'Completed':'Upcoming')+'</span></div>'+
+      '<h3>'+ws.title+'</h3><p>'+ws.description+'</p>'+
+      '<div class="ws-instructor"><div class="instructor-icon"><i class="fa-solid fa-user-tie"></i></div><div class="instructor-info"><label>Instructor</label><span>'+ws.instructor+'</span></div></div>'+
+      '<div style="font-family:var(--font-mono);font-size:.65rem;color:var(--white-40);margin-bottom:1.5rem;"><i class="fa-solid fa-calendar" style="margin-right:6px;color:var(--gold);"></i>'+ws.date+'<span style="margin:0 12px;opacity:.4;">|</span><i class="fa-solid fa-clock" style="margin-right:6px;color:var(--gold);"></i>'+ws.duration+'</div>'+
+      '<div class="ws-footer"><span class="ws-price'+(isPast?' strikethrough':'')+'">'+ws.price+'</span>'+(isPast?'<span style="font-family:var(--font-mono);font-size:.65rem;color:var(--white-40);">Session Completed</span>':'<a href="'+(ws.register_url||'#apply')+'" class="btn-ws"><span>Register Now</span></a>')+'</div>'+
+    '</div>';
+  }
+
+  function renderWorkshops(workshops){
+    var upcoming=workshops.filter(function(w){return w.status!=='past';});
+    var past=workshops.filter(function(w){return w.status==='past';});
+    var ug=document.getElementById('upcomingGrid'),pg=document.getElementById('pastGrid'),sel=document.getElementById('workshopSelect');
+    if(ug)ug.innerHTML=upcoming.length?upcoming.map(buildCard).join(''):'<div class="ws-empty"><i class="fa-solid fa-calendar-xmark"></i><p>No upcoming workshops scheduled.</p></div>';
+    if(pg)pg.innerHTML=past.length?past.map(buildCard).join(''):'<div class="ws-empty"><i class="fa-solid fa-box-archive"></i><p>No past workshops available.</p></div>';
+    if(sel){
+      sel.innerHTML='<option value="">— Select a workshop —</option>';
+      upcoming.forEach(function(w){var opt=document.createElement('option');opt.value=w.title;opt.textContent=w.title;sel.appendChild(opt);});
+    }
+  }
+
+  async function loadWorkshops(){
+    try{
+      var res=await fetch('admin_api.php?action=fetch_workshops&t='+Date.now());
+      var data=await res.json();
+      if(data.success&&data.workshops&&data.workshops.length){renderWorkshops(data.workshops);return;}
+    }catch(e){}
+    renderWorkshops(STATIC_WORKSHOPS);
+  }
+  loadWorkshops();
+
+  // Form submission
+  var f=document.getElementById('workshopApplyForm');
+  if(f){f.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=this.querySelector('.btn-submit'),orig=btn.innerHTML;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';btn.disabled=true;
+    var fd=new FormData(this),body={formType:'workshop'};fd.forEach(function(v,k){body[k]=v;});
+    try{
+      var r=await(await fetch('submit.php',{method:'POST',body:JSON.stringify(body),headers:{'Content-Type':'application/json'}})).json();
+      if(r.success){this.reset();document.getElementById('successPopup').style.display='flex';}
+    }catch(err){}
+    btn.innerHTML=orig;btn.disabled=false;
+  });}
+})();
+</script>
+
+  // ===== WORKSHOPS DATA =====
+  // Hardcoded fallback workshops (used when no backend available)
+  var STATIC_WORKSHOPS=[
+    {id:'ws_1',title:'Raising Your First Round',category:'Finance',date:'Apr 15, 2026',duration:'4 Weeks',instructor:'Venture Capital Expert',description:'From narrative building to term sheet negotiations. The exact fundraising playbook for early-stage founders.',price:'₹2,499',status:'upcoming',register_url:'#apply'},
+    {id:'ws_2',title:'Build Your MVP in 30 Days',category:'MVP & Product',date:'Apr 20, 2026',duration:'2-Day Intensive',instructor:'Product Architect',description:'Using no-code tools and AI to ship fast without a dev team. Perfect for non-technical founders.',price:'₹3,999',status:'upcoming',register_url:'#apply'},
+    {id:'ws_3',title:'AI for High-Performance Teams',category:'AI Tools',date:'May 5, 2026',duration:'Weekend Workshop',instructor:'AI Strategy Consultant',description:'Automate your workflow. Prompt engineering and custom AI agent deployment — live and applied.',price:'₹1,999',status:'upcoming',register_url:'#apply'},
+    {id:'ws_4',title:'Founder Growth Strategy',category:'Strategy',date:'May 18, 2026',duration:'3 Weeks',instructor:'Growth Advisor',description:'A structured approach to market positioning, channel strategy, and zero-budget acquisition.',price:'₹2,999',status:'upcoming',register_url:'#apply'},
+    {id:'ws_5',title:'Finance Fundamentals for Founders',category:'Finance',date:'Feb 10, 2026',duration:'2 Days',instructor:'CFO Consultant',description:'Balance sheets, cash flow, runway — the essential financial literacy every founder needs.',price:'₹1,499',status:'past',register_url:'#'},
+    {id:'ws_6',title:'Storytelling & Brand Positioning',category:'PR & Brand',date:'Jan 20, 2026',duration:'1-Day Workshop',instructor:'Brand Strategist',description:'How to craft your founder story for media, investors, and customers. Practical, not theoretical.',price:'₹999',status:'past',register_url:'#'}
+  ];
+
+  function buildCard(ws){
+    var isPast=ws.status==='past';
+    return '<div class="ws-card'+(isPast?' past':'')+' reveal">'+
+      '<div class="ws-meta">'+
+        '<span class="ws-tag">'+ws.category+'</span>'+
+        '<span class="ws-status '+(isPast?'past':'upcoming')+'">'+(isPast?'Completed':'Upcoming')+'</span>'+
+      '</div>'+
+      '<h3>'+ws.title+'</h3>'+
+      '<p>'+ws.description+'</p>'+
+      '<div class="ws-instructor">'+
+        '<div class="instructor-icon"><i class="fa-solid fa-user-tie"></i></div>'+
+        '<div class="instructor-info"><label>Instructor</label><span>'+ws.instructor+'</span></div>'+
+      '</div>'+
+      '<div style="font-family:var(--font-mono);font-size:.65rem;color:var(--white-40);margin-bottom:1.5rem;">'+
+        '<i class="fa-solid fa-calendar" style="margin-right:6px;color:var(--gold);"></i>'+ws.date+
+        '<span style="margin:0 12px;opacity:.4;">|</span>'+
+        '<i class="fa-solid fa-clock" style="margin-right:6px;color:var(--gold);"></i>'+ws.duration+
+      '</div>'+
+      '<div class="ws-footer">'+
+        '<span class="ws-price'+(isPast?' strikethrough':'')+'">'+ws.price+'</span>'+
+        (isPast?
+          '<span style="font-family:var(--font-mono);font-size:.65rem;color:var(--white-40);">Session Completed</span>':
+          '<a href="'+ws.register_url+'" class="btn-ws"><span>Register Now</span></a>'
+        )+
+      '</div>'+
+    '</div>';
+  }
+
+  function renderWorkshops(workshops){
+    var upcoming=workshops.filter(function(w){return w.status!=='past';});
+    var past=workshops.filter(function(w){return w.status==='past';});
+    var ug=document.getElementById('upcomingGrid');
+    var pg=document.getElementById('pastGrid');
+    var sel=document.getElementById('workshopSelect');
+
+    if(ug){
+      ug.innerHTML=upcoming.length?upcoming.map(buildCard).join(''):
+        '<div class="ws-empty"><i class="fa-solid fa-calendar-xmark"></i><p>No upcoming workshops scheduled.<br>Check back soon or subscribe for updates.</p></div>';
+    }
+    if(pg){
+      pg.innerHTML=past.length?past.map(buildCard).join(''):
+        '<div class="ws-empty"><i class="fa-solid fa-box-archive"></i><p>No past workshops to display yet.</p></div>';
+    }
+    if(sel){
+      sel.innerHTML='<option value="">— Select a workshop —</option>';
+      upcoming.forEach(function(w){
+        var opt=document.createElement('option');opt.value=w.id;opt.textContent=w.title+' ('+w.date+')';sel.appendChild(opt);
+      });
+    }
+    // Re-observe reveals
+    document.querySelectorAll('.reveal:not(.active)').forEach(function(el){
+      new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('active');});},{threshold:0.08}).observe(el);
+    });
+  }
+
+  async function loadWorkshops(){
+    try{
+      var res=await fetch('admin_api.php?action=fetch_workshops&t='+Date.now());
+      var data=await res.json();
+      if(data.success&&data.workshops&&data.workshops.length){
+        renderWorkshops(data.workshops);return;
+      }
+    }catch(e){}
+    // Fallback to static
+    renderWorkshops(STATIC_WORKSHOPS);
+  }
+  loadWorkshops();
+
+  // ===== APPLY FORM =====
+  var af=document.getElementById('workshopApplyForm');
+  if(af){af.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=this.querySelector('.btn-submit'),msg=document.getElementById('formMsg');
+    btn.innerHTML='<span class="btn-submit-text"><i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i>Submitting...</span>';
+    btn.disabled=true;
+    var fd=new FormData(this);
+    var body={formType:'workshop'};
+    fd.forEach(function(v,k){body[k]=v;});
+    try{
+      var res=await fetch('submit.php',{method:'POST',body:JSON.stringify(body),headers:{'Content-Type':'application/json'}});
+      var r=await res.json();
+      if(r.success){this.reset();document.getElementById('successPopup').style.display='flex';return;}
+      msg.textContent=r.message||'Something went wrong.';msg.style.color='#fc8181';
+    }catch(err){msg.textContent='Network error. Please try again.';msg.style.color='#fc8181';}
+    btn.innerHTML='<span class="btn-submit-text"><i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Application</span>';
+    btn.disabled=false;
+  });}
+
+  // ===== NEWSLETTER =====
+  var nf=document.getElementById('newsletterForm');
+  if(nf){nf.addEventListener('submit',async function(e){
+    e.preventDefault();var btn=this.querySelector('button'),orig=btn.innerHTML;
+    btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>';btn.disabled=true;
+    try{
+      var r=await(await fetch('submit.php',{method:'POST',body:JSON.stringify({email:new FormData(this).get('newsletter_email'),formType:'newsletter'}),headers:{'Content-Type':'application/json'}})).json();
+      if(r.success){this.reset();btn.innerHTML='<i class="fa-solid fa-check"></i> Subscribed!';btn.style.background='#48bb78';setTimeout(function(){btn.innerHTML=orig;btn.style.background='';btn.disabled=false;},3000);return;}
+    }catch(err){}
+    btn.innerHTML=orig;btn.disabled=false;
+  });}
+})();
+</script>
+</body>
+</html>
