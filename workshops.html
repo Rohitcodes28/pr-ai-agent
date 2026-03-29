@@ -251,23 +251,9 @@ html.light-mode .site-nav.scrolled,body.light-mode .site-nav.scrolled{background
       <form id="workshopApplyForm">
         <input type="hidden" name="formType" value="workshop">
         <div class="form-row">
-          <div class="form-group">
+          <div class="form-group" style="grid-column: span 2;">
             <label class="form-label">Full Name</label>
             <input type="text" name="full_name" required class="form-field" placeholder="John Doe">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" name="email" required class="form-field" placeholder="you@company.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Phone Number</label>
-            <input type="tel" name="phone" class="form-field" placeholder="+91 9999999999">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Company / Startup</label>
-            <input type="text" name="company" class="form-field" placeholder="Your Company">
           </div>
         </div>
         <div class="form-group">
@@ -285,7 +271,7 @@ html.light-mode .site-nav.scrolled,body.light-mode .site-nav.scrolled{background
           <input type="checkbox" required>
           <span>I agree to the <a href="terms.html">Terms & Conditions</a> and <a href="terms.html#privacy">Privacy Policy</a></span>
         </label>
-        <button type="submit" class="btn-submit"><span class="btn-submit-text"><i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Application</span></button>
+        <button type="submit" class="btn-submit"><span class="btn-submit-text"><i class="fa-solid fa-arrow-right-to-bracket" style="margin-right:8px;"></i>Join Now</span></button>
         <p id="formMsg" style="text-align:center;margin-top:1rem;font-size:.85rem;"></p>
       </form>
     </div>
@@ -454,7 +440,11 @@ html.light-mode .site-nav.scrolled,body.light-mode .site-nav.scrolled{background
     try{
       var res=await fetch('admin_api.php?action=fetch_workshops&t='+Date.now());
       var data=await res.json();
-      if(data.success&&data.workshops&&data.workshops.length){renderWorkshops(data.workshops);return;}
+      if(data.success&&data.workshops&&data.workshops.length){
+        window.allWorkshops = data.workshops;
+        renderWorkshops(data.workshops);
+        return;
+      }
     }catch(e){}
     renderWorkshops(STATIC_WORKSHOPS);
   }
@@ -469,8 +459,25 @@ html.light-mode .site-nav.scrolled,body.light-mode .site-nav.scrolled{background
     var fd=new FormData(this),body={formType:'workshop'};fd.forEach(function(v,k){body[k]=v;});
     try{
       var r=await(await fetch('submit.php',{method:'POST',body:JSON.stringify(body),headers:{'Content-Type':'application/json'}})).json();
-      if(r.success){this.reset();document.getElementById('successPopup').style.display='flex';}
+      if(r.success){
+        var sel=this.querySelector('[name="workshop_interest"]');
+        var workshopTitle=sel?sel.value:null;
+        this.reset();
+        
+        // Redirection logic
+        if(workshopTitle && typeof STATIC_WORKSHOPS !== 'undefined'){
+           // Check both fetched and static as fallback
+           var all = (window.allWorkshops || []).concat(STATIC_WORKSHOPS);
+           var ws = all.find(function(w){return w.title === workshopTitle;});
+           if(ws && ws.register_url && ws.register_url !== '#apply' && ws.register_url.startsWith('http')){
+              window.location.href=ws.register_url;
+              return;
+           }
+        }
+        document.getElementById('successPopup').style.display='flex';
+      }
     }catch(err){}
+
     btn.innerHTML=orig;btn.disabled=false;
   });}
 })();

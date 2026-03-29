@@ -167,6 +167,10 @@ html:not(.light-mode) body:not(.light-mode) .theme-toggle .fa-moon{display:none;
 .live-vid-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,8,.5),transparent 50%);pointer-events:none;}
 .float-badge{position:absolute;top:20px;right:-10px;background:var(--card);border:1px solid var(--gold-dim);padding:10px 14px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;color:var(--gold);z-index:2;}
 .live-cta{text-align:center;margin-top:2.5rem;}
+.shared-to-hide.hidden{display:none;}
+#applicationForm.is-workshop .shared-to-hide{display:none;}
+#applicationForm.is-workshop .form-row{grid-template-columns:1fr;}
+
 /* Archive */
 .archive-section{padding:var(--sec) var(--pad);background:var(--black);}
 .archive-inner{max-width:var(--max);margin:0 auto;}
@@ -713,14 +717,22 @@ body.light-mode .preview-card.featured{background:var(--surface);}
         <form id="applicationForm">
           <input type="hidden" name="applicationType" id="applicationType" value="pr">
           <div id="workshopFields" class="form-section-body">
-            <p style="color:var(--white-40);margin-bottom:1.5rem;text-align:center;">For workshop registrations, please browse our upcoming sessions on the <a href="workshops.html" class="svc-link" style="color:var(--gold);">dedicated Workshops page</a>.</p>
-            <a href="workshops.html" class="btn-primary" style="display:block;text-align:center;width:100%;"><span class="btn-primary-text">Browse All Workshops</span></a>
+            <div class="form-group">
+              <label class="form-label">Workshop of Interest *</label>
+              <select name="workshop_interest" required class="form-field form-select" id="indexWorkshopSelect">
+                <option value="">— Select a workshop —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Why do you want to attend? *</label>
+              <textarea name="motivation" rows="3" class="form-field" placeholder="Tell us about your goals..."></textarea>
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group"><label class="form-label">Full Name *</label><input type="text" name="fullName" required class="form-field" placeholder=" "></div>
-            <div class="form-group"><label class="form-label">Email *</label><input type="email" name="email" required class="form-field" placeholder=" "></div>
+            <div class="form-group shared-to-hide"><label class="form-label">Email *</label><input type="email" name="email" required class="form-field" placeholder=" "></div>
           </div>
-          <div class="form-row">
+          <div class="form-row shared-to-hide">
             <div class="form-group"><label class="form-label">Company / Brand *</label><input type="text" name="company" required class="form-field" placeholder=" "></div>
             <div class="form-group"><label class="form-label">Phone *</label><input type="tel" name="phone" required class="form-field" placeholder=" "></div>
           </div>
@@ -938,19 +950,37 @@ body.light-mode .preview-card.featured{background:var(--surface);}
   document.querySelectorAll('.apply-link').forEach(function(link){
     link.addEventListener('click',function(){
       var ft=this.getAttribute('data-form-type');if(!ft)return;
-      document.querySelectorAll('.application-toggle').forEach(function(t){t.classList.toggle('active',t.getAttribute('data-form')===ft);});
-      ['prFields','eventFields','podcastFields','attendFields'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('active',id===(ft+'Fields'));});
-      var ai=document.getElementById('applicationType');if(ai)ai.value=ft;
+      var toggle = document.querySelector('.application-toggle[data-form="'+ft+'"]');
+      if(toggle) toggle.click();
     });
   });
 
   document.querySelectorAll('.application-toggle').forEach(function(btn){
     btn.addEventListener('click',function(){
       var ft=this.getAttribute('data-form');
+      var form = document.getElementById('applicationForm');
+      var btnSubmit = form.querySelector('.btn-submit-text');
+      
       document.querySelectorAll('.application-toggle').forEach(function(t){t.classList.remove('active');});
       this.classList.add('active');
-      ['prFields','eventFields','podcastFields','attendFields'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('active',id===(ft+'Fields'));});
+      
+      var sections = ['prFields','eventFields','podcastFields','attendFields','workshopFields'];
+      sections.forEach(function(id){
+        var el=document.getElementById(id);
+        if(el) el.classList.toggle('active', id === (ft + 'Fields'));
+      });
+      
       var ai=document.getElementById('applicationType');if(ai)ai.value=ft;
+      
+      // Workshop specific UI
+      if(form) {
+        form.classList.toggle('is-workshop', ft === 'workshop');
+        if(btnSubmit) {
+          btnSubmit.innerHTML = ft === 'workshop' 
+            ? '<i class="fa-solid fa-arrow-right-to-bracket" style="margin-right:8px;"></i>Join Now' 
+            : '<i class="fa-solid fa-paper-plane" style="margin-right:8px;"></i>Submit Application';
+        }
+      }
     });
   });
 })();
@@ -984,9 +1014,24 @@ if(appForm){appForm.addEventListener('submit',async function(e){
     if(topics.length)data.topics=topics.join(', ');
     var res=await fetch('submit.php',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
     var r=await res.json();
-    if(r.success){this.reset();showSuccessPopup('Thank you! Your submission has been received.');}
+    if(r.success){
+      var isWorkshop = data.applicationType === 'workshop';
+      var workshopTitle = data.workshop_interest;
+      
+      this.reset();
+      
+      if(isWorkshop && workshopTitle && typeof window.allWorkshops !== 'undefined') {
+        var ws = window.allWorkshops.find(function(w){ return w.title === workshopTitle; });
+        if(ws && ws.url && ws.url !== '#apply' && ws.url.startsWith('http')) {
+          window.location.href = ws.url;
+          return;
+        }
+      }
+      
+      showSuccessPopup('Thank you! Your submission has been received.');
+    }
     else{alert(r.message||'Submission failed.');}
-  }catch(err){alert('Server error. Please try again.');}
+  }catch(err){console.error(err); alert('Server error. Please try again.');}
   finally{btn.innerHTML=orig;btn.disabled=false;}
 });}
 
@@ -1007,8 +1052,27 @@ if(nlForm){nlForm.addEventListener('submit',async function(e){
 // Dynamic content loader (preserves all backend bindings)
 async function loadDynamicContent(){
   try{
-    var[evRes,stRes]=await Promise.all([fetch('admin_api.php?action=fetch_events&t='+Date.now()),fetch('admin_api.php?action=fetch_settings&t='+Date.now())]);
-    var evData=await evRes.json(),stData=await stRes.json();
+    var[evRes,stRes,wsRes]=await Promise.all([
+      fetch('admin_api.php?action=fetch_events&t='+Date.now()),
+      fetch('admin_api.php?action=fetch_settings&t='+Date.now()),
+      fetch('admin_api.php?action=fetch_workshops&t='+Date.now())
+    ]);
+    var evData=await evRes.json(),stData=await stRes.json(),wsData=await wsRes.json();
+    
+    if(wsData.success && wsData.workshops) {
+      window.allWorkshops = wsData.workshops;
+      var sel = document.getElementById('indexWorkshopSelect');
+      if(sel) {
+        sel.innerHTML = '<option value="">— Select a workshop —</option>';
+        wsData.workshops.filter(function(w){return w.status !== 'past';}).forEach(function(w){
+          var opt = document.createElement('option');
+          opt.value = w.title;
+          opt.textContent = w.title;
+          sel.appendChild(opt);
+        });
+      }
+    }
+
     if(evData.success&&evData.events){
       var all=evData.events,live=all.find(function(e){return e.is_live;});
       var featIds=(stData.success&&stData.settings)?stData.settings.homepage_featured_events||[]:[];

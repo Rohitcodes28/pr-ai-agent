@@ -17,9 +17,10 @@ $raw = file_get_contents('php://input');
 $data = json_decode($raw, true) ?? $_POST;
 
 // Robust Email Check (Checks multiple possible keys)
+$type = $data['applicationType'] ?? $data['formType'] ?? 'unspecified';
 $email = $data['email'] ?? $data['newsletter_email'] ?? $data['newsletter-email'] ?? null;
 
-if (empty($email)) {
+if (empty($email) && $type !== 'workshop') {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Email is required', 'received' => $data]);
     exit;
