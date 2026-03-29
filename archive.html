@@ -181,10 +181,11 @@ label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-tr
 /* ===== POPUP ===== */
 .popup-backdrop{position:fixed;inset:0;background:rgba(7,7,8,.85);backdrop-filter:blur(12px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;}
 .popup-box{background:var(--card);border:1px solid var(--border);max-width:640px;width:100%;padding:40px;position:relative;}
-.popup-close-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
-.popup-timer{font-family:var(--font-mono);font-size:.75rem;color:var(--white-40);background:var(--surface);border:1px solid var(--border);padding:4px 10px;}
-.popup-close{background:none;border:1px solid var(--border);color:var(--white-40);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;}
-.popup-close:hover{border-color:var(--gold);color:var(--gold);}
+.popup-close-row{display:flex;align-items:center;justify-content:flex-end;margin-bottom:1.5rem;}
+.popup-timer{width:36px;height:36px;background:var(--white-15);color:var(--white);font-family:var(--font-mono);font-size:.9rem;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:1px solid var(--border);}
+.popup-timer:hover{border-color:var(--gold);color:var(--gold);}
+.popup-close{display:none;}
+
 .live-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
 .live-dot{width:8px;height:8px;background:#ef4444;border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite;}
 @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.3;}}
@@ -400,8 +401,7 @@ label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-tr
 <div id="liveEventPopup" class="popup-backdrop">
   <div class="popup-box">
     <div class="popup-close-row">
-      <div class="popup-timer" id="popupTimer">5</div>
-      <button class="popup-close" id="closePopup"><i class="fa-solid fa-times"></i></button>
+      <div class="popup-timer" id="popupTimer" title="Click to close">5</div>
     </div>
     <div class="live-badge-row"><div class="live-dot"></div><span class="badge-live">Live Now</span><span id="popup-edition" style="font-family:var(--font-mono);font-size:.7rem;color:var(--white-40);margin-left:6px;">Edition 5</span></div>
     <h2 class="live-title" id="popup-title">Pinkvilla Screen &amp; Style Icons 2026</h2>
@@ -643,7 +643,7 @@ label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;text-tr
       }
     },1500);
   });
-  var closePopup=document.getElementById('closePopup');
+  var closePopup=document.getElementById('popupTimer');
   if(closePopup)closePopup.addEventListener('click',function(){livePopup.style.display='none';});
   if(livePopup)livePopup.addEventListener('click',function(e){if(e.target===livePopup)livePopup.style.display='none';});
   var applyFromPopup=document.getElementById('applyFromPopup');

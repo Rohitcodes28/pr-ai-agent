@@ -311,9 +311,10 @@ textarea.form-field{resize:none;}
 .popup-backdrop{position:fixed;inset:0;background:rgba(7,7,8,.75);backdrop-filter:blur(10px);z-index:50000;display:flex;align-items:center;justify-content:center;padding:20px;}
 .popup-box{background:var(--obsidian);border:1px solid var(--border);max-width:640px;width:100%;position:relative;overflow:hidden;}
 .popup-close-row{position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:8px;z-index:10;}
-.popup-timer{width:28px;height:28px;background:var(--white-15);color:var(--white-40);font-family:var(--font-mono);font-size:.75rem;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.popup-close{width:36px;height:36px;background:var(--white-15);border:none;color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;transition:background .2s;}
-.popup-close:hover{background:var(--border);}
+.popup-timer{width:36px;height:36px;background:var(--white-15);color:var(--white);font-family:var(--font-mono);font-size:.9rem;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;}
+.popup-timer:hover{background:var(--border);}
+.popup-close{display:none;}
+
 .popup-content{padding:36px;}
 .success-popup-box{background:var(--card);border:1px solid var(--border);max-width:380px;width:100%;text-align:center;padding:36px;position:relative;}
 .success-icon{width:60px;height:60px;background:rgba(72,187,120,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;color:#48bb78;font-size:1.5rem;}
@@ -821,8 +822,7 @@ body.light-mode .preview-card.featured{background:var(--surface);}
 <div id="liveEventPopup" class="popup-backdrop" style="display:none;">
   <div class="popup-box">
     <div class="popup-close-row">
-      <div class="popup-timer" id="popupTimer">5</div>
-      <button class="popup-close" id="closePopup"><i class="fa-solid fa-times"></i></button>
+      <div class="popup-timer" id="popupTimer" title="Click to close">5</div>
     </div>
     <div class="popup-content">
       <div class="live-badge-row" style="margin-bottom:1rem;"><div class="live-dot"></div><span class="badge-live">Live Now</span><span id="popup-edition" class="badge-edition" style="margin-left:8px;">Edition 5</span></div>
@@ -918,7 +918,7 @@ body.light-mode .preview-card.featured{background:var(--surface);}
       }
     },1500);
   });
-  var cp=document.getElementById('closePopup');
+  var cp=document.getElementById('popupTimer');
   if(cp){cp.addEventListener('click',function(){document.getElementById('liveEventPopup').style.display='none';});}
   var lp=document.getElementById('liveEventPopup');
   if(lp){lp.addEventListener('click',function(e){if(e.target===lp)lp.style.display='none';});}
