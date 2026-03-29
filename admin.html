@@ -352,29 +352,46 @@
             document.getElementById('dashboardScreen').classList.remove('hidden');
             fetchSubmissions();
             fetchEvents();
+            fetchWorkshops();
             fetchSettings();
             fetchMediaGallery();
         }
 
         function setTab(tab) {
             currentTab = tab;
+            const isEvents = tab === 'manage-events';
+            const isWorkshops = tab === 'manage-workshops';
+            const isGenSettings = tab === 'general-settings';
+            const isSubTab = ['all', 'pr', 'event', 'podcast', 'attend', 'newsletter'].includes(tab);
+
             // Update UI
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('border-blue-600', 'text-blue-600');
                 btn.classList.add('border-transparent', 'text-slate-500');
             });
-            document.getElementById(`tab-${tab}`).classList.add('border-blue-600', 'text-blue-600');
-            document.getElementById(`tab-${tab}`).classList.remove('border-transparent', 'text-slate-500');
+            const activeTabBtn = document.getElementById(`tab-${tab}`);
+            if (activeTabBtn) {
+                activeTabBtn.classList.add('border-blue-600', 'text-blue-600');
+                activeTabBtn.classList.remove('border-transparent', 'text-slate-500');
+            }
             
             // Toggle visibility
-            const isWorkshops = tab === 'manage-workshops';
-            document.getElementById('submissionsList').classList.toggle('hidden', isEvents || isWorkshops);
+            document.getElementById('submissionsList').classList.toggle('hidden', !isSubTab);
             document.getElementById('eventsList').classList.toggle('hidden', !isEvents);
             document.getElementById('workshopsList').classList.toggle('hidden', !isWorkshops);
-            document.getElementById('addEventBtn').classList.toggle('hidden', !isEvents && !isWorkshops);
-            document.getElementById('addEventBtn').onclick = isWorkshops ? openWorkshopModal : openEventModal;
-            document.getElementById('addEventBtn').innerHTML = isWorkshops ? '<i class="fa-solid fa-plus mr-2"></i> Add Workshop' : '<i class="fa-solid fa-plus mr-2"></i> Add Event';
-            document.getElementById('statsCount').classList.toggle('hidden', isEvents || isWorkshops);
+            document.getElementById('settingsSection').classList.toggle('hidden', !isGenSettings);
+            
+            const addBtn = document.getElementById('addEventBtn');
+            addBtn.classList.toggle('hidden', !isEvents && !isWorkshops);
+            if (isWorkshops) {
+                addBtn.onclick = () => openWorkshopModal();
+                addBtn.innerHTML = '<i class="fa-solid fa-plus mr-2"></i> Add Workshop';
+            } else if (isEvents) {
+                addBtn.onclick = () => openEventModal();
+                addBtn.innerHTML = '<i class="fa-solid fa-plus mr-2"></i> Add Event';
+            }
+
+            document.getElementById('statsCount').classList.toggle('hidden', !isSubTab);
 
             // Update Titles
             const titles = {
@@ -388,12 +405,13 @@
                 'manage-events': ['Event Management', 'Add, edit, or remove events and set live event'],
                 'manage-workshops': ['Workshop Management', 'Add, edit, or remove workshops and toggle status']
             };
-            document.getElementById('tabTitle').textContent = titles[tab][0];
-            document.getElementById('tabSubtitle').textContent = titles[tab][1];
+            
+            if (titles[tab]) {
+                document.getElementById('tabTitle').textContent = titles[tab][0];
+                document.getElementById('tabSubtitle').textContent = titles[tab][1];
+            }
 
-            const isGenSettings = tab === 'general-settings';
-            document.getElementById('settingsSection').classList.toggle('hidden', !isGenSettings);
-            document.getElementById('mediaGallerySection').classList.toggle('hidden', !isGenSettings && !isEvents && !isWorkshops); // Show gallery in more tabs
+            document.getElementById('mediaGallerySection').classList.toggle('hidden', !isGenSettings && !isEvents && !isWorkshops); 
             
             if (isEvents) {
                 renderEvents();
